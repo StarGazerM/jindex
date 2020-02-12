@@ -1,8 +1,5 @@
-// Generated from Java8Parser.g4 by ANTLR 4.7.1
-
-    package com.syr.jindex.parser;
-    import java.util.HashMap;
-
+// Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
+package com.syr.jindex.parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -14,7 +11,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class Java8Parser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.7.1", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.8", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -124,108 +121,118 @@ public class Java8Parser extends Parser {
 		RULE_postfixExpression = 230, RULE_postIncrementExpression = 231, RULE_postIncrementExpression_lf_postfixExpression = 232, 
 		RULE_postDecrementExpression = 233, RULE_postDecrementExpression_lf_postfixExpression = 234, 
 		RULE_castExpression = 235;
-	public static final String[] ruleNames = {
-		"literal", "primitiveType", "numericType", "integralType", "floatingPointType", 
-		"referenceType", "classOrInterfaceType", "classType", "classType_lf_classOrInterfaceType", 
-		"classType_lfno_classOrInterfaceType", "interfaceType", "interfaceType_lf_classOrInterfaceType", 
-		"interfaceType_lfno_classOrInterfaceType", "typeVariable", "arrayType", 
-		"dims", "typeParameter", "typeParameterModifier", "typeBound", "additionalBound", 
-		"typeArguments", "typeArgumentList", "typeArgument", "wildcard", "wildcardBounds", 
-		"packageName", "typeName", "packageOrTypeName", "expressionName", "methodName", 
-		"ambiguousName", "compilationUnit", "packageDeclaration", "packageModifier", 
-		"importDeclaration", "singleTypeImportDeclaration", "typeImportOnDemandDeclaration", 
-		"singleStaticImportDeclaration", "staticImportOnDemandDeclaration", "typeDeclaration", 
-		"classDeclaration", "normalClassDeclaration", "classModifier", "typeParameters", 
-		"typeParameterList", "superclass", "superinterfaces", "interfaceTypeList", 
-		"classBody", "classBodyDeclaration", "classMemberDeclaration", "fieldDeclaration", 
-		"fieldModifier", "variableDeclaratorList", "variableDeclarator", "variableDeclaratorId", 
-		"variableInitializer", "unannType", "unannPrimitiveType", "unannReferenceType", 
-		"unannClassOrInterfaceType", "unannClassType", "unannClassType_lf_unannClassOrInterfaceType", 
-		"unannClassType_lfno_unannClassOrInterfaceType", "unannInterfaceType", 
-		"unannInterfaceType_lf_unannClassOrInterfaceType", "unannInterfaceType_lfno_unannClassOrInterfaceType", 
-		"unannTypeVariable", "unannArrayType", "methodDeclaration", "methodModifier", 
-		"methodHeader", "result", "methodDeclarator", "formalParameterList", "formalParameters", 
-		"formalParameter", "variableModifier", "lastFormalParameter", "receiverParameter", 
-		"throws_", "exceptionTypeList", "exceptionType", "methodBody", "instanceInitializer", 
-		"staticInitializer", "constructorDeclaration", "constructorModifier", 
-		"constructorDeclarator", "simpleTypeName", "constructorBody", "explicitConstructorInvocation", 
-		"enumDeclaration", "enumBody", "enumConstantList", "enumConstant", "enumConstantModifier", 
-		"enumBodyDeclarations", "interfaceDeclaration", "normalInterfaceDeclaration", 
-		"interfaceModifier", "extendsInterfaces", "interfaceBody", "interfaceMemberDeclaration", 
-		"constantDeclaration", "constantModifier", "interfaceMethodDeclaration", 
-		"interfaceMethodModifier", "annotationTypeDeclaration", "annotationTypeBody", 
-		"annotationTypeMemberDeclaration", "annotationTypeElementDeclaration", 
-		"annotationTypeElementModifier", "defaultValue", "annotation", "normalAnnotation", 
-		"elementValuePairList", "elementValuePair", "elementValue", "elementValueArrayInitializer", 
-		"elementValueList", "markerAnnotation", "singleElementAnnotation", "arrayInitializer", 
-		"variableInitializerList", "block", "blockStatements", "blockStatement", 
-		"localVariableDeclarationStatement", "localVariableDeclaration", "statement", 
-		"statementNoShortIf", "statementWithoutTrailingSubstatement", "emptyStatement", 
-		"labeledStatement", "labeledStatementNoShortIf", "expressionStatement", 
-		"statementExpression", "ifThenStatement", "ifThenElseStatement", "ifThenElseStatementNoShortIf", 
-		"assertStatement", "switchStatement", "switchBlock", "switchBlockStatementGroup", 
-		"switchLabels", "switchLabel", "enumConstantName", "whileStatement", "whileStatementNoShortIf", 
-		"doStatement", "forStatement", "forStatementNoShortIf", "basicForStatement", 
-		"basicForStatementNoShortIf", "forInit", "forUpdate", "statementExpressionList", 
-		"enhancedForStatement", "enhancedForStatementNoShortIf", "breakStatement", 
-		"continueStatement", "returnStatement", "throwStatement", "synchronizedStatement", 
-		"tryStatement", "catches", "catchClause", "catchFormalParameter", "catchType", 
-		"finally_", "tryWithResourcesStatement", "resourceSpecification", "resourceList", 
-		"resource", "primary", "primaryNoNewArray", "primaryNoNewArray_lf_arrayAccess", 
-		"primaryNoNewArray_lfno_arrayAccess", "primaryNoNewArray_lf_primary", 
-		"primaryNoNewArray_lf_primary_lf_arrayAccess_lf_primary", "primaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary", 
-		"primaryNoNewArray_lfno_primary", "primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary", 
-		"primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary", "classInstanceCreationExpression", 
-		"classInstanceCreationExpression_lf_primary", "classInstanceCreationExpression_lfno_primary", 
-		"typeArgumentsOrDiamond", "fieldAccess", "fieldAccess_lf_primary", "fieldAccess_lfno_primary", 
-		"arrayAccess", "arrayAccess_lf_primary", "arrayAccess_lfno_primary", "methodInvocation", 
-		"methodInvocation_lf_primary", "methodInvocation_lfno_primary", "argumentList", 
-		"methodReference", "methodReference_lf_primary", "methodReference_lfno_primary", 
-		"arrayCreationExpression", "dimExprs", "dimExpr", "constantExpression", 
-		"expression", "lambdaExpression", "lambdaParameters", "inferredFormalParameterList", 
-		"lambdaBody", "assignmentExpression", "assignment", "leftHandSide", "assignmentOperator", 
-		"conditionalExpression", "conditionalOrExpression", "conditionalAndExpression", 
-		"inclusiveOrExpression", "exclusiveOrExpression", "andExpression", "equalityExpression", 
-		"relationalExpression", "shiftExpression", "additiveExpression", "multiplicativeExpression", 
-		"unaryExpression", "preIncrementExpression", "preDecrementExpression", 
-		"unaryExpressionNotPlusMinus", "postfixExpression", "postIncrementExpression", 
-		"postIncrementExpression_lf_postfixExpression", "postDecrementExpression", 
-		"postDecrementExpression_lf_postfixExpression", "castExpression"
-	};
+	private static String[] makeRuleNames() {
+		return new String[] {
+			"literal", "primitiveType", "numericType", "integralType", "floatingPointType", 
+			"referenceType", "classOrInterfaceType", "classType", "classType_lf_classOrInterfaceType", 
+			"classType_lfno_classOrInterfaceType", "interfaceType", "interfaceType_lf_classOrInterfaceType", 
+			"interfaceType_lfno_classOrInterfaceType", "typeVariable", "arrayType", 
+			"dims", "typeParameter", "typeParameterModifier", "typeBound", "additionalBound", 
+			"typeArguments", "typeArgumentList", "typeArgument", "wildcard", "wildcardBounds", 
+			"packageName", "typeName", "packageOrTypeName", "expressionName", "methodName", 
+			"ambiguousName", "compilationUnit", "packageDeclaration", "packageModifier", 
+			"importDeclaration", "singleTypeImportDeclaration", "typeImportOnDemandDeclaration", 
+			"singleStaticImportDeclaration", "staticImportOnDemandDeclaration", "typeDeclaration", 
+			"classDeclaration", "normalClassDeclaration", "classModifier", "typeParameters", 
+			"typeParameterList", "superclass", "superinterfaces", "interfaceTypeList", 
+			"classBody", "classBodyDeclaration", "classMemberDeclaration", "fieldDeclaration", 
+			"fieldModifier", "variableDeclaratorList", "variableDeclarator", "variableDeclaratorId", 
+			"variableInitializer", "unannType", "unannPrimitiveType", "unannReferenceType", 
+			"unannClassOrInterfaceType", "unannClassType", "unannClassType_lf_unannClassOrInterfaceType", 
+			"unannClassType_lfno_unannClassOrInterfaceType", "unannInterfaceType", 
+			"unannInterfaceType_lf_unannClassOrInterfaceType", "unannInterfaceType_lfno_unannClassOrInterfaceType", 
+			"unannTypeVariable", "unannArrayType", "methodDeclaration", "methodModifier", 
+			"methodHeader", "result", "methodDeclarator", "formalParameterList", 
+			"formalParameters", "formalParameter", "variableModifier", "lastFormalParameter", 
+			"receiverParameter", "throws_", "exceptionTypeList", "exceptionType", 
+			"methodBody", "instanceInitializer", "staticInitializer", "constructorDeclaration", 
+			"constructorModifier", "constructorDeclarator", "simpleTypeName", "constructorBody", 
+			"explicitConstructorInvocation", "enumDeclaration", "enumBody", "enumConstantList", 
+			"enumConstant", "enumConstantModifier", "enumBodyDeclarations", "interfaceDeclaration", 
+			"normalInterfaceDeclaration", "interfaceModifier", "extendsInterfaces", 
+			"interfaceBody", "interfaceMemberDeclaration", "constantDeclaration", 
+			"constantModifier", "interfaceMethodDeclaration", "interfaceMethodModifier", 
+			"annotationTypeDeclaration", "annotationTypeBody", "annotationTypeMemberDeclaration", 
+			"annotationTypeElementDeclaration", "annotationTypeElementModifier", 
+			"defaultValue", "annotation", "normalAnnotation", "elementValuePairList", 
+			"elementValuePair", "elementValue", "elementValueArrayInitializer", "elementValueList", 
+			"markerAnnotation", "singleElementAnnotation", "arrayInitializer", "variableInitializerList", 
+			"block", "blockStatements", "blockStatement", "localVariableDeclarationStatement", 
+			"localVariableDeclaration", "statement", "statementNoShortIf", "statementWithoutTrailingSubstatement", 
+			"emptyStatement", "labeledStatement", "labeledStatementNoShortIf", "expressionStatement", 
+			"statementExpression", "ifThenStatement", "ifThenElseStatement", "ifThenElseStatementNoShortIf", 
+			"assertStatement", "switchStatement", "switchBlock", "switchBlockStatementGroup", 
+			"switchLabels", "switchLabel", "enumConstantName", "whileStatement", 
+			"whileStatementNoShortIf", "doStatement", "forStatement", "forStatementNoShortIf", 
+			"basicForStatement", "basicForStatementNoShortIf", "forInit", "forUpdate", 
+			"statementExpressionList", "enhancedForStatement", "enhancedForStatementNoShortIf", 
+			"breakStatement", "continueStatement", "returnStatement", "throwStatement", 
+			"synchronizedStatement", "tryStatement", "catches", "catchClause", "catchFormalParameter", 
+			"catchType", "finally_", "tryWithResourcesStatement", "resourceSpecification", 
+			"resourceList", "resource", "primary", "primaryNoNewArray", "primaryNoNewArray_lf_arrayAccess", 
+			"primaryNoNewArray_lfno_arrayAccess", "primaryNoNewArray_lf_primary", 
+			"primaryNoNewArray_lf_primary_lf_arrayAccess_lf_primary", "primaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary", 
+			"primaryNoNewArray_lfno_primary", "primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary", 
+			"primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary", "classInstanceCreationExpression", 
+			"classInstanceCreationExpression_lf_primary", "classInstanceCreationExpression_lfno_primary", 
+			"typeArgumentsOrDiamond", "fieldAccess", "fieldAccess_lf_primary", "fieldAccess_lfno_primary", 
+			"arrayAccess", "arrayAccess_lf_primary", "arrayAccess_lfno_primary", 
+			"methodInvocation", "methodInvocation_lf_primary", "methodInvocation_lfno_primary", 
+			"argumentList", "methodReference", "methodReference_lf_primary", "methodReference_lfno_primary", 
+			"arrayCreationExpression", "dimExprs", "dimExpr", "constantExpression", 
+			"expression", "lambdaExpression", "lambdaParameters", "inferredFormalParameterList", 
+			"lambdaBody", "assignmentExpression", "assignment", "leftHandSide", "assignmentOperator", 
+			"conditionalExpression", "conditionalOrExpression", "conditionalAndExpression", 
+			"inclusiveOrExpression", "exclusiveOrExpression", "andExpression", "equalityExpression", 
+			"relationalExpression", "shiftExpression", "additiveExpression", "multiplicativeExpression", 
+			"unaryExpression", "preIncrementExpression", "preDecrementExpression", 
+			"unaryExpressionNotPlusMinus", "postfixExpression", "postIncrementExpression", 
+			"postIncrementExpression_lf_postfixExpression", "postDecrementExpression", 
+			"postDecrementExpression_lf_postfixExpression", "castExpression"
+		};
+	}
+	public static final String[] ruleNames = makeRuleNames();
 
-	private static final String[] _LITERAL_NAMES = {
-		null, "'abstract'", "'assert'", "'boolean'", "'break'", "'byte'", "'case'", 
-		"'catch'", "'char'", "'class'", "'const'", "'continue'", "'default'", 
-		"'do'", "'double'", "'else'", "'enum'", "'extends'", "'final'", "'finally'", 
-		"'float'", "'for'", "'if'", "'goto'", "'implements'", "'import'", "'instanceof'", 
-		"'int'", "'interface'", "'long'", "'native'", "'new'", "'package'", "'private'", 
-		"'protected'", "'public'", "'return'", "'short'", "'static'", "'strictfp'", 
-		"'super'", "'switch'", "'synchronized'", "'this'", "'throw'", "'throws'", 
-		"'transient'", "'try'", "'void'", "'volatile'", "'while'", null, null, 
-		null, null, null, "'null'", "'('", "')'", "'{'", "'}'", "'['", "']'", 
-		"';'", "','", "'.'", "'='", "'>'", "'<'", "'!'", "'~'", "'?'", "':'", 
-		"'=='", "'<='", "'>='", "'!='", "'&&'", "'||'", "'++'", "'--'", "'+'", 
-		"'-'", "'*'", "'/'", "'&'", "'|'", "'^'", "'%'", "'->'", "'::'", "'+='", 
-		"'-='", "'*='", "'/='", "'&='", "'|='", "'^='", "'%='", "'<<='", "'>>='", 
-		"'>>>='", null, "'@'", "'...'"
-	};
-	private static final String[] _SYMBOLIC_NAMES = {
-		null, "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE", "CASE", "CATCH", 
-		"CHAR", "CLASS", "CONST", "CONTINUE", "DEFAULT", "DO", "DOUBLE", "ELSE", 
-		"ENUM", "EXTENDS", "FINAL", "FINALLY", "FLOAT", "FOR", "IF", "GOTO", "IMPLEMENTS", 
-		"IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG", "NATIVE", "NEW", "PACKAGE", 
-		"PRIVATE", "PROTECTED", "PUBLIC", "RETURN", "SHORT", "STATIC", "STRICTFP", 
-		"SUPER", "SWITCH", "SYNCHRONIZED", "THIS", "THROW", "THROWS", "TRANSIENT", 
-		"TRY", "VOID", "VOLATILE", "WHILE", "IntegerLiteral", "FloatingPointLiteral", 
-		"BooleanLiteral", "CharacterLiteral", "StringLiteral", "NullLiteral", 
-		"LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", "RBRACK", "SEMI", "COMMA", 
-		"DOT", "ASSIGN", "GT", "LT", "BANG", "TILDE", "QUESTION", "COLON", "EQUAL", 
-		"LE", "GE", "NOTEQUAL", "AND", "OR", "INC", "DEC", "ADD", "SUB", "MUL", 
-		"DIV", "BITAND", "BITOR", "CARET", "MOD", "ARROW", "COLONCOLON", "ADD_ASSIGN", 
-		"SUB_ASSIGN", "MUL_ASSIGN", "DIV_ASSIGN", "AND_ASSIGN", "OR_ASSIGN", "XOR_ASSIGN", 
-		"MOD_ASSIGN", "LSHIFT_ASSIGN", "RSHIFT_ASSIGN", "URSHIFT_ASSIGN", "Identifier", 
-		"AT", "ELLIPSIS", "WS", "COMMENT", "LINE_COMMENT"
-	};
+	private static String[] makeLiteralNames() {
+		return new String[] {
+			null, "'abstract'", "'assert'", "'boolean'", "'break'", "'byte'", "'case'", 
+			"'catch'", "'char'", "'class'", "'const'", "'continue'", "'default'", 
+			"'do'", "'double'", "'else'", "'enum'", "'extends'", "'final'", "'finally'", 
+			"'float'", "'for'", "'if'", "'goto'", "'implements'", "'import'", "'instanceof'", 
+			"'int'", "'interface'", "'long'", "'native'", "'new'", "'package'", "'private'", 
+			"'protected'", "'public'", "'return'", "'short'", "'static'", "'strictfp'", 
+			"'super'", "'switch'", "'synchronized'", "'this'", "'throw'", "'throws'", 
+			"'transient'", "'try'", "'void'", "'volatile'", "'while'", null, null, 
+			null, null, null, "'null'", "'('", "')'", "'{'", "'}'", "'['", "']'", 
+			"';'", "','", "'.'", "'='", "'>'", "'<'", "'!'", "'~'", "'?'", "':'", 
+			"'=='", "'<='", "'>='", "'!='", "'&&'", "'||'", "'++'", "'--'", "'+'", 
+			"'-'", "'*'", "'/'", "'&'", "'|'", "'^'", "'%'", "'->'", "'::'", "'+='", 
+			"'-='", "'*='", "'/='", "'&='", "'|='", "'^='", "'%='", "'<<='", "'>>='", 
+			"'>>>='", null, "'@'", "'...'"
+		};
+	}
+	private static final String[] _LITERAL_NAMES = makeLiteralNames();
+	private static String[] makeSymbolicNames() {
+		return new String[] {
+			null, "ABSTRACT", "ASSERT", "BOOLEAN", "BREAK", "BYTE", "CASE", "CATCH", 
+			"CHAR", "CLASS", "CONST", "CONTINUE", "DEFAULT", "DO", "DOUBLE", "ELSE", 
+			"ENUM", "EXTENDS", "FINAL", "FINALLY", "FLOAT", "FOR", "IF", "GOTO", 
+			"IMPLEMENTS", "IMPORT", "INSTANCEOF", "INT", "INTERFACE", "LONG", "NATIVE", 
+			"NEW", "PACKAGE", "PRIVATE", "PROTECTED", "PUBLIC", "RETURN", "SHORT", 
+			"STATIC", "STRICTFP", "SUPER", "SWITCH", "SYNCHRONIZED", "THIS", "THROW", 
+			"THROWS", "TRANSIENT", "TRY", "VOID", "VOLATILE", "WHILE", "IntegerLiteral", 
+			"FloatingPointLiteral", "BooleanLiteral", "CharacterLiteral", "StringLiteral", 
+			"NullLiteral", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", "RBRACK", 
+			"SEMI", "COMMA", "DOT", "ASSIGN", "GT", "LT", "BANG", "TILDE", "QUESTION", 
+			"COLON", "EQUAL", "LE", "GE", "NOTEQUAL", "AND", "OR", "INC", "DEC", 
+			"ADD", "SUB", "MUL", "DIV", "BITAND", "BITOR", "CARET", "MOD", "ARROW", 
+			"COLONCOLON", "ADD_ASSIGN", "SUB_ASSIGN", "MUL_ASSIGN", "DIV_ASSIGN", 
+			"AND_ASSIGN", "OR_ASSIGN", "XOR_ASSIGN", "MOD_ASSIGN", "LSHIFT_ASSIGN", 
+			"RSHIFT_ASSIGN", "URSHIFT_ASSIGN", "Identifier", "AT", "ELLIPSIS", "WS", 
+			"COMMENT", "LINE_COMMENT"
+		};
+	}
+	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
@@ -275,6 +282,7 @@ public class Java8Parser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
+
 	public static class LiteralContext extends ParserRuleContext {
 		public TerminalNode IntegerLiteral() { return getToken(Java8Parser.IntegerLiteral, 0); }
 		public TerminalNode FloatingPointLiteral() { return getToken(Java8Parser.FloatingPointLiteral, 0); }
@@ -341,6 +349,7 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation(int i) {
 			return getRuleContext(AnnotationContext.class,i);
 		}
+		public TerminalNode BOOLEAN() { return getToken(Java8Parser.BOOLEAN, 0); }
 		public PrimitiveTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -491,6 +500,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class IntegralTypeContext extends ParserRuleContext {
+		public TerminalNode BYTE() { return getToken(Java8Parser.BYTE, 0); }
+		public TerminalNode SHORT() { return getToken(Java8Parser.SHORT, 0); }
+		public TerminalNode INT() { return getToken(Java8Parser.INT, 0); }
+		public TerminalNode LONG() { return getToken(Java8Parser.LONG, 0); }
+		public TerminalNode CHAR() { return getToken(Java8Parser.CHAR, 0); }
 		public IntegralTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -541,6 +555,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class FloatingPointTypeContext extends ParserRuleContext {
+		public TerminalNode FLOAT() { return getToken(Java8Parser.FLOAT, 0); }
+		public TerminalNode DOUBLE() { return getToken(Java8Parser.DOUBLE, 0); }
 		public FloatingPointTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -763,6 +779,17 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ClassTypeContext extends ParserRuleContext {
+		public ClassTypeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_classType; }
+	 
+		public ClassTypeContext() { }
+		public void copyFrom(ClassTypeContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ShortClassTypeContext extends ClassTypeContext {
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
@@ -773,24 +800,48 @@ public class Java8Parser extends Parser {
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
-		public ClassOrInterfaceTypeContext classOrInterfaceType() {
-			return getRuleContext(ClassOrInterfaceTypeContext.class,0);
-		}
-		public ClassTypeContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_classType; }
+		public ShortClassTypeContext(ClassTypeContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterClassType(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterShortClassType(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitClassType(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitShortClassType(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitClassType(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitShortClassType(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class LongClassTypeContext extends ClassTypeContext {
+		public ClassOrInterfaceTypeContext classOrInterfaceType() {
+			return getRuleContext(ClassOrInterfaceTypeContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public List<AnnotationContext> annotation() {
+			return getRuleContexts(AnnotationContext.class);
+		}
+		public AnnotationContext annotation(int i) {
+			return getRuleContext(AnnotationContext.class,i);
+		}
+		public TypeArgumentsContext typeArguments() {
+			return getRuleContext(TypeArgumentsContext.class,0);
+		}
+		public LongClassTypeContext(ClassTypeContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterLongClassType(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitLongClassType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitLongClassType(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -804,6 +855,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
 			case 1:
+				_localctx = new ShortClassTypeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(517);
@@ -835,6 +887,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new LongClassTypeContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(524);
@@ -883,6 +936,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ClassType_lf_classOrInterfaceTypeContext extends ParserRuleContext {
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
@@ -1311,6 +1365,14 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class DimsContext extends ParserRuleContext {
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
+		}
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
 		}
@@ -1528,6 +1590,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TypeBoundContext extends ParserRuleContext {
+		public TerminalNode EXTENDS() { return getToken(Java8Parser.EXTENDS, 0); }
 		public TypeVariableContext typeVariable() {
 			return getRuleContext(TypeVariableContext.class,0);
 		}
@@ -1613,6 +1676,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AdditionalBoundContext extends ParserRuleContext {
+		public TerminalNode BITAND() { return getToken(Java8Parser.BITAND, 0); }
 		public InterfaceTypeContext interfaceType() {
 			return getRuleContext(InterfaceTypeContext.class,0);
 		}
@@ -1659,9 +1723,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TypeArgumentsContext extends ParserRuleContext {
+		public TerminalNode LT() { return getToken(Java8Parser.LT, 0); }
 		public TypeArgumentListContext typeArgumentList() {
 			return getRuleContext(TypeArgumentListContext.class,0);
 		}
+		public TerminalNode GT() { return getToken(Java8Parser.GT, 0); }
 		public TypeArgumentsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1712,6 +1778,10 @@ public class Java8Parser extends Parser {
 		}
 		public TypeArgumentContext typeArgument(int i) {
 			return getRuleContext(TypeArgumentContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
 		}
 		public TypeArgumentListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1831,6 +1901,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class WildcardContext extends ParserRuleContext {
+		public TerminalNode QUESTION() { return getToken(Java8Parser.QUESTION, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
 		}
@@ -1906,9 +1977,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class WildcardBoundsContext extends ParserRuleContext {
+		public TerminalNode EXTENDS() { return getToken(Java8Parser.EXTENDS, 0); }
 		public ReferenceTypeContext referenceType() {
 			return getRuleContext(ReferenceTypeContext.class,0);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public WildcardBoundsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1973,6 +2046,7 @@ public class Java8Parser extends Parser {
 		public PackageNameContext packageName() {
 			return getRuleContext(PackageNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public PackageNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2054,6 +2128,7 @@ public class Java8Parser extends Parser {
 		public PackageOrTypeNameContext packageOrTypeName() {
 			return getRuleContext(PackageOrTypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public TypeNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2116,6 +2191,7 @@ public class Java8Parser extends Parser {
 		public PackageOrTypeNameContext packageOrTypeName() {
 			return getRuleContext(PackageOrTypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public PackageOrTypeNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2197,6 +2273,7 @@ public class Java8Parser extends Parser {
 		public AmbiguousNameContext ambiguousName() {
 			return getRuleContext(AmbiguousNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public ExpressionNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2301,6 +2378,7 @@ public class Java8Parser extends Parser {
 		public AmbiguousNameContext ambiguousName() {
 			return getRuleContext(AmbiguousNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public AmbiguousNameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2474,9 +2552,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class PackageDeclarationContext extends ParserRuleContext {
+		public TerminalNode PACKAGE() { return getToken(Java8Parser.PACKAGE, 0); }
 		public PackageNameContext packageName() {
 			return getRuleContext(PackageNameContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public List<PackageModifierContext> packageModifier() {
 			return getRuleContexts(PackageModifierContext.class);
 		}
@@ -2667,9 +2747,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SingleTypeImportDeclarationContext extends ParserRuleContext {
+		public TerminalNode IMPORT() { return getToken(Java8Parser.IMPORT, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public SingleTypeImportDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2715,9 +2797,13 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TypeImportOnDemandDeclarationContext extends ParserRuleContext {
+		public TerminalNode IMPORT() { return getToken(Java8Parser.IMPORT, 0); }
 		public PackageOrTypeNameContext packageOrTypeName() {
 			return getRuleContext(PackageOrTypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode MUL() { return getToken(Java8Parser.MUL, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public TypeImportOnDemandDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2767,10 +2853,14 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SingleStaticImportDeclarationContext extends ParserRuleContext {
+		public TerminalNode IMPORT() { return getToken(Java8Parser.IMPORT, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public SingleStaticImportDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2822,9 +2912,14 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class StaticImportOnDemandDeclarationContext extends ParserRuleContext {
+		public TerminalNode IMPORT() { return getToken(Java8Parser.IMPORT, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode MUL() { return getToken(Java8Parser.MUL, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public StaticImportOnDemandDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2882,6 +2977,7 @@ public class Java8Parser extends Parser {
 		public InterfaceDeclarationContext interfaceDeclaration() {
 			return getRuleContext(InterfaceDeclarationContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public TypeDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3003,6 +3099,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class NormalClassDeclarationContext extends ParserRuleContext {
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public ClassBodyContext classBody() {
 			return getRuleContext(ClassBodyContext.class,0);
@@ -3115,6 +3212,13 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode PROTECTED() { return getToken(Java8Parser.PROTECTED, 0); }
+		public TerminalNode PRIVATE() { return getToken(Java8Parser.PRIVATE, 0); }
+		public TerminalNode ABSTRACT() { return getToken(Java8Parser.ABSTRACT, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
+		public TerminalNode FINAL() { return getToken(Java8Parser.FINAL, 0); }
+		public TerminalNode STRICTFP() { return getToken(Java8Parser.STRICTFP, 0); }
 		public ClassModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3213,9 +3317,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TypeParametersContext extends ParserRuleContext {
+		public TerminalNode LT() { return getToken(Java8Parser.LT, 0); }
 		public TypeParameterListContext typeParameterList() {
 			return getRuleContext(TypeParameterListContext.class,0);
 		}
+		public TerminalNode GT() { return getToken(Java8Parser.GT, 0); }
 		public TypeParametersContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3266,6 +3372,10 @@ public class Java8Parser extends Parser {
 		}
 		public TypeParameterContext typeParameter(int i) {
 			return getRuleContext(TypeParameterContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
 		}
 		public TypeParameterListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3325,6 +3435,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SuperclassContext extends ParserRuleContext {
+		public TerminalNode EXTENDS() { return getToken(Java8Parser.EXTENDS, 0); }
 		public ClassTypeContext classType() {
 			return getRuleContext(ClassTypeContext.class,0);
 		}
@@ -3371,6 +3482,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SuperinterfacesContext extends ParserRuleContext {
+		public TerminalNode IMPLEMENTS() { return getToken(Java8Parser.IMPLEMENTS, 0); }
 		public InterfaceTypeListContext interfaceTypeList() {
 			return getRuleContext(InterfaceTypeListContext.class,0);
 		}
@@ -3422,6 +3534,10 @@ public class Java8Parser extends Parser {
 		}
 		public InterfaceTypeContext interfaceType(int i) {
 			return getRuleContext(InterfaceTypeContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
 		}
 		public InterfaceTypeListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3481,6 +3597,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ClassBodyContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public List<ClassBodyDeclarationContext> classBodyDeclaration() {
 			return getRuleContexts(ClassBodyDeclarationContext.class);
 		}
@@ -3637,6 +3755,7 @@ public class Java8Parser extends Parser {
 		public InterfaceDeclarationContext interfaceDeclaration() {
 			return getRuleContext(InterfaceDeclarationContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public ClassMemberDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3718,6 +3837,7 @@ public class Java8Parser extends Parser {
 		public VariableDeclaratorListContext variableDeclaratorList() {
 			return getRuleContext(VariableDeclaratorListContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public List<FieldModifierContext> fieldModifier() {
 			return getRuleContexts(FieldModifierContext.class);
 		}
@@ -3787,6 +3907,13 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode PROTECTED() { return getToken(Java8Parser.PROTECTED, 0); }
+		public TerminalNode PRIVATE() { return getToken(Java8Parser.PRIVATE, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
+		public TerminalNode FINAL() { return getToken(Java8Parser.FINAL, 0); }
+		public TerminalNode TRANSIENT() { return getToken(Java8Parser.TRANSIENT, 0); }
+		public TerminalNode VOLATILE() { return getToken(Java8Parser.VOLATILE, 0); }
 		public FieldModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3891,6 +4018,10 @@ public class Java8Parser extends Parser {
 		public VariableDeclaratorContext variableDeclarator(int i) {
 			return getRuleContext(VariableDeclaratorContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public VariableDeclaratorListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -3952,6 +4083,7 @@ public class Java8Parser extends Parser {
 		public VariableDeclaratorIdContext variableDeclaratorId() {
 			return getRuleContext(VariableDeclaratorIdContext.class,0);
 		}
+		public TerminalNode ASSIGN() { return getToken(Java8Parser.ASSIGN, 0); }
 		public VariableInitializerContext variableInitializer() {
 			return getRuleContext(VariableInitializerContext.class,0);
 		}
@@ -4216,6 +4348,7 @@ public class Java8Parser extends Parser {
 		public NumericTypeContext numericType() {
 			return getRuleContext(NumericTypeContext.class,0);
 		}
+		public TerminalNode BOOLEAN() { return getToken(Java8Parser.BOOLEAN, 0); }
 		public UnannPrimitiveTypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -4457,6 +4590,7 @@ public class Java8Parser extends Parser {
 		public UnannClassOrInterfaceTypeContext unannClassOrInterfaceType() {
 			return getRuleContext(UnannClassOrInterfaceTypeContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
 		}
@@ -4556,6 +4690,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class UnannClassType_lf_unannClassOrInterfaceTypeContext extends ParserRuleContext {
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
@@ -5016,6 +5151,15 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode PROTECTED() { return getToken(Java8Parser.PROTECTED, 0); }
+		public TerminalNode PRIVATE() { return getToken(Java8Parser.PRIVATE, 0); }
+		public TerminalNode ABSTRACT() { return getToken(Java8Parser.ABSTRACT, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
+		public TerminalNode FINAL() { return getToken(Java8Parser.FINAL, 0); }
+		public TerminalNode SYNCHRONIZED() { return getToken(Java8Parser.SYNCHRONIZED, 0); }
+		public TerminalNode NATIVE() { return getToken(Java8Parser.NATIVE, 0); }
+		public TerminalNode STRICTFP() { return getToken(Java8Parser.STRICTFP, 0); }
 		public MethodModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -5255,6 +5399,7 @@ public class Java8Parser extends Parser {
 		public UnannTypeContext unannType() {
 			return getRuleContext(UnannTypeContext.class,0);
 		}
+		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
 		public ResultContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -5320,6 +5465,8 @@ public class Java8Parser extends Parser {
 
 	public static class MethodDeclaratorContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public FormalParameterListContext formalParameterList() {
 			return getRuleContext(FormalParameterListContext.class,0);
 		}
@@ -5398,6 +5545,7 @@ public class Java8Parser extends Parser {
 		public FormalParametersContext formalParameters() {
 			return getRuleContext(FormalParametersContext.class,0);
 		}
+		public TerminalNode COMMA() { return getToken(Java8Parser.COMMA, 0); }
 		public LastFormalParameterContext lastFormalParameter() {
 			return getRuleContext(LastFormalParameterContext.class,0);
 		}
@@ -5471,6 +5619,10 @@ public class Java8Parser extends Parser {
 		}
 		public FormalParameterContext formalParameter(int i) {
 			return getRuleContext(FormalParameterContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
 		}
 		public ReceiverParameterContext receiverParameter() {
 			return getRuleContext(ReceiverParameterContext.class,0);
@@ -5639,6 +5791,7 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode FINAL() { return getToken(Java8Parser.FINAL, 0); }
 		public VariableModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -5698,6 +5851,7 @@ public class Java8Parser extends Parser {
 		public UnannTypeContext unannType() {
 			return getRuleContext(UnannTypeContext.class,0);
 		}
+		public TerminalNode ELLIPSIS() { return getToken(Java8Parser.ELLIPSIS, 0); }
 		public VariableDeclaratorIdContext variableDeclaratorId() {
 			return getRuleContext(VariableDeclaratorIdContext.class,0);
 		}
@@ -5806,6 +5960,7 @@ public class Java8Parser extends Parser {
 		public UnannTypeContext unannType() {
 			return getRuleContext(UnannTypeContext.class,0);
 		}
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
 		}
@@ -5813,6 +5968,7 @@ public class Java8Parser extends Parser {
 			return getRuleContext(AnnotationContext.class,i);
 		}
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public ReceiverParameterContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -5883,6 +6039,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class Throws_Context extends ParserRuleContext {
+		public TerminalNode THROWS() { return getToken(Java8Parser.THROWS, 0); }
 		public ExceptionTypeListContext exceptionTypeList() {
 			return getRuleContext(ExceptionTypeListContext.class,0);
 		}
@@ -5934,6 +6091,10 @@ public class Java8Parser extends Parser {
 		}
 		public ExceptionTypeContext exceptionType(int i) {
 			return getRuleContext(ExceptionTypeContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
 		}
 		public ExceptionTypeListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -6056,6 +6217,7 @@ public class Java8Parser extends Parser {
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public MethodBodyContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -6156,6 +6318,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class StaticInitializerContext extends ParserRuleContext {
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -6288,6 +6451,9 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode PROTECTED() { return getToken(Java8Parser.PROTECTED, 0); }
+		public TerminalNode PRIVATE() { return getToken(Java8Parser.PRIVATE, 0); }
 		public ConstructorModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -6361,6 +6527,8 @@ public class Java8Parser extends Parser {
 		public SimpleTypeNameContext simpleTypeName() {
 			return getRuleContext(SimpleTypeNameContext.class,0);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public TypeParametersContext typeParameters() {
 			return getRuleContext(TypeParametersContext.class,0);
 		}
@@ -6475,6 +6643,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ConstructorBodyContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public ExplicitConstructorInvocationContext explicitConstructorInvocation() {
 			return getRuleContext(ExplicitConstructorInvocationContext.class,0);
 		}
@@ -6545,15 +6715,21 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ExplicitConstructorInvocationContext extends ParserRuleContext {
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
 		public ArgumentListContext argumentList() {
 			return getRuleContext(ArgumentListContext.class,0);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public ExpressionNameContext expressionName() {
 			return getRuleContext(ExpressionNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public PrimaryContext primary() {
 			return getRuleContext(PrimaryContext.class,0);
 		}
@@ -6738,6 +6914,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EnumDeclarationContext extends ParserRuleContext {
+		public TerminalNode ENUM() { return getToken(Java8Parser.ENUM, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public EnumBodyContext enumBody() {
 			return getRuleContext(EnumBodyContext.class,0);
@@ -6821,9 +6998,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EnumBodyContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public EnumConstantListContext enumConstantList() {
 			return getRuleContext(EnumConstantListContext.class,0);
 		}
+		public TerminalNode COMMA() { return getToken(Java8Parser.COMMA, 0); }
 		public EnumBodyDeclarationsContext enumBodyDeclarations() {
 			return getRuleContext(EnumBodyDeclarationsContext.class,0);
 		}
@@ -6907,6 +7087,10 @@ public class Java8Parser extends Parser {
 		public EnumConstantContext enumConstant(int i) {
 			return getRuleContext(EnumConstantContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public EnumConstantListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -6974,6 +7158,8 @@ public class Java8Parser extends Parser {
 		public EnumConstantModifierContext enumConstantModifier(int i) {
 			return getRuleContext(EnumConstantModifierContext.class,i);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ClassBodyContext classBody() {
 			return getRuleContext(ClassBodyContext.class,0);
 		}
@@ -7112,6 +7298,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EnumBodyDeclarationsContext extends ParserRuleContext {
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public List<ClassBodyDeclarationContext> classBodyDeclaration() {
 			return getRuleContexts(ClassBodyDeclarationContext.class);
 		}
@@ -7234,6 +7421,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class NormalInterfaceDeclarationContext extends ParserRuleContext {
+		public TerminalNode INTERFACE() { return getToken(Java8Parser.INTERFACE, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public InterfaceBodyContext interfaceBody() {
 			return getRuleContext(InterfaceBodyContext.class,0);
@@ -7333,6 +7521,12 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode PROTECTED() { return getToken(Java8Parser.PROTECTED, 0); }
+		public TerminalNode PRIVATE() { return getToken(Java8Parser.PRIVATE, 0); }
+		public TerminalNode ABSTRACT() { return getToken(Java8Parser.ABSTRACT, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
+		public TerminalNode STRICTFP() { return getToken(Java8Parser.STRICTFP, 0); }
 		public InterfaceModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7424,6 +7618,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ExtendsInterfacesContext extends ParserRuleContext {
+		public TerminalNode EXTENDS() { return getToken(Java8Parser.EXTENDS, 0); }
 		public InterfaceTypeListContext interfaceTypeList() {
 			return getRuleContext(InterfaceTypeListContext.class,0);
 		}
@@ -7470,6 +7665,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class InterfaceBodyContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public List<InterfaceMemberDeclarationContext> interfaceMemberDeclaration() {
 			return getRuleContexts(InterfaceMemberDeclarationContext.class);
 		}
@@ -7546,6 +7743,7 @@ public class Java8Parser extends Parser {
 		public InterfaceDeclarationContext interfaceDeclaration() {
 			return getRuleContext(InterfaceDeclarationContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public InterfaceMemberDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7627,6 +7825,7 @@ public class Java8Parser extends Parser {
 		public VariableDeclaratorListContext variableDeclaratorList() {
 			return getRuleContext(VariableDeclaratorListContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public List<ConstantModifierContext> constantModifier() {
 			return getRuleContexts(ConstantModifierContext.class);
 		}
@@ -7696,6 +7895,9 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
+		public TerminalNode FINAL() { return getToken(Java8Parser.FINAL, 0); }
 		public ConstantModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7839,6 +8041,11 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode ABSTRACT() { return getToken(Java8Parser.ABSTRACT, 0); }
+		public TerminalNode DEFAULT() { return getToken(Java8Parser.DEFAULT, 0); }
+		public TerminalNode STATIC() { return getToken(Java8Parser.STATIC, 0); }
+		public TerminalNode STRICTFP() { return getToken(Java8Parser.STRICTFP, 0); }
 		public InterfaceMethodModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7923,6 +8130,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AnnotationTypeDeclarationContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(Java8Parser.AT, 0); }
+		public TerminalNode INTERFACE() { return getToken(Java8Parser.INTERFACE, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public AnnotationTypeBodyContext annotationTypeBody() {
 			return getRuleContext(AnnotationTypeBodyContext.class,0);
@@ -7997,6 +8206,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AnnotationTypeBodyContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public List<AnnotationTypeMemberDeclarationContext> annotationTypeMemberDeclaration() {
 			return getRuleContexts(AnnotationTypeMemberDeclarationContext.class);
 		}
@@ -8073,6 +8284,7 @@ public class Java8Parser extends Parser {
 		public InterfaceDeclarationContext interfaceDeclaration() {
 			return getRuleContext(InterfaceDeclarationContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public AnnotationTypeMemberDeclarationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8152,6 +8364,9 @@ public class Java8Parser extends Parser {
 			return getRuleContext(UnannTypeContext.class,0);
 		}
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public List<AnnotationTypeElementModifierContext> annotationTypeElementModifier() {
 			return getRuleContexts(AnnotationTypeElementModifierContext.class);
 		}
@@ -8251,6 +8466,8 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation() {
 			return getRuleContext(AnnotationContext.class,0);
 		}
+		public TerminalNode PUBLIC() { return getToken(Java8Parser.PUBLIC, 0); }
+		public TerminalNode ABSTRACT() { return getToken(Java8Parser.ABSTRACT, 0); }
 		public AnnotationTypeElementModifierContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8314,6 +8531,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class DefaultValueContext extends ParserRuleContext {
+		public TerminalNode DEFAULT() { return getToken(Java8Parser.DEFAULT, 0); }
 		public ElementValueContext elementValue() {
 			return getRuleContext(ElementValueContext.class,0);
 		}
@@ -8430,9 +8648,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class NormalAnnotationContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(Java8Parser.AT, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ElementValuePairListContext elementValuePairList() {
 			return getRuleContext(ElementValuePairListContext.class,0);
 		}
@@ -8500,6 +8721,10 @@ public class Java8Parser extends Parser {
 		public ElementValuePairContext elementValuePair(int i) {
 			return getRuleContext(ElementValuePairContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public ElementValuePairListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8559,6 +8784,7 @@ public class Java8Parser extends Parser {
 
 	public static class ElementValuePairContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode ASSIGN() { return getToken(Java8Parser.ASSIGN, 0); }
 		public ElementValueContext elementValue() {
 			return getRuleContext(ElementValueContext.class,0);
 		}
@@ -8677,9 +8903,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ElementValueArrayInitializerContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public ElementValueListContext elementValueList() {
 			return getRuleContext(ElementValueListContext.class,0);
 		}
+		public TerminalNode COMMA() { return getToken(Java8Parser.COMMA, 0); }
 		public ElementValueArrayInitializerContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8750,6 +8979,10 @@ public class Java8Parser extends Parser {
 		public ElementValueContext elementValue(int i) {
 			return getRuleContext(ElementValueContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public ElementValueListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8810,6 +9043,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class MarkerAnnotationContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(Java8Parser.AT, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
@@ -8856,12 +9090,15 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SingleElementAnnotationContext extends ParserRuleContext {
+		public TerminalNode AT() { return getToken(Java8Parser.AT, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ElementValueContext elementValue() {
 			return getRuleContext(ElementValueContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public SingleElementAnnotationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8911,9 +9148,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ArrayInitializerContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public VariableInitializerListContext variableInitializerList() {
 			return getRuleContext(VariableInitializerListContext.class,0);
 		}
+		public TerminalNode COMMA() { return getToken(Java8Parser.COMMA, 0); }
 		public ArrayInitializerContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -8984,6 +9224,10 @@ public class Java8Parser extends Parser {
 		public VariableInitializerContext variableInitializer(int i) {
 			return getRuleContext(VariableInitializerContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public VariableInitializerListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -9044,6 +9288,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class BlockContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public BlockStatementsContext blockStatements() {
 			return getRuleContext(BlockStatementsContext.class,0);
 		}
@@ -9234,6 +9480,7 @@ public class Java8Parser extends Parser {
 		public LocalVariableDeclarationContext localVariableDeclaration() {
 			return getRuleContext(LocalVariableDeclarationContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public LocalVariableDeclarationStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -9721,6 +9968,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EmptyStatementContext extends ParserRuleContext {
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public EmptyStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -9763,6 +10011,7 @@ public class Java8Parser extends Parser {
 
 	public static class LabeledStatementContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
@@ -9812,6 +10061,7 @@ public class Java8Parser extends Parser {
 
 	public static class LabeledStatementNoShortIfContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public StatementNoShortIfContext statementNoShortIf() {
 			return getRuleContext(StatementNoShortIfContext.class,0);
 		}
@@ -9863,6 +10113,7 @@ public class Java8Parser extends Parser {
 		public StatementExpressionContext statementExpression() {
 			return getRuleContext(StatementExpressionContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public ExpressionStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10016,9 +10267,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class IfThenStatementContext extends ParserRuleContext {
+		public TerminalNode IF() { return getToken(Java8Parser.IF, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
@@ -10071,12 +10325,16 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class IfThenElseStatementContext extends ParserRuleContext {
+		public TerminalNode IF() { return getToken(Java8Parser.IF, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementNoShortIfContext statementNoShortIf() {
 			return getRuleContext(StatementNoShortIfContext.class,0);
 		}
+		public TerminalNode ELSE() { return getToken(Java8Parser.ELSE, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
@@ -10133,15 +10391,19 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class IfThenElseStatementNoShortIfContext extends ParserRuleContext {
+		public TerminalNode IF() { return getToken(Java8Parser.IF, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public List<StatementNoShortIfContext> statementNoShortIf() {
 			return getRuleContexts(StatementNoShortIfContext.class);
 		}
 		public StatementNoShortIfContext statementNoShortIf(int i) {
 			return getRuleContext(StatementNoShortIfContext.class,i);
 		}
+		public TerminalNode ELSE() { return getToken(Java8Parser.ELSE, 0); }
 		public IfThenElseStatementNoShortIfContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10195,12 +10457,15 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AssertStatementContext extends ParserRuleContext {
+		public TerminalNode ASSERT() { return getToken(Java8Parser.ASSERT, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public AssertStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10267,9 +10532,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SwitchStatementContext extends ParserRuleContext {
+		public TerminalNode SWITCH() { return getToken(Java8Parser.SWITCH, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public SwitchBlockContext switchBlock() {
 			return getRuleContext(SwitchBlockContext.class,0);
 		}
@@ -10322,6 +10590,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SwitchBlockContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(Java8Parser.LBRACE, 0); }
+		public TerminalNode RBRACE() { return getToken(Java8Parser.RBRACE, 0); }
 		public List<SwitchBlockStatementGroupContext> switchBlockStatementGroup() {
 			return getRuleContexts(SwitchBlockStatementGroupContext.class);
 		}
@@ -10520,12 +10790,15 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SwitchLabelContext extends ParserRuleContext {
+		public TerminalNode CASE() { return getToken(Java8Parser.CASE, 0); }
 		public ConstantExpressionContext constantExpression() {
 			return getRuleContext(ConstantExpressionContext.class,0);
 		}
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public EnumConstantNameContext enumConstantName() {
 			return getRuleContext(EnumConstantNameContext.class,0);
 		}
+		public TerminalNode DEFAULT() { return getToken(Java8Parser.DEFAULT, 0); }
 		public SwitchLabelContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10639,9 +10912,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class WhileStatementContext extends ParserRuleContext {
+		public TerminalNode WHILE() { return getToken(Java8Parser.WHILE, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
@@ -10694,9 +10970,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class WhileStatementNoShortIfContext extends ParserRuleContext {
+		public TerminalNode WHILE() { return getToken(Java8Parser.WHILE, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementNoShortIfContext statementNoShortIf() {
 			return getRuleContext(StatementNoShortIfContext.class,0);
 		}
@@ -10749,12 +11028,17 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class DoStatementContext extends ParserRuleContext {
+		public TerminalNode DO() { return getToken(Java8Parser.DO, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
+		public TerminalNode WHILE() { return getToken(Java8Parser.WHILE, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public DoStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -10928,6 +11212,13 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class BasicForStatementContext extends ParserRuleContext {
+		public TerminalNode FOR() { return getToken(Java8Parser.FOR, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public List<TerminalNode> SEMI() { return getTokens(Java8Parser.SEMI); }
+		public TerminalNode SEMI(int i) {
+			return getToken(Java8Parser.SEMI, i);
+		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
@@ -11022,6 +11313,13 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class BasicForStatementNoShortIfContext extends ParserRuleContext {
+		public TerminalNode FOR() { return getToken(Java8Parser.FOR, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public List<TerminalNode> SEMI() { return getTokens(Java8Parser.SEMI); }
+		public TerminalNode SEMI(int i) {
+			return getToken(Java8Parser.SEMI, i);
+		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementNoShortIfContext statementNoShortIf() {
 			return getRuleContext(StatementNoShortIfContext.class,0);
 		}
@@ -11226,6 +11524,10 @@ public class Java8Parser extends Parser {
 		public StatementExpressionContext statementExpression(int i) {
 			return getRuleContext(StatementExpressionContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public StatementExpressionListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -11284,15 +11586,19 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EnhancedForStatementContext extends ParserRuleContext {
+		public TerminalNode FOR() { return getToken(Java8Parser.FOR, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public UnannTypeContext unannType() {
 			return getRuleContext(UnannTypeContext.class,0);
 		}
 		public VariableDeclaratorIdContext variableDeclaratorId() {
 			return getRuleContext(VariableDeclaratorIdContext.class,0);
 		}
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementContext statement() {
 			return getRuleContext(StatementContext.class,0);
 		}
@@ -11372,15 +11678,19 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EnhancedForStatementNoShortIfContext extends ParserRuleContext {
+		public TerminalNode FOR() { return getToken(Java8Parser.FOR, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public UnannTypeContext unannType() {
 			return getRuleContext(UnannTypeContext.class,0);
 		}
 		public VariableDeclaratorIdContext variableDeclaratorId() {
 			return getRuleContext(VariableDeclaratorIdContext.class,0);
 		}
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public StatementNoShortIfContext statementNoShortIf() {
 			return getRuleContext(StatementNoShortIfContext.class,0);
 		}
@@ -11460,6 +11770,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class BreakStatementContext extends ParserRuleContext {
+		public TerminalNode BREAK() { return getToken(Java8Parser.BREAK, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public BreakStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -11515,6 +11827,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ContinueStatementContext extends ParserRuleContext {
+		public TerminalNode CONTINUE() { return getToken(Java8Parser.CONTINUE, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public ContinueStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -11570,6 +11884,8 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ReturnStatementContext extends ParserRuleContext {
+		public TerminalNode RETURN() { return getToken(Java8Parser.RETURN, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -11627,9 +11943,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ThrowStatementContext extends ParserRuleContext {
+		public TerminalNode THROW() { return getToken(Java8Parser.THROW, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public ThrowStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -11675,9 +11993,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SynchronizedStatementContext extends ParserRuleContext {
+		public TerminalNode SYNCHRONIZED() { return getToken(Java8Parser.SYNCHRONIZED, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -11730,6 +12051,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TryStatementContext extends ParserRuleContext {
+		public TerminalNode TRY() { return getToken(Java8Parser.TRY, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -11884,9 +12206,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class CatchClauseContext extends ParserRuleContext {
+		public TerminalNode CATCH() { return getToken(Java8Parser.CATCH, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public CatchFormalParameterContext catchFormalParameter() {
 			return getRuleContext(CatchFormalParameterContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -12012,6 +12337,10 @@ public class Java8Parser extends Parser {
 		public UnannClassTypeContext unannClassType() {
 			return getRuleContext(UnannClassTypeContext.class,0);
 		}
+		public List<TerminalNode> BITOR() { return getTokens(Java8Parser.BITOR); }
+		public TerminalNode BITOR(int i) {
+			return getToken(Java8Parser.BITOR, i);
+		}
 		public List<ClassTypeContext> classType() {
 			return getRuleContexts(ClassTypeContext.class);
 		}
@@ -12076,6 +12405,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class Finally_Context extends ParserRuleContext {
+		public TerminalNode FINALLY() { return getToken(Java8Parser.FINALLY, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -12122,6 +12452,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TryWithResourcesStatementContext extends ParserRuleContext {
+		public TerminalNode TRY() { return getToken(Java8Parser.TRY, 0); }
 		public ResourceSpecificationContext resourceSpecification() {
 			return getRuleContext(ResourceSpecificationContext.class,0);
 		}
@@ -12200,9 +12531,12 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ResourceSpecificationContext extends ParserRuleContext {
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ResourceListContext resourceList() {
 			return getRuleContext(ResourceListContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public ResourceSpecificationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -12264,6 +12598,10 @@ public class Java8Parser extends Parser {
 		}
 		public ResourceContext resource(int i) {
 			return getRuleContext(ResourceContext.class,i);
+		}
+		public List<TerminalNode> SEMI() { return getTokens(Java8Parser.SEMI); }
+		public TerminalNode SEMI(int i) {
+			return getToken(Java8Parser.SEMI, i);
 		}
 		public ResourceListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -12331,6 +12669,7 @@ public class Java8Parser extends Parser {
 		public VariableDeclaratorIdContext variableDeclaratorId() {
 			return getRuleContext(VariableDeclaratorIdContext.class,0);
 		}
+		public TerminalNode ASSIGN() { return getToken(Java8Parser.ASSIGN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -12492,9 +12831,23 @@ public class Java8Parser extends Parser {
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
+		}
+		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ClassInstanceCreationExpressionContext classInstanceCreationExpression() {
 			return getRuleContext(ClassInstanceCreationExpressionContext.class,0);
 		}
@@ -12705,9 +13058,23 @@ public class Java8Parser extends Parser {
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
+		}
+		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ClassInstanceCreationExpressionContext classInstanceCreationExpression() {
 			return getRuleContext(ClassInstanceCreationExpressionContext.class,0);
 		}
@@ -13078,12 +13445,26 @@ public class Java8Parser extends Parser {
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
+		}
 		public UnannPrimitiveTypeContext unannPrimitiveType() {
 			return getRuleContext(UnannPrimitiveTypeContext.class,0);
 		}
+		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ClassInstanceCreationExpression_lfno_primaryContext classInstanceCreationExpression_lfno_primary() {
 			return getRuleContext(ClassInstanceCreationExpression_lfno_primaryContext.class,0);
 		}
@@ -13321,12 +13702,26 @@ public class Java8Parser extends Parser {
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
+		}
 		public UnannPrimitiveTypeContext unannPrimitiveType() {
 			return getRuleContext(UnannPrimitiveTypeContext.class,0);
 		}
+		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ClassInstanceCreationExpression_lfno_primaryContext classInstanceCreationExpression_lfno_primary() {
 			return getRuleContext(ClassInstanceCreationExpression_lfno_primaryContext.class,0);
 		}
@@ -13509,10 +13904,13 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ClassInstanceCreationExpressionContext extends ParserRuleContext {
+		public TerminalNode NEW() { return getToken(Java8Parser.NEW, 0); }
 		public List<TerminalNode> Identifier() { return getTokens(Java8Parser.Identifier); }
 		public TerminalNode Identifier(int i) {
 			return getToken(Java8Parser.Identifier, i);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
@@ -13521,6 +13919,10 @@ public class Java8Parser extends Parser {
 		}
 		public AnnotationContext annotation(int i) {
 			return getRuleContext(AnnotationContext.class,i);
+		}
+		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(Java8Parser.DOT, i);
 		}
 		public TypeArgumentsOrDiamondContext typeArgumentsOrDiamond() {
 			return getRuleContext(TypeArgumentsOrDiamondContext.class,0);
@@ -13817,7 +14219,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ClassInstanceCreationExpression_lf_primaryContext extends ParserRuleContext {
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode NEW() { return getToken(Java8Parser.NEW, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
@@ -13940,10 +14346,13 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ClassInstanceCreationExpression_lfno_primaryContext extends ParserRuleContext {
+		public TerminalNode NEW() { return getToken(Java8Parser.NEW, 0); }
 		public List<TerminalNode> Identifier() { return getTokens(Java8Parser.Identifier); }
 		public TerminalNode Identifier(int i) {
 			return getToken(Java8Parser.Identifier, i);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
@@ -13952,6 +14361,10 @@ public class Java8Parser extends Parser {
 		}
 		public AnnotationContext annotation(int i) {
 			return getRuleContext(AnnotationContext.class,i);
+		}
+		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(Java8Parser.DOT, i);
 		}
 		public TypeArgumentsOrDiamondContext typeArgumentsOrDiamond() {
 			return getRuleContext(TypeArgumentsOrDiamondContext.class,0);
@@ -14179,6 +14592,8 @@ public class Java8Parser extends Parser {
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
+		public TerminalNode LT() { return getToken(Java8Parser.LT, 0); }
+		public TerminalNode GT() { return getToken(Java8Parser.GT, 0); }
 		public TypeArgumentsOrDiamondContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -14238,7 +14653,12 @@ public class Java8Parser extends Parser {
 		public PrimaryContext primary() {
 			return getRuleContext(PrimaryContext.class,0);
 		}
+		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(Java8Parser.DOT, i);
+		}
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
@@ -14319,6 +14739,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class FieldAccess_lf_primaryContext extends ParserRuleContext {
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public FieldAccess_lf_primaryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -14363,6 +14784,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class FieldAccess_lfno_primaryContext extends ParserRuleContext {
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
+		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(Java8Parser.DOT, i);
+		}
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
@@ -14438,11 +14864,19 @@ public class Java8Parser extends Parser {
 		public ExpressionNameContext expressionName() {
 			return getRuleContext(ExpressionNameContext.class,0);
 		}
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
 		}
 		public PrimaryNoNewArray_lfno_arrayAccessContext primaryNoNewArray_lfno_arrayAccess() {
 			return getRuleContext(PrimaryNoNewArray_lfno_arrayAccessContext.class,0);
@@ -14544,11 +14978,19 @@ public class Java8Parser extends Parser {
 		public PrimaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primaryContext primaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary() {
 			return getRuleContext(PrimaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primaryContext.class,0);
 		}
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
 		}
 		public List<PrimaryNoNewArray_lf_primary_lf_arrayAccess_lf_primaryContext> primaryNoNewArray_lf_primary_lf_arrayAccess_lf_primary() {
 			return getRuleContexts(PrimaryNoNewArray_lf_primary_lf_arrayAccess_lf_primaryContext.class);
@@ -14631,11 +15073,19 @@ public class Java8Parser extends Parser {
 		public ExpressionNameContext expressionName() {
 			return getRuleContext(ExpressionNameContext.class,0);
 		}
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
 		}
 		public PrimaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primaryContext primaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primary() {
 			return getRuleContext(PrimaryNoNewArray_lfno_primary_lfno_arrayAccess_lfno_primaryContext.class,0);
@@ -14739,11 +15189,17 @@ public class Java8Parser extends Parser {
 		public MethodNameContext methodName() {
 			return getRuleContext(MethodNameContext.class,0);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ArgumentListContext argumentList() {
 			return getRuleContext(ArgumentListContext.class,0);
 		}
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
+		}
+		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(Java8Parser.DOT, i);
 		}
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TypeArgumentsContext typeArguments() {
@@ -14755,6 +15211,7 @@ public class Java8Parser extends Parser {
 		public PrimaryContext primary() {
 			return getRuleContext(PrimaryContext.class,0);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public MethodInvocationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -14996,7 +15453,10 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class MethodInvocation_lf_primaryContext extends ParserRuleContext {
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
@@ -15074,11 +15534,17 @@ public class Java8Parser extends Parser {
 		public MethodNameContext methodName() {
 			return getRuleContext(MethodNameContext.class,0);
 		}
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public ArgumentListContext argumentList() {
 			return getRuleContext(ArgumentListContext.class,0);
 		}
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
+		}
+		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(Java8Parser.DOT, i);
 		}
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TypeArgumentsContext typeArguments() {
@@ -15087,6 +15553,7 @@ public class Java8Parser extends Parser {
 		public ExpressionNameContext expressionName() {
 			return getRuleContext(ExpressionNameContext.class,0);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public MethodInvocation_lfno_primaryContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -15299,6 +15766,10 @@ public class Java8Parser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
+		}
 		public ArgumentListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -15360,6 +15831,7 @@ public class Java8Parser extends Parser {
 		public ExpressionNameContext expressionName() {
 			return getRuleContext(ExpressionNameContext.class,0);
 		}
+		public TerminalNode COLONCOLON() { return getToken(Java8Parser.COLONCOLON, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
@@ -15370,12 +15842,15 @@ public class Java8Parser extends Parser {
 		public PrimaryContext primary() {
 			return getRuleContext(PrimaryContext.class,0);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public ClassTypeContext classType() {
 			return getRuleContext(ClassTypeContext.class,0);
 		}
+		public TerminalNode NEW() { return getToken(Java8Parser.NEW, 0); }
 		public ArrayTypeContext arrayType() {
 			return getRuleContext(ArrayTypeContext.class,0);
 		}
@@ -15561,6 +16036,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class MethodReference_lf_primaryContext extends ParserRuleContext {
+		public TerminalNode COLONCOLON() { return getToken(Java8Parser.COLONCOLON, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
@@ -15622,6 +16098,7 @@ public class Java8Parser extends Parser {
 		public ExpressionNameContext expressionName() {
 			return getRuleContext(ExpressionNameContext.class,0);
 		}
+		public TerminalNode COLONCOLON() { return getToken(Java8Parser.COLONCOLON, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
@@ -15629,12 +16106,15 @@ public class Java8Parser extends Parser {
 		public ReferenceTypeContext referenceType() {
 			return getRuleContext(ReferenceTypeContext.class,0);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
 		public ClassTypeContext classType() {
 			return getRuleContext(ClassTypeContext.class,0);
 		}
+		public TerminalNode NEW() { return getToken(Java8Parser.NEW, 0); }
 		public ArrayTypeContext arrayType() {
 			return getRuleContext(ArrayTypeContext.class,0);
 		}
@@ -15799,6 +16279,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ArrayCreationExpressionContext extends ParserRuleContext {
+		public TerminalNode NEW() { return getToken(Java8Parser.NEW, 0); }
 		public PrimitiveTypeContext primitiveType() {
 			return getRuleContext(PrimitiveTypeContext.class,0);
 		}
@@ -15986,9 +16467,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class DimExprContext extends ParserRuleContext {
+		public TerminalNode LBRACK() { return getToken(Java8Parser.LBRACK, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode RBRACK() { return getToken(Java8Parser.RBRACK, 0); }
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
 		}
@@ -16162,6 +16645,7 @@ public class Java8Parser extends Parser {
 		public LambdaParametersContext lambdaParameters() {
 			return getRuleContext(LambdaParametersContext.class,0);
 		}
+		public TerminalNode ARROW() { return getToken(Java8Parser.ARROW, 0); }
 		public LambdaBodyContext lambdaBody() {
 			return getRuleContext(LambdaBodyContext.class,0);
 		}
@@ -16211,6 +16695,8 @@ public class Java8Parser extends Parser {
 
 	public static class LambdaParametersContext extends ParserRuleContext {
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public FormalParameterListContext formalParameterList() {
 			return getRuleContext(FormalParameterListContext.class,0);
 		}
@@ -16298,6 +16784,10 @@ public class Java8Parser extends Parser {
 		public List<TerminalNode> Identifier() { return getTokens(Java8Parser.Identifier); }
 		public TerminalNode Identifier(int i) {
 			return getToken(Java8Parser.Identifier, i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(Java8Parser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(Java8Parser.COMMA, i);
 		}
 		public InferredFormalParameterListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -16629,6 +17119,18 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AssignmentOperatorContext extends ParserRuleContext {
+		public TerminalNode ASSIGN() { return getToken(Java8Parser.ASSIGN, 0); }
+		public TerminalNode MUL_ASSIGN() { return getToken(Java8Parser.MUL_ASSIGN, 0); }
+		public TerminalNode DIV_ASSIGN() { return getToken(Java8Parser.DIV_ASSIGN, 0); }
+		public TerminalNode MOD_ASSIGN() { return getToken(Java8Parser.MOD_ASSIGN, 0); }
+		public TerminalNode ADD_ASSIGN() { return getToken(Java8Parser.ADD_ASSIGN, 0); }
+		public TerminalNode SUB_ASSIGN() { return getToken(Java8Parser.SUB_ASSIGN, 0); }
+		public TerminalNode LSHIFT_ASSIGN() { return getToken(Java8Parser.LSHIFT_ASSIGN, 0); }
+		public TerminalNode RSHIFT_ASSIGN() { return getToken(Java8Parser.RSHIFT_ASSIGN, 0); }
+		public TerminalNode URSHIFT_ASSIGN() { return getToken(Java8Parser.URSHIFT_ASSIGN, 0); }
+		public TerminalNode AND_ASSIGN() { return getToken(Java8Parser.AND_ASSIGN, 0); }
+		public TerminalNode XOR_ASSIGN() { return getToken(Java8Parser.XOR_ASSIGN, 0); }
+		public TerminalNode OR_ASSIGN() { return getToken(Java8Parser.OR_ASSIGN, 0); }
 		public AssignmentOperatorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -16682,9 +17184,11 @@ public class Java8Parser extends Parser {
 		public ConditionalOrExpressionContext conditionalOrExpression() {
 			return getRuleContext(ConditionalOrExpressionContext.class,0);
 		}
+		public TerminalNode QUESTION() { return getToken(Java8Parser.QUESTION, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
 		public ConditionalExpressionContext conditionalExpression() {
 			return getRuleContext(ConditionalExpressionContext.class,0);
 		}
@@ -16756,6 +17260,7 @@ public class Java8Parser extends Parser {
 		public ConditionalOrExpressionContext conditionalOrExpression() {
 			return getRuleContext(ConditionalOrExpressionContext.class,0);
 		}
+		public TerminalNode OR() { return getToken(Java8Parser.OR, 0); }
 		public ConditionalOrExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -16839,6 +17344,7 @@ public class Java8Parser extends Parser {
 		public ConditionalAndExpressionContext conditionalAndExpression() {
 			return getRuleContext(ConditionalAndExpressionContext.class,0);
 		}
+		public TerminalNode AND() { return getToken(Java8Parser.AND, 0); }
 		public ConditionalAndExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -16922,6 +17428,7 @@ public class Java8Parser extends Parser {
 		public InclusiveOrExpressionContext inclusiveOrExpression() {
 			return getRuleContext(InclusiveOrExpressionContext.class,0);
 		}
+		public TerminalNode BITOR() { return getToken(Java8Parser.BITOR, 0); }
 		public InclusiveOrExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17005,6 +17512,7 @@ public class Java8Parser extends Parser {
 		public ExclusiveOrExpressionContext exclusiveOrExpression() {
 			return getRuleContext(ExclusiveOrExpressionContext.class,0);
 		}
+		public TerminalNode CARET() { return getToken(Java8Parser.CARET, 0); }
 		public ExclusiveOrExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17088,6 +17596,7 @@ public class Java8Parser extends Parser {
 		public AndExpressionContext andExpression() {
 			return getRuleContext(AndExpressionContext.class,0);
 		}
+		public TerminalNode BITAND() { return getToken(Java8Parser.BITAND, 0); }
 		public AndExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17171,6 +17680,8 @@ public class Java8Parser extends Parser {
 		public EqualityExpressionContext equalityExpression() {
 			return getRuleContext(EqualityExpressionContext.class,0);
 		}
+		public TerminalNode EQUAL() { return getToken(Java8Parser.EQUAL, 0); }
+		public TerminalNode NOTEQUAL() { return getToken(Java8Parser.NOTEQUAL, 0); }
 		public EqualityExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17272,6 +17783,11 @@ public class Java8Parser extends Parser {
 		public RelationalExpressionContext relationalExpression() {
 			return getRuleContext(RelationalExpressionContext.class,0);
 		}
+		public TerminalNode LT() { return getToken(Java8Parser.LT, 0); }
+		public TerminalNode GT() { return getToken(Java8Parser.GT, 0); }
+		public TerminalNode LE() { return getToken(Java8Parser.LE, 0); }
+		public TerminalNode GE() { return getToken(Java8Parser.GE, 0); }
+		public TerminalNode INSTANCEOF() { return getToken(Java8Parser.INSTANCEOF, 0); }
 		public ReferenceTypeContext referenceType() {
 			return getRuleContext(ReferenceTypeContext.class,0);
 		}
@@ -17412,6 +17928,14 @@ public class Java8Parser extends Parser {
 		public ShiftExpressionContext shiftExpression() {
 			return getRuleContext(ShiftExpressionContext.class,0);
 		}
+		public List<TerminalNode> LT() { return getTokens(Java8Parser.LT); }
+		public TerminalNode LT(int i) {
+			return getToken(Java8Parser.LT, i);
+		}
+		public List<TerminalNode> GT() { return getTokens(Java8Parser.GT); }
+		public TerminalNode GT(int i) {
+			return getToken(Java8Parser.GT, i);
+		}
 		public ShiftExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17533,6 +18057,8 @@ public class Java8Parser extends Parser {
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
+		public TerminalNode ADD() { return getToken(Java8Parser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(Java8Parser.SUB, 0); }
 		public AdditiveExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17634,6 +18160,9 @@ public class Java8Parser extends Parser {
 		public MultiplicativeExpressionContext multiplicativeExpression() {
 			return getRuleContext(MultiplicativeExpressionContext.class,0);
 		}
+		public TerminalNode MUL() { return getToken(Java8Parser.MUL, 0); }
+		public TerminalNode DIV() { return getToken(Java8Parser.DIV, 0); }
+		public TerminalNode MOD() { return getToken(Java8Parser.MOD, 0); }
 		public MultiplicativeExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -17747,9 +18276,11 @@ public class Java8Parser extends Parser {
 		public PreDecrementExpressionContext preDecrementExpression() {
 			return getRuleContext(PreDecrementExpressionContext.class,0);
 		}
+		public TerminalNode ADD() { return getToken(Java8Parser.ADD, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
+		public TerminalNode SUB() { return getToken(Java8Parser.SUB, 0); }
 		public UnaryExpressionNotPlusMinusContext unaryExpressionNotPlusMinus() {
 			return getRuleContext(UnaryExpressionNotPlusMinusContext.class,0);
 		}
@@ -17856,6 +18387,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class PreIncrementExpressionContext extends ParserRuleContext {
+		public TerminalNode INC() { return getToken(Java8Parser.INC, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
@@ -17902,6 +18434,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class PreDecrementExpressionContext extends ParserRuleContext {
+		public TerminalNode DEC() { return getToken(Java8Parser.DEC, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
@@ -17951,9 +18484,11 @@ public class Java8Parser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
+		public TerminalNode TILDE() { return getToken(Java8Parser.TILDE, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
+		public TerminalNode BANG() { return getToken(Java8Parser.BANG, 0); }
 		public CastExpressionContext castExpression() {
 			return getRuleContext(CastExpressionContext.class,0);
 		}
@@ -18136,6 +18671,7 @@ public class Java8Parser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
+		public TerminalNode INC() { return getToken(Java8Parser.INC, 0); }
 		public PostIncrementExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -18179,6 +18715,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class PostIncrementExpression_lf_postfixExpressionContext extends ParserRuleContext {
+		public TerminalNode INC() { return getToken(Java8Parser.INC, 0); }
 		public PostIncrementExpression_lf_postfixExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -18223,6 +18760,7 @@ public class Java8Parser extends Parser {
 		public PostfixExpressionContext postfixExpression() {
 			return getRuleContext(PostfixExpressionContext.class,0);
 		}
+		public TerminalNode DEC() { return getToken(Java8Parser.DEC, 0); }
 		public PostDecrementExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -18266,6 +18804,7 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class PostDecrementExpression_lf_postfixExpressionContext extends ParserRuleContext {
+		public TerminalNode DEC() { return getToken(Java8Parser.DEC, 0); }
 		public PostDecrementExpression_lf_postfixExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -18307,9 +18846,11 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class CastExpressionContext extends ParserRuleContext {
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public PrimitiveTypeContext primitiveType() {
 			return getRuleContext(PrimitiveTypeContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}

@@ -1,8 +1,5 @@
-// Generated from Java8Parser.g4 by ANTLR 4.7.1
-
-    package com.syr.jindex.parser;
-    import java.util.HashMap;
-
+// Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
+package com.syr.jindex.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -81,15 +78,29 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitClassOrInterfaceType(Java8Parser.ClassOrInterfaceTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#classType}.
+	 * Enter a parse tree produced by the {@code ShortClassType}
+	 * labeled alternative in {@link Java8Parser#classType}.
 	 * @param ctx the parse tree
 	 */
-	void enterClassType(Java8Parser.ClassTypeContext ctx);
+	void enterShortClassType(Java8Parser.ShortClassTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#classType}.
+	 * Exit a parse tree produced by the {@code ShortClassType}
+	 * labeled alternative in {@link Java8Parser#classType}.
 	 * @param ctx the parse tree
 	 */
-	void exitClassType(Java8Parser.ClassTypeContext ctx);
+	void exitShortClassType(Java8Parser.ShortClassTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LongClassType}
+	 * labeled alternative in {@link Java8Parser#classType}.
+	 * @param ctx the parse tree
+	 */
+	void enterLongClassType(Java8Parser.LongClassTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LongClassType}
+	 * labeled alternative in {@link Java8Parser#classType}.
+	 * @param ctx the parse tree
+	 */
+	void exitLongClassType(Java8Parser.LongClassTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#classType_lf_classOrInterfaceType}.
 	 * @param ctx the parse tree

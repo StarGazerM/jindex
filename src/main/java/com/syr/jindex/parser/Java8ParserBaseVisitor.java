@@ -1,8 +1,5 @@
-// Generated from Java8Parser.g4 by ANTLR 4.7.1
-
-    package com.syr.jindex.parser;
-    import java.util.HashMap;
-
+// Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
+package com.syr.jindex.parser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -69,7 +66,14 @@ public class Java8ParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitClassType(Java8Parser.ClassTypeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitShortClassType(Java8Parser.ShortClassTypeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLongClassType(Java8Parser.LongClassTypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

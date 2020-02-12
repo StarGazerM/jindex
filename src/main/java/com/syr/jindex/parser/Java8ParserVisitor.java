@@ -1,8 +1,5 @@
-// Generated from Java8Parser.g4 by ANTLR 4.7.1
-
-    package com.syr.jindex.parser;
-    import java.util.HashMap;
-
+// Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
+package com.syr.jindex.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -56,11 +53,19 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassOrInterfaceType(Java8Parser.ClassOrInterfaceTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#classType}.
+	 * Visit a parse tree produced by the {@code ShortClassType}
+	 * labeled alternative in {@link Java8Parser#classType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClassType(Java8Parser.ClassTypeContext ctx);
+	T visitShortClassType(Java8Parser.ShortClassTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LongClassType}
+	 * labeled alternative in {@link Java8Parser#classType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLongClassType(Java8Parser.LongClassTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#classType_lf_classOrInterfaceType}.
 	 * @param ctx the parse tree

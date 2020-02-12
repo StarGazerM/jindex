@@ -112,8 +112,8 @@ classOrInterfaceType
 	;
 
 classType
-	:	annotation* Identifier typeArguments?
-	|	classOrInterfaceType '.' annotation* Identifier typeArguments?
+	:	annotation* Identifier typeArguments?                               # ShortClassType
+	|	classOrInterfaceType '.' annotation* Identifier typeArguments?      # LongClassType
 	;
 
 classType_lf_classOrInterfaceType

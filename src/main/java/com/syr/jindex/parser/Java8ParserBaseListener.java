@@ -1,8 +1,5 @@
-// Generated from Java8Parser.g4 by ANTLR 4.7.1
-
-    package com.syr.jindex.parser;
-    import java.util.HashMap;
-
+// Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
+package com.syr.jindex.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -103,13 +100,25 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassType(Java8Parser.ClassTypeContext ctx) { }
+	@Override public void enterShortClassType(Java8Parser.ShortClassTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassType(Java8Parser.ClassTypeContext ctx) { }
+	@Override public void exitShortClassType(Java8Parser.ShortClassTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLongClassType(Java8Parser.LongClassTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLongClassType(Java8Parser.LongClassTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
