@@ -535,21 +535,55 @@ public class Java8ParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) { return visitChildren(ctx); }
+	@Override
+	public T visitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
+		return visitChildren(ctx);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFormalParameterList(Java8Parser.FormalParameterListContext ctx) { return visitChildren(ctx); }
+	@Override
+	public T visitFormalParamRecv(Java8Parser.FormalParamRecvContext ctx) {
+		return visitChildren(ctx);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFormalParameters(Java8Parser.FormalParametersContext ctx) { return visitChildren(ctx); }
+	@Override
+	public T visitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx) {
+		return visitChildren(ctx);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
+	public T visitFormalParamOne(Java8Parser.FormalParamOneContext ctx) {
+		return visitChildren(ctx);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override
+	public T visitFormalParameters(Java8Parser.FormalParametersContext ctx) {
+		return visitChildren(ctx);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *

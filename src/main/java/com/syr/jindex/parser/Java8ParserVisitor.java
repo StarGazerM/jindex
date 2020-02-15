@@ -456,20 +456,45 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitResult(Java8Parser.ResultContext ctx);
+
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#methodDeclarator}.
+	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx);
+
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#formalParameterList}.
+	 * Visit a parse tree produced by the {@code FormalParamRecv}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFormalParameterList(Java8Parser.FormalParameterListContext ctx);
+	T visitFormalParamRecv(Java8Parser.FormalParamRecvContext ctx);
+
+	/**
+	 * Visit a parse tree produced by the {@code FormalParamMulti}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx);
+
+	/**
+	 * Visit a parse tree produced by the {@code FormalParamOne}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFormalParamOne(Java8Parser.FormalParamOneContext ctx);
+
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#formalParameters}.
+	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */

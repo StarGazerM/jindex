@@ -756,28 +756,72 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void enterMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx);
+
 	/**
 	 * Exit a parse tree produced by {@link Java8Parser#methodDeclarator}.
+	 *
 	 * @param ctx the parse tree
 	 */
 	void exitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx);
+
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#formalParameterList}.
+	 * Enter a parse tree produced by the {@code FormalParamRecv}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
 	 * @param ctx the parse tree
 	 */
-	void enterFormalParameterList(Java8Parser.FormalParameterListContext ctx);
+	void enterFormalParamRecv(Java8Parser.FormalParamRecvContext ctx);
+
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#formalParameterList}.
+	 * Exit a parse tree produced by the {@code FormalParamRecv}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
 	 * @param ctx the parse tree
 	 */
-	void exitFormalParameterList(Java8Parser.FormalParameterListContext ctx);
+	void exitFormalParamRecv(Java8Parser.FormalParamRecvContext ctx);
+
+	/**
+	 * Enter a parse tree produced by the {@code FormalParamMulti}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
+	 * @param ctx the parse tree
+	 */
+	void enterFormalParamMulti(Java8Parser.FormalParamMultiContext ctx);
+
+	/**
+	 * Exit a parse tree produced by the {@code FormalParamMulti}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
+	 * @param ctx the parse tree
+	 */
+	void exitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx);
+
+	/**
+	 * Enter a parse tree produced by the {@code FormalParamOne}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
+	 * @param ctx the parse tree
+	 */
+	void enterFormalParamOne(Java8Parser.FormalParamOneContext ctx);
+
+	/**
+	 * Exit a parse tree produced by the {@code FormalParamOne}
+	 * labeled alternative in {@link Java8Parser#formalParameterList}.
+	 *
+	 * @param ctx the parse tree
+	 */
+	void exitFormalParamOne(Java8Parser.FormalParamOneContext ctx);
+
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#formalParameters}.
+	 *
 	 * @param ctx the parse tree
 	 */
 	void enterFormalParameters(Java8Parser.FormalParametersContext ctx);
+
 	/**
 	 * Exit a parse tree produced by {@link Java8Parser#formalParameters}.
+	 *
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParameters(Java8Parser.FormalParametersContext ctx);

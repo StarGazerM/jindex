@@ -910,25 +910,72 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) { }
+	@Override
+	public void exitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFormalParameterList(Java8Parser.FormalParameterListContext ctx) { }
+	@Override
+	public void enterFormalParamRecv(Java8Parser.FormalParamRecvContext ctx) {
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFormalParameterList(Java8Parser.FormalParameterListContext ctx) { }
+	@Override
+	public void exitFormalParamRecv(Java8Parser.FormalParamRecvContext ctx) {
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFormalParameters(Java8Parser.FormalParametersContext ctx) { }
+	@Override
+	public void enterFormalParamMulti(Java8Parser.FormalParamMultiContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void enterFormalParamOne(Java8Parser.FormalParamOneContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void exitFormalParamOne(Java8Parser.FormalParamOneContext ctx) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override
+	public void enterFormalParameters(Java8Parser.FormalParametersContext ctx) {
+	}
 	/**
 	 * {@inheritDoc}
 	 *

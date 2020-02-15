@@ -1,6 +1,7 @@
 /***
  * a visitor generate s-expr from JAVA AST
  * for simple, won't collect  Java annotation info, cause it is has no semantic operation during runtime
+ * some precision will loose in Type, since it will not effect the soundness of alias/value flow analysis
  *
  * Yihao Sun <email>syun67@syr.edu</email>
  * Syracuse 2020
@@ -11,8 +12,6 @@ package com.syr.jindex.analyzer;
 import com.syr.jindex.parser.Java8Parser;
 import com.syr.jindex.parser.Java8ParserBaseVisitor;
 
-import java.util.List;
-
 public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
 //    StringBuilder sexprbuilder;
@@ -20,7 +19,6 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 //    public JavaSexprVisitor() {
 //        this.sexprbuilder = new StringBuilder("");
 //    }
-
 
     /***
      * compilation-unit? := `((? pkg?) (? list/c import?) (? type?))
@@ -254,10 +252,8 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         return ctx.getText();
     }
 
-
-
     @Override
-    public String visitUnannPrimitiveType(Java8Parser.UnannPrimitiveTypeContext ctx) {
+    public String visitUnannType(Java8Parser.UnannTypeContext ctx) {
         return ctx.getText();
     }
 
@@ -303,9 +299,154 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         return String.format("(%s %d)", nameS, dimsN);
     }
 
+    /**
+     * constructor? := (Constructor (? *list/c modifier?) (? constructor-decl?) (? throw?)
+     * (? *list/c insn?))
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitConstructorDeclaration(Java8Parser.ConstructorDeclarationContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (Java8Parser.ConstructorModifierContext modCtx : ctx.constructorModifier()) {
+            modSB.append(modCtx.getText());
+            modSB.append(' ');
+        }
+        modSB.append(')');
+        String constructDeclS = visit(ctx.constructorDeclarator());
+        String throwS = (ctx.throws_() != null) ? visit(ctx.throws_()) : "()";
+        String bodyS = visit(ctx.constructorBody());
+        return String.format("(Constructor %s %s %s %s)", modSB.toString(), constructDeclS, throwS, bodyS);
+    }
 
-    //    @Override
-//    public String visitClassMemberDeclaration(Java8Parser.ClassMemberDeclarationContext ctx) {
-//
+    /***
+     * constructor-decl? := (? ,name (? type-parms?) (? *list/c arg?))
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitConstructorDeclarator(Java8Parser.ConstructorDeclaratorContext ctx) {
+        String typeParamS = (ctx.typeParameters() != null) ? visit(ctx.typeParameters()) : "()";
+        String simpleTypeName = visit(ctx.simpleTypeName());
+        String formalParamLS = (ctx.formalParameterList() != null) ? visit(ctx.formalParameterList()) : "()";
+        return String.format("(%s %s (%s))", typeParamS, simpleTypeName, formalParamLS);
+    }
+
+    @Override
+    public String visitSimpleTypeName(Java8Parser.SimpleTypeNameContext ctx) {
+        return ctx.getText();
+    }
+
+//    @Override
+//    public String visitLastFormalParameter(Java8Parser.LastFormalParameterContext ctx) {
+//        return
 //    }
+
+
+    /**
+     * FormalArg? := (Arg ,modfier ,type ,var)
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitFormalParameter(Java8Parser.FormalParameterContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (var modCtx : ctx.variableModifier()) {
+            modSB.append(visit(modCtx));
+            modSB.append(' ');
+        }
+        modSB.append(')');
+        String type = visit(ctx.unannType());
+        String name = visit(ctx.variableDeclaratorId());
+        return String.format("(Arg %s %s %s)", modSB.toString(), type, name);
+    }
+
+    /**
+     * do not support reciever arg and ... syntax
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitFormalParameters(Java8Parser.FormalParametersContext ctx) {
+        StringBuilder fpsSB = new StringBuilder("");
+        for (var fCtx : ctx.formalParameter()) {
+            fpsSB.append(visit(fCtx));
+            fpsSB.append(' ');
+        }
+        return fpsSB.toString();
+    }
+
+    @Override
+    public String visitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx) {
+        String head = visit(ctx.formalParameters());
+        String last = visit(ctx.lastFormalParameter());
+        return String.format("(%s %s)", head, last);
+    }
+
+    /**
+     * throws? (Throw . (*list/c excpt?))
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitThrows_(Java8Parser.Throws_Context ctx) {
+        String throwsS = visit(ctx.exceptionTypeList());
+        return String.format("(Throw %s)", throwsS);
+    }
+
+    @Override
+    public String visitExceptionTypeList(Java8Parser.ExceptionTypeListContext ctx) {
+        StringBuilder exSB = new StringBuilder("");
+        for (var eCtx : ctx.exceptionType()) {
+            exSB.append(visit(eCtx));
+            exSB.append(' ');
+        }
+        return exSB.toString();
+    }
+
+    @Override
+    public String visitConstructorBody(Java8Parser.ConstructorBodyContext ctx) {
+        String consInvocS =
+                (ctx.explicitConstructorInvocation() != null) ? visit(ctx.explicitConstructorInvocation()) : "()";
+        String body = (ctx.blockStatements() != null) ? visit(ctx.blockStatements()) : "()";
+        return String.format("(ConsBody %s %s)", consInvocS, body);
+    }
+
+    @Override
+    public String visitBlockStatements(Java8Parser.BlockStatementsContext ctx) {
+        StringBuilder bSB = new StringBuilder("(");
+        for (var bCtx : ctx.blockStatement()) {
+            bSB.append(visit(bCtx));
+            bSB.append(" ");
+        }
+        bSB.append(")");
+        return bSB.toString();
+    }
+
+    @Override
+    public String visitLocalVariableDeclarationStatement(Java8Parser.LocalVariableDeclarationStatementContext ctx) {
+        return visit(ctx.localVariableDeclaration());
+    }
+
+    @Override
+    public String visitLocalVariableDeclaration(Java8Parser.LocalVariableDeclarationContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (var mCtx : ctx.variableModifier()) {
+            modSB.append(visit(mCtx));
+            modSB.append(' ');
+        }
+        modSB.append(')');
+        String type = visit(ctx.unannType());
+        String varList = visit(ctx.variableDeclaratorList());
+        return String.format("(LocalVar %s %s %s)", modSB.toString(), type, varList);
+    }
+
+    @Override
+    public String visitStatement(Java8Parser.StatementContext ctx) {
+        return super.visitStatement(ctx);
+    }
 }

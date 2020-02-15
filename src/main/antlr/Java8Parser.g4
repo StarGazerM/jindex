@@ -454,9 +454,9 @@ methodDeclarator
 	;
 
 formalParameterList
-	:	receiverParameter
-	|	formalParameters ',' lastFormalParameter
-	|	lastFormalParameter
+	:	receiverParameter                            # FormalParamRecv
+	|	formalParameters ',' lastFormalParameter     # FormalParamMulti
+	|	lastFormalParameter                          # FormalParamOne
 	;
 
 formalParameters

@@ -1,13 +1,18 @@
 // Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
 package com.syr.jindex.parser;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
+
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.Utils;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class Java8Parser extends Parser {
@@ -5531,39 +5536,115 @@ public class Java8Parser extends Parser {
 			_localctx.exception = re;
 			_errHandler.reportError(this, re);
 			_errHandler.recover(this, re);
-		}
-		finally {
+		} finally {
 			exitRule();
 		}
 		return _localctx;
 	}
 
 	public static class FormalParameterListContext extends ParserRuleContext {
-		public ReceiverParameterContext receiverParameter() {
-			return getRuleContext(ReceiverParameterContext.class,0);
-		}
-		public FormalParametersContext formalParameters() {
-			return getRuleContext(FormalParametersContext.class,0);
-		}
-		public TerminalNode COMMA() { return getToken(Java8Parser.COMMA, 0); }
-		public LastFormalParameterContext lastFormalParameter() {
-			return getRuleContext(LastFormalParameterContext.class,0);
-		}
 		public FormalParameterListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_formalParameterList; }
+
+		@Override
+		public int getRuleIndex() {
+			return RULE_formalParameterList;
+		}
+
+		public FormalParameterListContext() {
+		}
+
+		public void copyFrom(FormalParameterListContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+
+	public static class FormalParamRecvContext extends FormalParameterListContext {
+		public ReceiverParameterContext receiverParameter() {
+			return getRuleContext(ReceiverParameterContext.class, 0);
+		}
+
+		public FormalParamRecvContext(FormalParameterListContext ctx) {
+			copyFrom(ctx);
+		}
+
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterFormalParameterList(this);
+			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).enterFormalParamRecv(this);
 		}
+
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitFormalParameterList(this);
+			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).exitFormalParamRecv(this);
 		}
+
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitFormalParameterList(this);
+			if (visitor instanceof Java8ParserVisitor)
+				return ((Java8ParserVisitor<? extends T>) visitor).visitFormalParamRecv(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public static class FormalParamOneContext extends FormalParameterListContext {
+		public LastFormalParameterContext lastFormalParameter() {
+			return getRuleContext(LastFormalParameterContext.class, 0);
+		}
+
+		public FormalParamOneContext(FormalParameterListContext ctx) {
+			copyFrom(ctx);
+		}
+
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).enterFormalParamOne(this);
+		}
+
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).exitFormalParamOne(this);
+		}
+
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if (visitor instanceof Java8ParserVisitor)
+				return ((Java8ParserVisitor<? extends T>) visitor).visitFormalParamOne(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public static class FormalParamMultiContext extends FormalParameterListContext {
+		public FormalParametersContext formalParameters() {
+			return getRuleContext(FormalParametersContext.class, 0);
+		}
+
+		public TerminalNode COMMA() {
+			return getToken(Java8Parser.COMMA, 0);
+		}
+
+		public LastFormalParameterContext lastFormalParameter() {
+			return getRuleContext(LastFormalParameterContext.class, 0);
+		}
+
+		public FormalParamMultiContext(FormalParameterListContext ctx) {
+			copyFrom(ctx);
+		}
+
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).enterFormalParamMulti(this);
+		}
+
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).exitFormalParamMulti(this);
+		}
+
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if (visitor instanceof Java8ParserVisitor)
+				return ((Java8ParserVisitor<? extends T>) visitor).visitFormalParamMulti(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -5575,29 +5656,32 @@ public class Java8Parser extends Parser {
 			setState(1034);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,82,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
+				case 1:
+					_localctx = new FormalParamRecvContext(_localctx);
+					enterOuterAlt(_localctx, 1);
 				{
-				setState(1028);
-				receiverParameter();
+					setState(1028);
+					receiverParameter();
 				}
 				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
+				case 2:
+					_localctx = new FormalParamMultiContext(_localctx);
+					enterOuterAlt(_localctx, 2);
 				{
-				setState(1029);
-				formalParameters();
-				setState(1030);
-				match(COMMA);
-				setState(1031);
-				lastFormalParameter();
+					setState(1029);
+					formalParameters();
+					setState(1030);
+					match(COMMA);
+					setState(1031);
+					lastFormalParameter();
 				}
 				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
+				case 3:
+					_localctx = new FormalParamOneContext(_localctx);
+					enterOuterAlt(_localctx, 3);
 				{
-				setState(1033);
-				lastFormalParameter();
+					setState(1033);
+					lastFormalParameter();
 				}
 				break;
 			}
