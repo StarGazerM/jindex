@@ -880,13 +880,25 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMethodHeader(Java8Parser.MethodHeaderContext ctx) { }
+	@Override public void enterNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMethodHeader(Java8Parser.MethodHeaderContext ctx) { }
+	@Override public void exitNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

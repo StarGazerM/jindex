@@ -732,15 +732,29 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitMethodModifier(Java8Parser.MethodModifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#methodHeader}.
+	 * Enter a parse tree produced by the {@code NormalMethodHeader}
+	 * labeled alternative in {@link Java8Parser#methodHeader}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodHeader(Java8Parser.MethodHeaderContext ctx);
+	void enterNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#methodHeader}.
+	 * Exit a parse tree produced by the {@code NormalMethodHeader}
+	 * labeled alternative in {@link Java8Parser#methodHeader}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodHeader(Java8Parser.MethodHeaderContext ctx);
+	void exitNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code GenericMethodHeader}
+	 * labeled alternative in {@link Java8Parser#methodHeader}.
+	 * @param ctx the parse tree
+	 */
+	void enterGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code GenericMethodHeader}
+	 * labeled alternative in {@link Java8Parser#methodHeader}.
+	 * @param ctx the parse tree
+	 */
+	void exitGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#result}.
 	 * @param ctx the parse tree

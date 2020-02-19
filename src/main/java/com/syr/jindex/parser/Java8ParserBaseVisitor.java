@@ -521,7 +521,14 @@ public class Java8ParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMethodHeader(Java8Parser.MethodHeaderContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

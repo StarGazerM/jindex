@@ -5272,6 +5272,17 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class MethodHeaderContext extends ParserRuleContext {
+		public MethodHeaderContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_methodHeader; }
+	 
+		public MethodHeaderContext() { }
+		public void copyFrom(MethodHeaderContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class NormalMethodHeaderContext extends MethodHeaderContext {
 		public ResultContext result() {
 			return getRuleContext(ResultContext.class,0);
 		}
@@ -5281,8 +5292,30 @@ public class Java8Parser extends Parser {
 		public Throws_Context throws_() {
 			return getRuleContext(Throws_Context.class,0);
 		}
+		public NormalMethodHeaderContext(MethodHeaderContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterNormalMethodHeader(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitNormalMethodHeader(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitNormalMethodHeader(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class GenericMethodHeaderContext extends MethodHeaderContext {
 		public TypeParametersContext typeParameters() {
 			return getRuleContext(TypeParametersContext.class,0);
+		}
+		public ResultContext result() {
+			return getRuleContext(ResultContext.class,0);
+		}
+		public MethodDeclaratorContext methodDeclarator() {
+			return getRuleContext(MethodDeclaratorContext.class,0);
 		}
 		public List<AnnotationContext> annotation() {
 			return getRuleContexts(AnnotationContext.class);
@@ -5290,21 +5323,21 @@ public class Java8Parser extends Parser {
 		public AnnotationContext annotation(int i) {
 			return getRuleContext(AnnotationContext.class,i);
 		}
-		public MethodHeaderContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
+		public Throws_Context throws_() {
+			return getRuleContext(Throws_Context.class,0);
 		}
-		@Override public int getRuleIndex() { return RULE_methodHeader; }
+		public GenericMethodHeaderContext(MethodHeaderContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMethodHeader(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterGenericMethodHeader(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMethodHeader(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitGenericMethodHeader(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMethodHeader(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitGenericMethodHeader(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -5327,6 +5360,7 @@ public class Java8Parser extends Parser {
 			case SHORT:
 			case VOID:
 			case Identifier:
+				_localctx = new NormalMethodHeaderContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(996);
@@ -5346,6 +5380,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case LT:
+				_localctx = new GenericMethodHeaderContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(1001);

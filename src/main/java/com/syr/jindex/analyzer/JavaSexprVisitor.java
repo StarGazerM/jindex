@@ -27,6 +27,8 @@
  *
  * (12) do not support try with resource
  *
+ * (13) do not support enhanced for loop
+ *
  * Yihao Sun <email>ysun67@syr.edu</email>
  * Syracuse 2020
  */
@@ -38,7 +40,7 @@ import com.syr.jindex.parser.Java8ParserBaseVisitor;
 
 public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
-//    StringBuilder sexprbuilder;
+    //    StringBuilder sexprbuilder;
 //
 //    public JavaSexprVisitor() {
 //        this.sexprbuilder = new StringBuilder("");
@@ -1069,6 +1071,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     /**
      * do-while? := (Do guard? block?)
+     *
      * @param ctx
      * @return
      */
@@ -1150,6 +1153,156 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     @Override
     public String visitFinally_(Java8Parser.Finally_Context ctx) {
         return String.format("(Finally %s)", ctx.block());
+    }
+
+    @Override
+    public String visitLabeledStatement(Java8Parser.LabeledStatementContext ctx) {
+        String labelS = ctx.Identifier().getText();
+        String stS = visit(ctx.statement());
+        return String.format("(Labeled %s %s)", labelS, stS);
+    }
+
+    /**
+     * if-then? (IfThen guard? block?)
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
+        String guardS = visit(ctx.expression());
+        String blockS = visit(ctx.statement());
+        return String.format("(IfThen %s %s)", guardS, blockS);
+    }
+
+    @Override
+    public String visitIfThenElseStatement(Java8Parser.IfThenElseStatementContext ctx) {
+        String guardS = visit(ctx.expression());
+        String ifS = visit(ctx.statementNoShortIf());
+        String elseS = visit(ctx.statement());
+        return String.format("(IfElse %s %s %s)", guardS, ifS, elseS);
+    }
+
+    @Override
+    public String visitWhileStatement(Java8Parser.WhileStatementContext ctx) {
+        String guardS = visit(ctx.expression());
+        String blockS = visit(ctx.statement());
+        return String.format("(While %s %s)", guardS, blockS);
+    }
+//
+//    @Override
+//    public String visitForStatement(Java8Parser.ForStatementContext ctx) {
+//        return super.visitForStatement(ctx);
+//    }
+
+    /**
+     * for? := (For for-init? expression? for-update? block?)
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitBasicForStatement(Java8Parser.BasicForStatementContext ctx) {
+        String initS = visit(ctx.forInit());
+        String guardS = visit(ctx.expression());
+        String updateS = visit(ctx.forUpdate());
+        String blockS = visit(ctx.expression());
+        return String.format("(For %s %s %s %s)", initS, guardS, updateS, blockS);
+    }
+
+    @Override
+    public String visitStatementExpressionList(Java8Parser.StatementExpressionListContext ctx) {
+        StringBuilder expLSB = new StringBuilder("(");
+        for (var stCtx : ctx.statementExpression()) {
+            expLSB.append(visit(stCtx));
+            expLSB.append(' ');
+        }
+        expLSB.append(')');
+        return expLSB.toString();
+    }
+
+    // some statement no short if
+
+
+    @Override
+    public String visitLabeledStatementNoShortIf(Java8Parser.LabeledStatementNoShortIfContext ctx) {
+        String labelS = ctx.Identifier().getText();
+        String stS = visit(ctx.statementNoShortIf());
+        return String.format("(Labeled %s %s)", labelS, stS);
+    }
+
+    @Override
+    public String visitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx) {
+        String guardS = visit(ctx.expression());
+        String ifS = visit(ctx.statementNoShortIf(0));
+        String elseS = visit(ctx.statementNoShortIf(1));
+        return String.format("(IfElse %s %s %s)", guardS, ifS, elseS);
+    }
+
+    @Override
+    public String visitWhileStatementNoShortIf(Java8Parser.WhileStatementNoShortIfContext ctx) {
+        String guardS = visit(ctx.expression());
+        String blockS = visit(ctx.statementNoShortIf());
+        return String.format("(While %s %s)", guardS, blockS);
+    }
+
+    /**
+     * method? := (Method (list mod?) header? body?)
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (var modCtx : ctx.methodModifier()) {
+            modSB.append(visit(modCtx));
+            modSB.append(' ');
+        }
+        modSB.append(')');
+        String headerS = visit(ctx.methodHeader());
+        String bodyS = visit(ctx.methodBody());
+        return String.format("(Method %s %s %s)", modSB.toString(), headerS, bodyS);
+    }
+
+    @Override
+    public String visitNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx) {
+        String retTS = visit(ctx.result());
+        String declS = visit(ctx.methodDeclarator());
+        String throwS = (ctx.throws_() != null) ? visit(ctx.throws_()) : "()";
+        return String.format("(%s %s %s)",  retTS, declS, throwS);
+    }
+
+    @Override
+    public String visitGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx) {
+        String genericS = visit(ctx.typeParameters());
+        String retTS = visit(ctx.result());
+        String declS = visit(ctx.methodDeclarator());
+        String throwS = (ctx.throws_() != null) ? visit(ctx.throws_()) : "()";
+        return String.format("(%s %s %s %s)", genericS, retTS, declS, throwS);
+    }
+
+    @Override
+    public String visitResult(Java8Parser.ResultContext ctx) {
+        return (ctx.unannType() != null) ? visit(ctx.unannType()) : "(void)";
+    }
+
+    /**
+     * method-decl? := (MethodDecl name args)
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx) {
+        String nameS = ctx.Identifier().getText();
+        String argsS = visit(ctx.formalParameterList());
+        // what is dim here?
+        // String dimS = visit(ctx.dims());
+        return String.format("(MethDecl %s %s)", nameS, argsS);
+    }
+
+    @Override
+    public String visitMethodBody(Java8Parser.MethodBodyContext ctx) {
+        return visit(ctx.block());
     }
 }
 

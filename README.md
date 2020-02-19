@@ -34,4 +34,8 @@ Compile Java source code into following kinds of IR, and then do analysis on the
 is handled by ANTLR4.8 using visitor pattern.
 1. scheme style s-expr. for racket AAM-style analyzer.
 
+### Progress Plan
+first of all only take care of definition of class, cause it is hardest one, now almost finish frontend, but I forget to
+label insn.....
+
 

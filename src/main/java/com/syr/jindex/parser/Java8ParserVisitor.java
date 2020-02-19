@@ -445,11 +445,19 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMethodModifier(Java8Parser.MethodModifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#methodHeader}.
+	 * Visit a parse tree produced by the {@code NormalMethodHeader}
+	 * labeled alternative in {@link Java8Parser#methodHeader}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMethodHeader(Java8Parser.MethodHeaderContext ctx);
+	T visitNormalMethodHeader(Java8Parser.NormalMethodHeaderContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GenericMethodHeader}
+	 * labeled alternative in {@link Java8Parser#methodHeader}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGenericMethodHeader(Java8Parser.GenericMethodHeaderContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#result}.
 	 * @param ctx the parse tree

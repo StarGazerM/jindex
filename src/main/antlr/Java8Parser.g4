@@ -440,8 +440,8 @@ methodModifier
 	;
 
 methodHeader
-	:	result methodDeclarator throws_?
-	|	typeParameters annotation* result methodDeclarator throws_?
+	:	result methodDeclarator throws_?                                # NormalMethodHeader
+	|	typeParameters annotation* result methodDeclarator throws_?     # GenericMethodHeader
 	;
 
 result
