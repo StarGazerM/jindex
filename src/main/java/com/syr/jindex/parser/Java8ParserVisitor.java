@@ -918,11 +918,26 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSwitchLabels(Java8Parser.SwitchLabelsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#switchLabel}.
+	 * Visit a parse tree produced by the {@code SwitchLabelConst}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSwitchLabel(Java8Parser.SwitchLabelContext ctx);
+	T visitSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SwitchLabelEnum}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SwitchLabelDefault}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#enumConstantName}.
 	 * @param ctx the parse tree
@@ -1032,11 +1047,26 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSynchronizedStatement(Java8Parser.SynchronizedStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#tryStatement}.
+	 * Visit a parse tree produced by the {@code TryCatchStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTryStatement(Java8Parser.TryStatementContext ctx);
+	T visitTryCatchStatement(Java8Parser.TryCatchStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TryCatchFinalStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTryCatchFinalStatement(Java8Parser.TryCatchFinalStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TryResourceStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTryResourceStatement(Java8Parser.TryResourceStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#catches}.
 	 * @param ctx the parse tree

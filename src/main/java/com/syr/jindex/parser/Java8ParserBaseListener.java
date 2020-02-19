@@ -1816,13 +1816,37 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSwitchLabel(Java8Parser.SwitchLabelContext ctx) { }
+	@Override public void enterSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSwitchLabel(Java8Parser.SwitchLabelContext ctx) { }
+	@Override public void exitSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -2044,13 +2068,37 @@ public class Java8ParserBaseListener implements Java8ParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTryStatement(Java8Parser.TryStatementContext ctx) { }
+	@Override public void enterTryCatchStatement(Java8Parser.TryCatchStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTryStatement(Java8Parser.TryStatementContext ctx) { }
+	@Override public void exitTryCatchStatement(Java8Parser.TryCatchStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTryCatchFinalStatement(Java8Parser.TryCatchFinalStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTryCatchFinalStatement(Java8Parser.TryCatchFinalStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTryResourceStatement(Java8Parser.TryResourceStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTryResourceStatement(Java8Parser.TryResourceStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1522,15 +1522,41 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitSwitchLabels(Java8Parser.SwitchLabelsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#switchLabel}.
+	 * Enter a parse tree produced by the {@code SwitchLabelConst}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
 	 * @param ctx the parse tree
 	 */
-	void enterSwitchLabel(Java8Parser.SwitchLabelContext ctx);
+	void enterSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#switchLabel}.
+	 * Exit a parse tree produced by the {@code SwitchLabelConst}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
 	 * @param ctx the parse tree
 	 */
-	void exitSwitchLabel(Java8Parser.SwitchLabelContext ctx);
+	void exitSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SwitchLabelEnum}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
+	 * @param ctx the parse tree
+	 */
+	void enterSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SwitchLabelEnum}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
+	 * @param ctx the parse tree
+	 */
+	void exitSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SwitchLabelDefault}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
+	 * @param ctx the parse tree
+	 */
+	void enterSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SwitchLabelDefault}
+	 * labeled alternative in {@link Java8Parser#switchLabel}.
+	 * @param ctx the parse tree
+	 */
+	void exitSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#enumConstantName}.
 	 * @param ctx the parse tree
@@ -1712,15 +1738,41 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitSynchronizedStatement(Java8Parser.SynchronizedStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#tryStatement}.
+	 * Enter a parse tree produced by the {@code TryCatchStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterTryStatement(Java8Parser.TryStatementContext ctx);
+	void enterTryCatchStatement(Java8Parser.TryCatchStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#tryStatement}.
+	 * Exit a parse tree produced by the {@code TryCatchStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitTryStatement(Java8Parser.TryStatementContext ctx);
+	void exitTryCatchStatement(Java8Parser.TryCatchStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TryCatchFinalStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterTryCatchFinalStatement(Java8Parser.TryCatchFinalStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TryCatchFinalStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitTryCatchFinalStatement(Java8Parser.TryCatchFinalStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TryResourceStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterTryResourceStatement(Java8Parser.TryResourceStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TryResourceStatement}
+	 * labeled alternative in {@link Java8Parser#tryStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitTryResourceStatement(Java8Parser.TryResourceStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#catches}.
 	 * @param ctx the parse tree

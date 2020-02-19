@@ -10867,30 +10867,73 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class SwitchLabelContext extends ParserRuleContext {
+		public SwitchLabelContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_switchLabel; }
+	 
+		public SwitchLabelContext() { }
+		public void copyFrom(SwitchLabelContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SwitchLabelEnumContext extends SwitchLabelContext {
+		public TerminalNode CASE() { return getToken(Java8Parser.CASE, 0); }
+		public EnumConstantNameContext enumConstantName() {
+			return getRuleContext(EnumConstantNameContext.class,0);
+		}
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
+		public SwitchLabelEnumContext(SwitchLabelContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterSwitchLabelEnum(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitSwitchLabelEnum(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitSwitchLabelEnum(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SwitchLabelConstContext extends SwitchLabelContext {
 		public TerminalNode CASE() { return getToken(Java8Parser.CASE, 0); }
 		public ConstantExpressionContext constantExpression() {
 			return getRuleContext(ConstantExpressionContext.class,0);
 		}
 		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
-		public EnumConstantNameContext enumConstantName() {
-			return getRuleContext(EnumConstantNameContext.class,0);
-		}
-		public TerminalNode DEFAULT() { return getToken(Java8Parser.DEFAULT, 0); }
-		public SwitchLabelContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_switchLabel; }
+		public SwitchLabelConstContext(SwitchLabelContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterSwitchLabel(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterSwitchLabelConst(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitSwitchLabel(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitSwitchLabelConst(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitSwitchLabel(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitSwitchLabelConst(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SwitchLabelDefaultContext extends SwitchLabelContext {
+		public TerminalNode DEFAULT() { return getToken(Java8Parser.DEFAULT, 0); }
+		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
+		public SwitchLabelDefaultContext(SwitchLabelContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterSwitchLabelDefault(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitSwitchLabelDefault(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitSwitchLabelDefault(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -10903,6 +10946,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,163,_ctx) ) {
 			case 1:
+				_localctx = new SwitchLabelConstContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(1620);
@@ -10914,6 +10958,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new SwitchLabelEnumContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(1624);
@@ -10925,6 +10970,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new SwitchLabelDefaultContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(1628);
@@ -12128,6 +12174,36 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class TryStatementContext extends ParserRuleContext {
+		public TryStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_tryStatement; }
+	 
+		public TryStatementContext() { }
+		public void copyFrom(TryStatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class TryResourceStatementContext extends TryStatementContext {
+		public TryWithResourcesStatementContext tryWithResourcesStatement() {
+			return getRuleContext(TryWithResourcesStatementContext.class,0);
+		}
+		public TryResourceStatementContext(TryStatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterTryResourceStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitTryResourceStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitTryResourceStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TryCatchStatementContext extends TryStatementContext {
 		public TerminalNode TRY() { return getToken(Java8Parser.TRY, 0); }
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
@@ -12135,27 +12211,44 @@ public class Java8Parser extends Parser {
 		public CatchesContext catches() {
 			return getRuleContext(CatchesContext.class,0);
 		}
-		public Finally_Context finally_() {
-			return getRuleContext(Finally_Context.class,0);
-		}
-		public TryWithResourcesStatementContext tryWithResourcesStatement() {
-			return getRuleContext(TryWithResourcesStatementContext.class,0);
-		}
-		public TryStatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_tryStatement; }
+		public TryCatchStatementContext(TryStatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterTryStatement(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterTryCatchStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitTryStatement(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitTryCatchStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitTryStatement(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitTryCatchStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TryCatchFinalStatementContext extends TryStatementContext {
+		public TerminalNode TRY() { return getToken(Java8Parser.TRY, 0); }
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public Finally_Context finally_() {
+			return getRuleContext(Finally_Context.class,0);
+		}
+		public CatchesContext catches() {
+			return getRuleContext(CatchesContext.class,0);
+		}
+		public TryCatchFinalStatementContext(TryStatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterTryCatchFinalStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitTryCatchFinalStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitTryCatchFinalStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -12169,6 +12262,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,180,_ctx) ) {
 			case 1:
+				_localctx = new TryCatchStatementContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(1766);
@@ -12180,6 +12274,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new TryCatchFinalStatementContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(1770);
@@ -12201,6 +12296,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new TryResourceStatementContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(1777);

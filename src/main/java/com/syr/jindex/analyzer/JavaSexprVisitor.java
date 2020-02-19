@@ -19,6 +19,14 @@
  *
  * (8) don't support specialized method call
  *
+ * (9) don't support enum for now
+ *
+ * (10) only support simple "continue;" "break;"
+ *
+ * (11) don not support sychonize semantic
+ *
+ * (12) do not support try with resource
+ *
  * Yihao Sun <email>ysun67@syr.edu</email>
  * Syracuse 2020
  */
@@ -35,6 +43,11 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 //    public JavaSexprVisitor() {
 //        this.sexprbuilder = new StringBuilder("");
 //    }
+    int lineCounter;
+
+    public JavaSexprVisitor() {
+        lineCounter = 0;
+    }
 
     /***
      * compilation-unit? := `((? pkg?) (? list/c import?) (? type?))
@@ -746,6 +759,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     /**
      * cast? := (Cast type? expr?)
      * assume no additional bound
+     *
      * @param ctx
      * @return
      */
@@ -830,6 +844,15 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     @Override
     public String visitClassInstanceCreationExpression_lfno_primary(
             Java8Parser.ClassInstanceCreationExpression_lfno_primaryContext ctx) {
+        String nameS = ctx.Identifier(0).getText();
+        String typeArgS = (ctx.typeArgumentsOrDiamond() != null) ? visit(ctx.typeArgumentsOrDiamond()) : "()";
+        String argS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
+        String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
+        return String.format("(New %s %s %s %s)", nameS, typeArgS, argS, classBody);
+    }
+
+    @Override
+    public String visitClassInstanceCreationExpression(Java8Parser.ClassInstanceCreationExpressionContext ctx) {
         String nameS = ctx.Identifier(0).getText();
         String typeArgS = (ctx.typeArgumentsOrDiamond() != null) ? visit(ctx.typeArgumentsOrDiamond()) : "()";
         String argS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
@@ -942,7 +965,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.typeName());
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s %s)", typeS ,nameS ,argsS);
+        return String.format("(MethodInvoc %s %s %s)", typeS, nameS, argsS);
     }
 
     @Override
@@ -950,7 +973,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.expressionName());
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s %s)", typeS ,nameS ,argsS);
+        return String.format("(MethodInvoc %s %s %s)", typeS, nameS, argsS);
     }
 
     @Override
@@ -958,14 +981,14 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.primary());
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s %s)", typeS ,nameS ,argsS);
+        return String.format("(MethodInvoc %s %s %s)", typeS, nameS, argsS);
     }
 
     @Override
     public String visitSuperMethodInvoc(Java8Parser.SuperMethodInvocContext ctx) {
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc Super %s %s)",nameS ,argsS);
+        return String.format("(MethodInvoc Super %s %s)", nameS, argsS);
     }
 
     @Override
@@ -978,7 +1001,155 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitAssertTwoStatement(Java8Parser.AssertTwoStatementContext ctx) {
         String exprS1 = visit(ctx.expression(0));
         String exprS2 = visit(ctx.expression(1));
-        return String.format("(Assert %s)", exprS1);
+        return String.format("(Assert %s %s)", exprS1, exprS2);
+    }
+
+    /**
+     * switch? := (Switch cond? (list case?))
+     *
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitSwitchStatement(Java8Parser.SwitchStatementContext ctx) {
+        String guardS = visit(ctx.expression());
+        String blockS = visit(ctx.switchBlock());
+        return String.format("(Switch %s %s)", guardS, blockS);
+    }
+
+    // only take care of useful label
+    @Override
+    public String visitSwitchBlock(Java8Parser.SwitchBlockContext ctx) {
+        StringBuilder swSB = new StringBuilder("(");
+        for (var sbCtx : ctx.switchBlockStatementGroup()) {
+            swSB.append(visit(sbCtx));
+            swSB.append('\n');
+        }
+        swSB.append(")\n");
+        return swSB.toString();
+    }
+
+    @Override
+    public String visitSwitchBlockStatementGroup(Java8Parser.SwitchBlockStatementGroupContext ctx) {
+        String labelS = visit(ctx.switchLabels());
+        String statementsS = visit(ctx.blockStatements());
+        return String.format("(%s %s)", labelS, statementsS);
+    }
+
+    @Override
+    public String visitSwitchLabels(Java8Parser.SwitchLabelsContext ctx) {
+        StringBuilder labelSB = new StringBuilder("(");
+        for (var lCtx : ctx.switchLabel()) {
+            labelSB.append(visit(lCtx));
+            labelSB.append(' ');
+        }
+        labelSB.append(')');
+        return labelSB.toString();
+    }
+
+    @Override
+    public String visitSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx) {
+        return String.format("(Case %s)", visit(ctx.constantExpression()));
+    }
+
+    @Override
+    public String visitSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx) {
+        return "(Default)";
+    }
+
+    @Override
+    public String visitSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx) {
+        return String.format("(Case %s)", visit(ctx.enumConstantName()));
+    }
+
+    @Override
+    public String visitEnumConstantName(Java8Parser.EnumConstantNameContext ctx) {
+        return ctx.Identifier().getText();
+    }
+
+    /**
+     * do-while? := (Do guard? block?)
+     * @param ctx
+     * @return
+     */
+    @Override
+    public String visitDoStatement(Java8Parser.DoStatementContext ctx) {
+        String guardS = visit(ctx.expression());
+        String blockS = visit(ctx.statement());
+        return String.format("(Do %s %s)", guardS, blockS);
+    }
+
+    @Override
+    public String visitBreakStatement(Java8Parser.BreakStatementContext ctx) {
+        return "Break";
+    }
+
+    @Override
+    public String visitContinueStatement(Java8Parser.ContinueStatementContext ctx) {
+        return "Continue";
+    }
+
+    @Override
+    public String visitReturnStatement(Java8Parser.ReturnStatementContext ctx) {
+        return String.format("(Return %s)", visit(ctx.expression()));
+    }
+
+    // TODO: synchronizedStatement
+
+    @Override
+    public String visitThrowStatement(Java8Parser.ThrowStatementContext ctx) {
+        return String.format("(Throw %s)", visit(ctx.expression()));
+    }
+
+    @Override
+    public String visitTryCatchStatement(Java8Parser.TryCatchStatementContext ctx) {
+        String blockS = visit(ctx.block());
+        String catchS = visit(ctx.catches());
+        return String.format("(Try %s %s)", blockS, catchS);
+    }
+
+    @Override
+    public String visitTryCatchFinalStatement(Java8Parser.TryCatchFinalStatementContext ctx) {
+        String blockS = visit(ctx.block());
+        String catchS = visit(ctx.catches());
+        String finalS = visit(ctx.finally_());
+        return String.format("(Try %s %s %s)", blockS, catchS, finalS);
+    }
+
+    @Override
+    public String visitCatches(Java8Parser.CatchesContext ctx) {
+        StringBuilder catchSB = new StringBuilder("(");
+        for (var catCtx : ctx.catchClause()) {
+            catchSB.append(visit(catCtx));
+            catchSB.append(' ');
+        }
+        catchSB.append(')');
+        return catchSB.toString();
+    }
+
+    @Override
+    public String visitCatchClause(Java8Parser.CatchClauseContext ctx) {
+        String argS = visit(ctx.catchFormalParameter());
+        String blockS = visit(ctx.block());
+        return String.format("(Catch %s %s)", argS, blockS);
+    }
+
+    @Override
+    public String visitCatchFormalParameter(Java8Parser.CatchFormalParameterContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (var modCtx : ctx.variableModifier()) {
+            modSB.append(visit(modCtx));
+            modSB.append(' ');
+        }
+        modSB.append(')');
+        String typeS = visit(ctx.catchType());
+        String name = visit(ctx.variableDeclaratorId());
+        return String.format("(Arg %s %s %s)", modSB.toString(), typeS, name);
+    }
+
+    @Override
+    public String visitFinally_(Java8Parser.Finally_Context ctx) {
+        return String.format("(Finally %s)", ctx.block());
     }
 }
 

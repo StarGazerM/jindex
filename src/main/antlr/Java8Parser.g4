@@ -825,9 +825,9 @@ switchLabels
 	;
 
 switchLabel
-	:	'case' constantExpression ':'
-	|	'case' enumConstantName ':'
-	|	'default' ':'
+	:	'case' constantExpression ':'                       # SwitchLabelConst
+	|	'case' enumConstantName ':'                         # SwitchLabelEnum
+	|	'default' ':'                                       # SwitchLabelDefault
 	;
 
 enumConstantName
@@ -906,9 +906,9 @@ synchronizedStatement
 	;
 
 tryStatement
-	:	'try' block catches
-	|	'try' block catches? finally_
-	|	tryWithResourcesStatement
+	:	'try' block catches                         # TryCatchStatement
+	|	'try' block catches? finally_               # TryCatchFinalStatement
+	|	tryWithResourcesStatement                   # TryResourceStatement
 	;
 
 catches
