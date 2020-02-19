@@ -1,18 +1,13 @@
 // Generated from /home/stargazermiao/workspace/PL/CSE687/jindex/src/main/antlr/Java8Parser.g4 by ANTLR 4.8
 package com.syr.jindex.parser;
-
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.misc.Utils;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class Java8Parser extends Parser {
@@ -5536,7 +5531,8 @@ public class Java8Parser extends Parser {
 			_localctx.exception = re;
 			_errHandler.reportError(this, re);
 			_errHandler.recover(this, re);
-		} finally {
+		}
+		finally {
 			exitRule();
 		}
 		return _localctx;
@@ -5546,105 +5542,71 @@ public class Java8Parser extends Parser {
 		public FormalParameterListContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-
-		@Override
-		public int getRuleIndex() {
-			return RULE_formalParameterList;
-		}
-
-		public FormalParameterListContext() {
-		}
-
+		@Override public int getRuleIndex() { return RULE_formalParameterList; }
+	 
+		public FormalParameterListContext() { }
 		public void copyFrom(FormalParameterListContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
-
 	public static class FormalParamRecvContext extends FormalParameterListContext {
 		public ReceiverParameterContext receiverParameter() {
-			return getRuleContext(ReceiverParameterContext.class, 0);
+			return getRuleContext(ReceiverParameterContext.class,0);
 		}
-
-		public FormalParamRecvContext(FormalParameterListContext ctx) {
-			copyFrom(ctx);
-		}
-
+		public FormalParamRecvContext(FormalParameterListContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).enterFormalParamRecv(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterFormalParamRecv(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).exitFormalParamRecv(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitFormalParamRecv(this);
 		}
-
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if (visitor instanceof Java8ParserVisitor)
-				return ((Java8ParserVisitor<? extends T>) visitor).visitFormalParamRecv(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitFormalParamRecv(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-
 	public static class FormalParamOneContext extends FormalParameterListContext {
 		public LastFormalParameterContext lastFormalParameter() {
-			return getRuleContext(LastFormalParameterContext.class, 0);
+			return getRuleContext(LastFormalParameterContext.class,0);
 		}
-
-		public FormalParamOneContext(FormalParameterListContext ctx) {
-			copyFrom(ctx);
-		}
-
+		public FormalParamOneContext(FormalParameterListContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).enterFormalParamOne(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterFormalParamOne(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).exitFormalParamOne(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitFormalParamOne(this);
 		}
-
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if (visitor instanceof Java8ParserVisitor)
-				return ((Java8ParserVisitor<? extends T>) visitor).visitFormalParamOne(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitFormalParamOne(this);
 			else return visitor.visitChildren(this);
 		}
 	}
-
 	public static class FormalParamMultiContext extends FormalParameterListContext {
 		public FormalParametersContext formalParameters() {
-			return getRuleContext(FormalParametersContext.class, 0);
+			return getRuleContext(FormalParametersContext.class,0);
 		}
-
-		public TerminalNode COMMA() {
-			return getToken(Java8Parser.COMMA, 0);
-		}
-
+		public TerminalNode COMMA() { return getToken(Java8Parser.COMMA, 0); }
 		public LastFormalParameterContext lastFormalParameter() {
-			return getRuleContext(LastFormalParameterContext.class, 0);
+			return getRuleContext(LastFormalParameterContext.class,0);
 		}
-
-		public FormalParamMultiContext(FormalParameterListContext ctx) {
-			copyFrom(ctx);
-		}
-
+		public FormalParamMultiContext(FormalParameterListContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).enterFormalParamMulti(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterFormalParamMulti(this);
 		}
-
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if (listener instanceof Java8ParserListener) ((Java8ParserListener) listener).exitFormalParamMulti(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitFormalParamMulti(this);
 		}
-
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if (visitor instanceof Java8ParserVisitor)
-				return ((Java8ParserVisitor<? extends T>) visitor).visitFormalParamMulti(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitFormalParamMulti(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -5656,32 +5618,32 @@ public class Java8Parser extends Parser {
 			setState(1034);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,82,_ctx) ) {
-				case 1:
-					_localctx = new FormalParamRecvContext(_localctx);
-					enterOuterAlt(_localctx, 1);
+			case 1:
+				_localctx = new FormalParamRecvContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
-					setState(1028);
-					receiverParameter();
+				setState(1028);
+				receiverParameter();
 				}
 				break;
-				case 2:
-					_localctx = new FormalParamMultiContext(_localctx);
-					enterOuterAlt(_localctx, 2);
+			case 2:
+				_localctx = new FormalParamMultiContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
-					setState(1029);
-					formalParameters();
-					setState(1030);
-					match(COMMA);
-					setState(1031);
-					lastFormalParameter();
+				setState(1029);
+				formalParameters();
+				setState(1030);
+				match(COMMA);
+				setState(1031);
+				lastFormalParameter();
 				}
 				break;
-				case 3:
-					_localctx = new FormalParamOneContext(_localctx);
-					enterOuterAlt(_localctx, 3);
+			case 3:
+				_localctx = new FormalParamOneContext(_localctx);
+				enterOuterAlt(_localctx, 3);
 				{
-					setState(1033);
-					lastFormalParameter();
+				setState(1033);
+				lastFormalParameter();
 				}
 				break;
 			}
@@ -10541,6 +10503,38 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AssertStatementContext extends ParserRuleContext {
+		public AssertStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_assertStatement; }
+	 
+		public AssertStatementContext() { }
+		public void copyFrom(AssertStatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AssertOneStatementContext extends AssertStatementContext {
+		public TerminalNode ASSERT() { return getToken(Java8Parser.ASSERT, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
+		public AssertOneStatementContext(AssertStatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAssertOneStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAssertOneStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAssertOneStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AssertTwoStatementContext extends AssertStatementContext {
 		public TerminalNode ASSERT() { return getToken(Java8Parser.ASSERT, 0); }
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
@@ -10548,23 +10542,20 @@ public class Java8Parser extends Parser {
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
-		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
 		public TerminalNode COLON() { return getToken(Java8Parser.COLON, 0); }
-		public AssertStatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_assertStatement; }
+		public TerminalNode SEMI() { return getToken(Java8Parser.SEMI, 0); }
+		public AssertTwoStatementContext(AssertStatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAssertStatement(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAssertTwoStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAssertStatement(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAssertTwoStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAssertStatement(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAssertTwoStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -10577,6 +10568,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,159,_ctx) ) {
 			case 1:
+				_localctx = new AssertOneStatementContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(1577);
@@ -10588,6 +10580,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new AssertTwoStatementContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(1581);
@@ -13523,9 +13516,219 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class PrimaryNoNewArray_lfno_primaryContext extends ParserRuleContext {
+		public PrimaryNoNewArray_lfno_primaryContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_primaryNoNewArray_lfno_primary; }
+	 
+		public PrimaryNoNewArray_lfno_primaryContext() { }
+		public void copyFrom(PrimaryNoNewArray_lfno_primaryContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryMethRefContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public MethodReference_lfno_primaryContext methodReference_lfno_primary() {
+			return getRuleContext(MethodReference_lfno_primaryContext.class,0);
+		}
+		public PrimaryNoNewArray_lfno_primaryMethRefContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryMethRef(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryMethRef(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryMethRef(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryArrayContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public ArrayAccess_lfno_primaryContext arrayAccess_lfno_primary() {
+			return getRuleContext(ArrayAccess_lfno_primaryContext.class,0);
+		}
+		public PrimaryNoNewArray_lfno_primaryArrayContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryArray(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryArray(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryArray(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryFieldContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public FieldAccess_lfno_primaryContext fieldAccess_lfno_primary() {
+			return getRuleContext(FieldAccess_lfno_primaryContext.class,0);
+		}
+		public PrimaryNoNewArray_lfno_primaryFieldContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryField(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryField(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryField(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryClassSelfContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public TypeNameContext typeName() {
+			return getRuleContext(TypeNameContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public PrimaryNoNewArray_lfno_primaryClassSelfContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryClassSelf(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryClassSelf(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryClassSelf(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryArrayReflContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public UnannPrimitiveTypeContext unannPrimitiveType() {
+			return getRuleContext(UnannPrimitiveTypeContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
+		public List<TerminalNode> LBRACK() { return getTokens(Java8Parser.LBRACK); }
+		public TerminalNode LBRACK(int i) {
+			return getToken(Java8Parser.LBRACK, i);
+		}
+		public List<TerminalNode> RBRACK() { return getTokens(Java8Parser.RBRACK); }
+		public TerminalNode RBRACK(int i) {
+			return getToken(Java8Parser.RBRACK, i);
+		}
+		public PrimaryNoNewArray_lfno_primaryArrayReflContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryArrayRefl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryArrayRefl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryArrayRefl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryLitContext extends PrimaryNoNewArray_lfno_primaryContext {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
+		public PrimaryNoNewArray_lfno_primaryLitContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryLit(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryLit(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryLit(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryClassContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public ClassInstanceCreationExpression_lfno_primaryContext classInstanceCreationExpression_lfno_primary() {
+			return getRuleContext(ClassInstanceCreationExpression_lfno_primaryContext.class,0);
+		}
+		public PrimaryNoNewArray_lfno_primaryClassContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryClass(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryClass(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryClass(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primarySelfContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
+		public PrimaryNoNewArray_lfno_primarySelfContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primarySelf(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primarySelf(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primarySelf(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryVReflContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode CLASS() { return getToken(Java8Parser.CLASS, 0); }
+		public PrimaryNoNewArray_lfno_primaryVReflContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryVRefl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryVRefl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryVRefl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryParenContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public PrimaryNoNewArray_lfno_primaryParenContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryParen(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryParen(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryParen(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryReflContext extends PrimaryNoNewArray_lfno_primaryContext {
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
@@ -13539,46 +13742,37 @@ public class Java8Parser extends Parser {
 		public TerminalNode RBRACK(int i) {
 			return getToken(Java8Parser.RBRACK, i);
 		}
-		public UnannPrimitiveTypeContext unannPrimitiveType() {
-			return getRuleContext(UnannPrimitiveTypeContext.class,0);
-		}
-		public TerminalNode VOID() { return getToken(Java8Parser.VOID, 0); }
-		public TerminalNode THIS() { return getToken(Java8Parser.THIS, 0); }
-		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
-		public ClassInstanceCreationExpression_lfno_primaryContext classInstanceCreationExpression_lfno_primary() {
-			return getRuleContext(ClassInstanceCreationExpression_lfno_primaryContext.class,0);
-		}
-		public FieldAccess_lfno_primaryContext fieldAccess_lfno_primary() {
-			return getRuleContext(FieldAccess_lfno_primaryContext.class,0);
-		}
-		public ArrayAccess_lfno_primaryContext arrayAccess_lfno_primary() {
-			return getRuleContext(ArrayAccess_lfno_primaryContext.class,0);
-		}
-		public MethodInvocation_lfno_primaryContext methodInvocation_lfno_primary() {
-			return getRuleContext(MethodInvocation_lfno_primaryContext.class,0);
-		}
-		public MethodReference_lfno_primaryContext methodReference_lfno_primary() {
-			return getRuleContext(MethodReference_lfno_primaryContext.class,0);
-		}
-		public PrimaryNoNewArray_lfno_primaryContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_primaryNoNewArray_lfno_primary; }
+		public PrimaryNoNewArray_lfno_primaryReflContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primary(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryRefl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primary(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryRefl(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primary(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryRefl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PrimaryNoNewArray_lfno_primaryMethCallContext extends PrimaryNoNewArray_lfno_primaryContext {
+		public MethodInvocation_lfno_primaryContext methodInvocation_lfno_primary() {
+			return getRuleContext(MethodInvocation_lfno_primaryContext.class,0);
+		}
+		public PrimaryNoNewArray_lfno_primaryMethCallContext(PrimaryNoNewArray_lfno_primaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimaryNoNewArray_lfno_primaryMethCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimaryNoNewArray_lfno_primaryMethCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimaryNoNewArray_lfno_primaryMethCall(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -13592,6 +13786,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,199,_ctx) ) {
 			case 1:
+				_localctx = new PrimaryNoNewArray_lfno_primaryLitContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(1936);
@@ -13599,6 +13794,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new PrimaryNoNewArray_lfno_primaryReflContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(1937);
@@ -13626,6 +13822,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new PrimaryNoNewArray_lfno_primaryArrayReflContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(1948);
@@ -13653,6 +13850,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new PrimaryNoNewArray_lfno_primaryVReflContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(1959);
@@ -13664,6 +13862,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new PrimaryNoNewArray_lfno_primarySelfContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(1962);
@@ -13671,6 +13870,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new PrimaryNoNewArray_lfno_primaryClassSelfContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(1963);
@@ -13682,6 +13882,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 7:
+				_localctx = new PrimaryNoNewArray_lfno_primaryParenContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(1967);
@@ -13693,6 +13894,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 8:
+				_localctx = new PrimaryNoNewArray_lfno_primaryClassContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(1971);
@@ -13700,6 +13902,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 9:
+				_localctx = new PrimaryNoNewArray_lfno_primaryFieldContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
 				setState(1972);
@@ -13707,6 +13910,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 10:
+				_localctx = new PrimaryNoNewArray_lfno_primaryArrayContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
 				setState(1973);
@@ -13714,6 +13918,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 11:
+				_localctx = new PrimaryNoNewArray_lfno_primaryMethCallContext(_localctx);
 				enterOuterAlt(_localctx, 11);
 				{
 				setState(1974);
@@ -13721,6 +13926,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 12:
+				_localctx = new PrimaryNoNewArray_lfno_primaryMethRefContext(_localctx);
 				enterOuterAlt(_localctx, 12);
 				{
 				setState(1975);
@@ -14734,33 +14940,78 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class FieldAccessContext extends ParserRuleContext {
+		public FieldAccessContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_fieldAccess; }
+	 
+		public FieldAccessContext() { }
+		public void copyFrom(FieldAccessContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class PrimFieldAccessContext extends FieldAccessContext {
 		public PrimaryContext primary() {
 			return getRuleContext(PrimaryContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public PrimFieldAccessContext(FieldAccessContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterPrimFieldAccess(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitPrimFieldAccess(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitPrimFieldAccess(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SuperFieldAccessContext extends FieldAccessContext {
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public SuperFieldAccessContext(FieldAccessContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterSuperFieldAccess(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitSuperFieldAccess(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitSuperFieldAccess(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeSuperFieldAccessContext extends FieldAccessContext {
+		public TypeNameContext typeName() {
+			return getRuleContext(TypeNameContext.class,0);
 		}
 		public List<TerminalNode> DOT() { return getTokens(Java8Parser.DOT); }
 		public TerminalNode DOT(int i) {
 			return getToken(Java8Parser.DOT, i);
 		}
-		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
 		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
-		public TypeNameContext typeName() {
-			return getRuleContext(TypeNameContext.class,0);
-		}
-		public FieldAccessContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_fieldAccess; }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TypeSuperFieldAccessContext(FieldAccessContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterFieldAccess(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterTypeSuperFieldAccess(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitFieldAccess(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitTypeSuperFieldAccess(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitFieldAccess(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitTypeSuperFieldAccess(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -14773,6 +15024,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,240,_ctx) ) {
 			case 1:
+				_localctx = new PrimFieldAccessContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(2195);
@@ -14784,6 +15036,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new SuperFieldAccessContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(2199);
@@ -14795,6 +15048,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new TypeSuperFieldAccessContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(2202);
@@ -15270,6 +15524,17 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class MethodInvocationContext extends ParserRuleContext {
+		public MethodInvocationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_methodInvocation; }
+	 
+		public MethodInvocationContext() { }
+		public void copyFrom(MethodInvocationContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ImplicitMethodInvocContext extends MethodInvocationContext {
 		public MethodNameContext methodName() {
 			return getRuleContext(MethodNameContext.class,0);
 		}
@@ -15278,6 +15543,49 @@ public class Java8Parser extends Parser {
 		public ArgumentListContext argumentList() {
 			return getRuleContext(ArgumentListContext.class,0);
 		}
+		public ImplicitMethodInvocContext(MethodInvocationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterImplicitMethodInvoc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitImplicitMethodInvoc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitImplicitMethodInvoc(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SuperMethodInvocContext extends MethodInvocationContext {
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TypeArgumentsContext typeArguments() {
+			return getRuleContext(TypeArgumentsContext.class,0);
+		}
+		public ArgumentListContext argumentList() {
+			return getRuleContext(ArgumentListContext.class,0);
+		}
+		public SuperMethodInvocContext(MethodInvocationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterSuperMethodInvoc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitSuperMethodInvoc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitSuperMethodInvoc(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TypeSuperMethodInvocContext extends MethodInvocationContext {
 		public TypeNameContext typeName() {
 			return getRuleContext(TypeNameContext.class,0);
 		}
@@ -15285,32 +15593,115 @@ public class Java8Parser extends Parser {
 		public TerminalNode DOT(int i) {
 			return getToken(Java8Parser.DOT, i);
 		}
+		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
 		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public TypeArgumentsContext typeArguments() {
 			return getRuleContext(TypeArgumentsContext.class,0);
 		}
-		public ExpressionNameContext expressionName() {
-			return getRuleContext(ExpressionNameContext.class,0);
+		public ArgumentListContext argumentList() {
+			return getRuleContext(ArgumentListContext.class,0);
 		}
-		public PrimaryContext primary() {
-			return getRuleContext(PrimaryContext.class,0);
-		}
-		public TerminalNode SUPER() { return getToken(Java8Parser.SUPER, 0); }
-		public MethodInvocationContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_methodInvocation; }
+		public TypeSuperMethodInvocContext(MethodInvocationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMethodInvocation(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterTypeSuperMethodInvoc(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMethodInvocation(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitTypeSuperMethodInvoc(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMethodInvocation(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitTypeSuperMethodInvoc(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ExprMethodInvocContext extends MethodInvocationContext {
+		public ExpressionNameContext expressionName() {
+			return getRuleContext(ExpressionNameContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TypeArgumentsContext typeArguments() {
+			return getRuleContext(TypeArgumentsContext.class,0);
+		}
+		public ArgumentListContext argumentList() {
+			return getRuleContext(ArgumentListContext.class,0);
+		}
+		public ExprMethodInvocContext(MethodInvocationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterExprMethodInvoc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitExprMethodInvoc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitExprMethodInvoc(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StaticMethodInvocContext extends MethodInvocationContext {
+		public TypeNameContext typeName() {
+			return getRuleContext(TypeNameContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TypeArgumentsContext typeArguments() {
+			return getRuleContext(TypeArgumentsContext.class,0);
+		}
+		public ArgumentListContext argumentList() {
+			return getRuleContext(ArgumentListContext.class,0);
+		}
+		public StaticMethodInvocContext(MethodInvocationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterStaticMethodInvoc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitStaticMethodInvoc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitStaticMethodInvoc(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MemberMethodInvocContext extends MethodInvocationContext {
+		public PrimaryContext primary() {
+			return getRuleContext(PrimaryContext.class,0);
+		}
+		public TerminalNode DOT() { return getToken(Java8Parser.DOT, 0); }
+		public TerminalNode Identifier() { return getToken(Java8Parser.Identifier, 0); }
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public TypeArgumentsContext typeArguments() {
+			return getRuleContext(TypeArgumentsContext.class,0);
+		}
+		public ArgumentListContext argumentList() {
+			return getRuleContext(ArgumentListContext.class,0);
+		}
+		public MemberMethodInvocContext(MethodInvocationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMemberMethodInvoc(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMemberMethodInvoc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMemberMethodInvoc(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -15324,6 +15715,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,258,_ctx) ) {
 			case 1:
+				_localctx = new ImplicitMethodInvocContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(2283);
@@ -15345,6 +15737,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new StaticMethodInvocContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(2290);
@@ -15380,6 +15773,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new ExprMethodInvocContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(2302);
@@ -15415,6 +15809,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new MemberMethodInvocContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(2314);
@@ -15450,6 +15845,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new SuperMethodInvocContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(2326);
@@ -15485,6 +15881,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new TypeSuperMethodInvocContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(2337);
@@ -17265,6 +17662,36 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ConditionalExpressionContext extends ParserRuleContext {
+		public ConditionalExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_conditionalExpression; }
+	 
+		public ConditionalExpressionContext() { }
+		public void copyFrom(ConditionalExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class CondOrExprContext extends ConditionalExpressionContext {
+		public ConditionalOrExpressionContext conditionalOrExpression() {
+			return getRuleContext(ConditionalOrExpressionContext.class,0);
+		}
+		public CondOrExprContext(ConditionalExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterCondOrExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitCondOrExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitCondOrExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CondOrExprHummOpContext extends ConditionalExpressionContext {
 		public ConditionalOrExpressionContext conditionalOrExpression() {
 			return getRuleContext(ConditionalOrExpressionContext.class,0);
 		}
@@ -17276,21 +17703,18 @@ public class Java8Parser extends Parser {
 		public ConditionalExpressionContext conditionalExpression() {
 			return getRuleContext(ConditionalExpressionContext.class,0);
 		}
-		public ConditionalExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_conditionalExpression; }
+		public CondOrExprHummOpContext(ConditionalExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterConditionalExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterCondOrExprHummOp(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitConditionalExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitCondOrExprHummOp(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitConditionalExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitCondOrExprHummOp(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -17303,6 +17727,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,298,_ctx) ) {
 			case 1:
+				_localctx = new CondOrExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(2617);
@@ -17310,6 +17735,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new CondOrExprHummOpContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(2618);
@@ -17758,29 +18184,78 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class EqualityExpressionContext extends ParserRuleContext {
-		public RelationalExpressionContext relationalExpression() {
-			return getRuleContext(RelationalExpressionContext.class,0);
-		}
-		public EqualityExpressionContext equalityExpression() {
-			return getRuleContext(EqualityExpressionContext.class,0);
-		}
-		public TerminalNode EQUAL() { return getToken(Java8Parser.EQUAL, 0); }
-		public TerminalNode NOTEQUAL() { return getToken(Java8Parser.NOTEQUAL, 0); }
 		public EqualityExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_equalityExpression; }
+	 
+		public EqualityExpressionContext() { }
+		public void copyFrom(EqualityExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class EqRelExprContext extends EqualityExpressionContext {
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public EqRelExprContext(EqualityExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterEqualityExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterEqRelExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitEqualityExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitEqRelExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitEqualityExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitEqRelExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EqEqExprContext extends EqualityExpressionContext {
+		public EqualityExpressionContext equalityExpression() {
+			return getRuleContext(EqualityExpressionContext.class,0);
+		}
+		public TerminalNode EQUAL() { return getToken(Java8Parser.EQUAL, 0); }
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public EqEqExprContext(EqualityExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterEqEqExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitEqEqExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitEqEqExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EqNotEqExprContext extends EqualityExpressionContext {
+		public EqualityExpressionContext equalityExpression() {
+			return getRuleContext(EqualityExpressionContext.class,0);
+		}
+		public TerminalNode NOTEQUAL() { return getToken(Java8Parser.NOTEQUAL, 0); }
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public EqNotEqExprContext(EqualityExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterEqNotEqExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitEqNotEqExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitEqNotEqExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -17801,6 +18276,10 @@ public class Java8Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new EqRelExprContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(2682);
 			relationalExpression(0);
 			}
@@ -17818,7 +18297,7 @@ public class Java8Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,304,_ctx) ) {
 					case 1:
 						{
-						_localctx = new EqualityExpressionContext(_parentctx, _parentState);
+						_localctx = new EqEqExprContext(new EqualityExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_equalityExpression);
 						setState(2684);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -17830,7 +18309,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new EqualityExpressionContext(_parentctx, _parentState);
+						_localctx = new EqNotEqExprContext(new EqualityExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_equalityExpression);
 						setState(2687);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -17861,35 +18340,147 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class RelationalExpressionContext extends ParserRuleContext {
-		public ShiftExpressionContext shiftExpression() {
-			return getRuleContext(ShiftExpressionContext.class,0);
-		}
-		public RelationalExpressionContext relationalExpression() {
-			return getRuleContext(RelationalExpressionContext.class,0);
-		}
-		public TerminalNode LT() { return getToken(Java8Parser.LT, 0); }
-		public TerminalNode GT() { return getToken(Java8Parser.GT, 0); }
-		public TerminalNode LE() { return getToken(Java8Parser.LE, 0); }
-		public TerminalNode GE() { return getToken(Java8Parser.GE, 0); }
-		public TerminalNode INSTANCEOF() { return getToken(Java8Parser.INSTANCEOF, 0); }
-		public ReferenceTypeContext referenceType() {
-			return getRuleContext(ReferenceTypeContext.class,0);
-		}
 		public RelationalExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_relationalExpression; }
+	 
+		public RelationalExpressionContext() { }
+		public void copyFrom(RelationalExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class RelLtExprContext extends RelationalExpressionContext {
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public TerminalNode LT() { return getToken(Java8Parser.LT, 0); }
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
+		public RelLtExprContext(RelationalExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelationalExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelLtExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelationalExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelLtExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelationalExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelLtExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class RelLeExprContext extends RelationalExpressionContext {
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public TerminalNode LE() { return getToken(Java8Parser.LE, 0); }
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
+		public RelLeExprContext(RelationalExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelLeExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelLeExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelLeExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class RelGtExprContext extends RelationalExpressionContext {
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public TerminalNode GT() { return getToken(Java8Parser.GT, 0); }
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
+		public RelGtExprContext(RelationalExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelGtExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelGtExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelGtExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class RelGeExprContext extends RelationalExpressionContext {
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public TerminalNode GE() { return getToken(Java8Parser.GE, 0); }
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
+		public RelGeExprContext(RelationalExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelGeExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelGeExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelGeExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class RelShiftExprContext extends RelationalExpressionContext {
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
+		public RelShiftExprContext(RelationalExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelShiftExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelShiftExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelShiftExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class RelInstExprContext extends RelationalExpressionContext {
+		public RelationalExpressionContext relationalExpression() {
+			return getRuleContext(RelationalExpressionContext.class,0);
+		}
+		public TerminalNode INSTANCEOF() { return getToken(Java8Parser.INSTANCEOF, 0); }
+		public ReferenceTypeContext referenceType() {
+			return getRuleContext(ReferenceTypeContext.class,0);
+		}
+		public RelInstExprContext(RelationalExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterRelInstExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitRelInstExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitRelInstExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -17910,6 +18501,10 @@ public class Java8Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new RelShiftExprContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(2696);
 			shiftExpression(0);
 			}
@@ -17927,7 +18522,7 @@ public class Java8Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,306,_ctx) ) {
 					case 1:
 						{
-						_localctx = new RelationalExpressionContext(_parentctx, _parentState);
+						_localctx = new RelLtExprContext(new RelationalExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_relationalExpression);
 						setState(2698);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -17939,7 +18534,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new RelationalExpressionContext(_parentctx, _parentState);
+						_localctx = new RelGtExprContext(new RelationalExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_relationalExpression);
 						setState(2701);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -17951,7 +18546,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new RelationalExpressionContext(_parentctx, _parentState);
+						_localctx = new RelLeExprContext(new RelationalExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_relationalExpression);
 						setState(2704);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -17963,7 +18558,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 4:
 						{
-						_localctx = new RelationalExpressionContext(_parentctx, _parentState);
+						_localctx = new RelGeExprContext(new RelationalExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_relationalExpression);
 						setState(2707);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -17975,7 +18570,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 5:
 						{
-						_localctx = new RelationalExpressionContext(_parentctx, _parentState);
+						_localctx = new RelInstExprContext(new RelationalExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_relationalExpression);
 						setState(2710);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -18006,9 +18601,43 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class ShiftExpressionContext extends ParserRuleContext {
+		public ShiftExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_shiftExpression; }
+	 
+		public ShiftExpressionContext() { }
+		public void copyFrom(ShiftExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ShiftRightExprContext extends ShiftExpressionContext {
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
+		public List<TerminalNode> GT() { return getTokens(Java8Parser.GT); }
+		public TerminalNode GT(int i) {
+			return getToken(Java8Parser.GT, i);
+		}
 		public AdditiveExpressionContext additiveExpression() {
 			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
+		public ShiftRightExprContext(ShiftExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterShiftRightExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitShiftRightExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitShiftRightExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ShiftLeftExprContext extends ShiftExpressionContext {
 		public ShiftExpressionContext shiftExpression() {
 			return getRuleContext(ShiftExpressionContext.class,0);
 		}
@@ -18016,25 +18645,66 @@ public class Java8Parser extends Parser {
 		public TerminalNode LT(int i) {
 			return getToken(Java8Parser.LT, i);
 		}
+		public AdditiveExpressionContext additiveExpression() {
+			return getRuleContext(AdditiveExpressionContext.class,0);
+		}
+		public ShiftLeftExprContext(ShiftExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterShiftLeftExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitShiftLeftExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitShiftLeftExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ShiftUnsignLeftExprContext extends ShiftExpressionContext {
+		public ShiftExpressionContext shiftExpression() {
+			return getRuleContext(ShiftExpressionContext.class,0);
+		}
 		public List<TerminalNode> GT() { return getTokens(Java8Parser.GT); }
 		public TerminalNode GT(int i) {
 			return getToken(Java8Parser.GT, i);
 		}
-		public ShiftExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
+		public AdditiveExpressionContext additiveExpression() {
+			return getRuleContext(AdditiveExpressionContext.class,0);
 		}
-		@Override public int getRuleIndex() { return RULE_shiftExpression; }
+		public ShiftUnsignLeftExprContext(ShiftExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterShiftExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterShiftUnsignLeftExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitShiftExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitShiftUnsignLeftExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitShiftExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitShiftUnsignLeftExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ShiftAddExprContext extends ShiftExpressionContext {
+		public AdditiveExpressionContext additiveExpression() {
+			return getRuleContext(AdditiveExpressionContext.class,0);
+		}
+		public ShiftAddExprContext(ShiftExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterShiftAddExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitShiftAddExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitShiftAddExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -18055,6 +18725,10 @@ public class Java8Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new ShiftAddExprContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(2719);
 			additiveExpression(0);
 			}
@@ -18072,7 +18746,7 @@ public class Java8Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,308,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ShiftExpressionContext(_parentctx, _parentState);
+						_localctx = new ShiftLeftExprContext(new ShiftExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_shiftExpression);
 						setState(2721);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -18086,7 +18760,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new ShiftExpressionContext(_parentctx, _parentState);
+						_localctx = new ShiftRightExprContext(new ShiftExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_shiftExpression);
 						setState(2725);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -18100,7 +18774,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new ShiftExpressionContext(_parentctx, _parentState);
+						_localctx = new ShiftUnsignLeftExprContext(new ShiftExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_shiftExpression);
 						setState(2729);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -18135,29 +18809,78 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class AdditiveExpressionContext extends ParserRuleContext {
-		public MultiplicativeExpressionContext multiplicativeExpression() {
-			return getRuleContext(MultiplicativeExpressionContext.class,0);
-		}
-		public AdditiveExpressionContext additiveExpression() {
-			return getRuleContext(AdditiveExpressionContext.class,0);
-		}
-		public TerminalNode ADD() { return getToken(Java8Parser.ADD, 0); }
-		public TerminalNode SUB() { return getToken(Java8Parser.SUB, 0); }
 		public AdditiveExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_additiveExpression; }
+	 
+		public AdditiveExpressionContext() { }
+		public void copyFrom(AdditiveExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AddAddExprContext extends AdditiveExpressionContext {
+		public AdditiveExpressionContext additiveExpression() {
+			return getRuleContext(AdditiveExpressionContext.class,0);
+		}
+		public TerminalNode ADD() { return getToken(Java8Parser.ADD, 0); }
+		public MultiplicativeExpressionContext multiplicativeExpression() {
+			return getRuleContext(MultiplicativeExpressionContext.class,0);
+		}
+		public AddAddExprContext(AdditiveExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAdditiveExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAddAddExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAdditiveExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAddAddExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAdditiveExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAddAddExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AddMultExprContext extends AdditiveExpressionContext {
+		public MultiplicativeExpressionContext multiplicativeExpression() {
+			return getRuleContext(MultiplicativeExpressionContext.class,0);
+		}
+		public AddMultExprContext(AdditiveExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAddMultExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAddMultExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAddMultExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AddSubExprContext extends AdditiveExpressionContext {
+		public AdditiveExpressionContext additiveExpression() {
+			return getRuleContext(AdditiveExpressionContext.class,0);
+		}
+		public TerminalNode SUB() { return getToken(Java8Parser.SUB, 0); }
+		public MultiplicativeExpressionContext multiplicativeExpression() {
+			return getRuleContext(MultiplicativeExpressionContext.class,0);
+		}
+		public AddSubExprContext(AdditiveExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterAddSubExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitAddSubExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitAddSubExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -18178,6 +18901,10 @@ public class Java8Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new AddMultExprContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(2740);
 			multiplicativeExpression(0);
 			}
@@ -18195,7 +18922,7 @@ public class Java8Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,310,_ctx) ) {
 					case 1:
 						{
-						_localctx = new AdditiveExpressionContext(_parentctx, _parentState);
+						_localctx = new AddAddExprContext(new AdditiveExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_additiveExpression);
 						setState(2742);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -18207,7 +18934,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new AdditiveExpressionContext(_parentctx, _parentState);
+						_localctx = new AddSubExprContext(new AdditiveExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_additiveExpression);
 						setState(2745);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -18238,30 +18965,101 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class MultiplicativeExpressionContext extends ParserRuleContext {
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public MultiplicativeExpressionContext multiplicativeExpression() {
-			return getRuleContext(MultiplicativeExpressionContext.class,0);
-		}
-		public TerminalNode MUL() { return getToken(Java8Parser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(Java8Parser.DIV, 0); }
-		public TerminalNode MOD() { return getToken(Java8Parser.MOD, 0); }
 		public MultiplicativeExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_multiplicativeExpression; }
+	 
+		public MultiplicativeExpressionContext() { }
+		public void copyFrom(MultiplicativeExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class MultMultExprContext extends MultiplicativeExpressionContext {
+		public MultiplicativeExpressionContext multiplicativeExpression() {
+			return getRuleContext(MultiplicativeExpressionContext.class,0);
+		}
+		public TerminalNode MUL() { return getToken(Java8Parser.MUL, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public MultMultExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMultiplicativeExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMultMultExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMultiplicativeExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMultMultExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMultiplicativeExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMultMultExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MultDivExprContext extends MultiplicativeExpressionContext {
+		public MultiplicativeExpressionContext multiplicativeExpression() {
+			return getRuleContext(MultiplicativeExpressionContext.class,0);
+		}
+		public TerminalNode DIV() { return getToken(Java8Parser.DIV, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public MultDivExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMultDivExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMultDivExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMultDivExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MultUnaryExprContext extends MultiplicativeExpressionContext {
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public MultUnaryExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMultUnaryExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMultUnaryExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMultUnaryExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MultModExprContext extends MultiplicativeExpressionContext {
+		public MultiplicativeExpressionContext multiplicativeExpression() {
+			return getRuleContext(MultiplicativeExpressionContext.class,0);
+		}
+		public TerminalNode MOD() { return getToken(Java8Parser.MOD, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public MultModExprContext(MultiplicativeExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterMultModExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitMultModExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitMultModExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -18282,6 +19080,10 @@ public class Java8Parser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new MultUnaryExprContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(2754);
 			unaryExpression();
 			}
@@ -18299,7 +19101,7 @@ public class Java8Parser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,312,_ctx) ) {
 					case 1:
 						{
-						_localctx = new MultiplicativeExpressionContext(_parentctx, _parentState);
+						_localctx = new MultMultExprContext(new MultiplicativeExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_multiplicativeExpression);
 						setState(2756);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -18311,7 +19113,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new MultiplicativeExpressionContext(_parentctx, _parentState);
+						_localctx = new MultDivExprContext(new MultiplicativeExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_multiplicativeExpression);
 						setState(2759);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -18323,7 +19125,7 @@ public class Java8Parser extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new MultiplicativeExpressionContext(_parentctx, _parentState);
+						_localctx = new MultModExprContext(new MultiplicativeExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_multiplicativeExpression);
 						setState(2762);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -18354,35 +19156,110 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class UnaryExpressionContext extends ParserRuleContext {
-		public PreIncrementExpressionContext preIncrementExpression() {
-			return getRuleContext(PreIncrementExpressionContext.class,0);
-		}
-		public PreDecrementExpressionContext preDecrementExpression() {
-			return getRuleContext(PreDecrementExpressionContext.class,0);
-		}
-		public TerminalNode ADD() { return getToken(Java8Parser.ADD, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public TerminalNode SUB() { return getToken(Java8Parser.SUB, 0); }
-		public UnaryExpressionNotPlusMinusContext unaryExpressionNotPlusMinus() {
-			return getRuleContext(UnaryExpressionNotPlusMinusContext.class,0);
-		}
 		public UnaryExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_unaryExpression; }
+	 
+		public UnaryExpressionContext() { }
+		public void copyFrom(UnaryExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class UnaryPosExprContext extends UnaryExpressionContext {
+		public TerminalNode ADD() { return getToken(Java8Parser.ADD, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public UnaryPosExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryPosExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryPosExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryPosExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryIncExprContext extends UnaryExpressionContext {
+		public PreIncrementExpressionContext preIncrementExpression() {
+			return getRuleContext(PreIncrementExpressionContext.class,0);
+		}
+		public UnaryIncExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryIncExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryIncExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryIncExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryDecExprContext extends UnaryExpressionContext {
+		public PreDecrementExpressionContext preDecrementExpression() {
+			return getRuleContext(PreDecrementExpressionContext.class,0);
+		}
+		public UnaryDecExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryDecExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryDecExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryDecExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryExprContext extends UnaryExpressionContext {
+		public UnaryExpressionNotPlusMinusContext unaryExpressionNotPlusMinus() {
+			return getRuleContext(UnaryExpressionNotPlusMinusContext.class,0);
+		}
+		public UnaryExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryNegExprContext extends UnaryExpressionContext {
+		public TerminalNode SUB() { return getToken(Java8Parser.SUB, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public UnaryNegExprContext(UnaryExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryNegExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryNegExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryNegExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -18395,6 +19272,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INC:
+				_localctx = new UnaryIncExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(2770);
@@ -18402,6 +19280,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case DEC:
+				_localctx = new UnaryDecExprContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(2771);
@@ -18409,6 +19288,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case ADD:
+				_localctx = new UnaryPosExprContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(2772);
@@ -18418,6 +19298,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case SUB:
+				_localctx = new UnaryNegExprContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(2774);
@@ -18449,6 +19330,7 @@ public class Java8Parser extends Parser {
 			case TILDE:
 			case Identifier:
 			case AT:
+				_localctx = new UnaryExprContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(2776);
@@ -18565,32 +19447,91 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class UnaryExpressionNotPlusMinusContext extends ParserRuleContext {
-		public PostfixExpressionContext postfixExpression() {
-			return getRuleContext(PostfixExpressionContext.class,0);
-		}
-		public TerminalNode TILDE() { return getToken(Java8Parser.TILDE, 0); }
-		public UnaryExpressionContext unaryExpression() {
-			return getRuleContext(UnaryExpressionContext.class,0);
-		}
-		public TerminalNode BANG() { return getToken(Java8Parser.BANG, 0); }
-		public CastExpressionContext castExpression() {
-			return getRuleContext(CastExpressionContext.class,0);
-		}
 		public UnaryExpressionNotPlusMinusContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_unaryExpressionNotPlusMinus; }
+	 
+		public UnaryExpressionNotPlusMinusContext() { }
+		public void copyFrom(UnaryExpressionNotPlusMinusContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class UnaryCastExprContext extends UnaryExpressionNotPlusMinusContext {
+		public CastExpressionContext castExpression() {
+			return getRuleContext(CastExpressionContext.class,0);
+		}
+		public UnaryCastExprContext(UnaryExpressionNotPlusMinusContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryExpressionNotPlusMinus(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryCastExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryExpressionNotPlusMinus(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryCastExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryExpressionNotPlusMinus(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryCastExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryBitNotExprContext extends UnaryExpressionNotPlusMinusContext {
+		public TerminalNode TILDE() { return getToken(Java8Parser.TILDE, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public UnaryBitNotExprContext(UnaryExpressionNotPlusMinusContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryBitNotExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryBitNotExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryBitNotExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryPostExprContext extends UnaryExpressionNotPlusMinusContext {
+		public PostfixExpressionContext postfixExpression() {
+			return getRuleContext(PostfixExpressionContext.class,0);
+		}
+		public UnaryPostExprContext(UnaryExpressionNotPlusMinusContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryPostExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryPostExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryPostExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryNotExprContext extends UnaryExpressionNotPlusMinusContext {
+		public TerminalNode BANG() { return getToken(Java8Parser.BANG, 0); }
+		public UnaryExpressionContext unaryExpression() {
+			return getRuleContext(UnaryExpressionContext.class,0);
+		}
+		public UnaryNotExprContext(UnaryExpressionNotPlusMinusContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterUnaryNotExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitUnaryNotExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitUnaryNotExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -18603,6 +19544,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,315,_ctx) ) {
 			case 1:
+				_localctx = new UnaryPostExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(2785);
@@ -18610,6 +19552,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new UnaryBitNotExprContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(2786);
@@ -18619,6 +19562,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new UnaryNotExprContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(2788);
@@ -18628,6 +19572,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new UnaryCastExprContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(2790);
@@ -18930,6 +19875,17 @@ public class Java8Parser extends Parser {
 	}
 
 	public static class CastExpressionContext extends ParserRuleContext {
+		public CastExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_castExpression; }
+	 
+		public CastExpressionContext() { }
+		public void copyFrom(CastExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class CastPrimExprContext extends CastExpressionContext {
 		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public PrimitiveTypeContext primitiveType() {
 			return getRuleContext(PrimitiveTypeContext.class,0);
@@ -18938,9 +19894,27 @@ public class Java8Parser extends Parser {
 		public UnaryExpressionContext unaryExpression() {
 			return getRuleContext(UnaryExpressionContext.class,0);
 		}
+		public CastPrimExprContext(CastExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterCastPrimExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitCastPrimExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitCastPrimExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CastTypeExprContext extends CastExpressionContext {
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
 		public ReferenceTypeContext referenceType() {
 			return getRuleContext(ReferenceTypeContext.class,0);
 		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
 		public UnaryExpressionNotPlusMinusContext unaryExpressionNotPlusMinus() {
 			return getRuleContext(UnaryExpressionNotPlusMinusContext.class,0);
 		}
@@ -18950,24 +19924,48 @@ public class Java8Parser extends Parser {
 		public AdditionalBoundContext additionalBound(int i) {
 			return getRuleContext(AdditionalBoundContext.class,i);
 		}
-		public LambdaExpressionContext lambdaExpression() {
-			return getRuleContext(LambdaExpressionContext.class,0);
-		}
-		public CastExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_castExpression; }
+		public CastTypeExprContext(CastExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterCastExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterCastTypeExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitCastExpression(this);
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitCastTypeExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitCastExpression(this);
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitCastTypeExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class CastTypeLambdaExprContext extends CastExpressionContext {
+		public TerminalNode LPAREN() { return getToken(Java8Parser.LPAREN, 0); }
+		public ReferenceTypeContext referenceType() {
+			return getRuleContext(ReferenceTypeContext.class,0);
+		}
+		public TerminalNode RPAREN() { return getToken(Java8Parser.RPAREN, 0); }
+		public LambdaExpressionContext lambdaExpression() {
+			return getRuleContext(LambdaExpressionContext.class,0);
+		}
+		public List<AdditionalBoundContext> additionalBound() {
+			return getRuleContexts(AdditionalBoundContext.class);
+		}
+		public AdditionalBoundContext additionalBound(int i) {
+			return getRuleContext(AdditionalBoundContext.class,i);
+		}
+		public CastTypeLambdaExprContext(CastExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).enterCastTypeLambdaExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof Java8ParserListener ) ((Java8ParserListener)listener).exitCastTypeLambdaExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof Java8ParserVisitor ) return ((Java8ParserVisitor<? extends T>)visitor).visitCastTypeLambdaExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -18981,6 +19979,7 @@ public class Java8Parser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,321,_ctx) ) {
 			case 1:
+				_localctx = new CastPrimExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(2814);
@@ -18994,6 +19993,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new CastTypeExprContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(2819);
@@ -19021,6 +20021,7 @@ public class Java8Parser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new CastTypeLambdaExprContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(2830);

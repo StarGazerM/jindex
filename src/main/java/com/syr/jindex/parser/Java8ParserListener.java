@@ -756,72 +756,54 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void enterMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx);
-
 	/**
 	 * Exit a parse tree produced by {@link Java8Parser#methodDeclarator}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void exitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx);
-
 	/**
 	 * Enter a parse tree produced by the {@code FormalParamRecv}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void enterFormalParamRecv(Java8Parser.FormalParamRecvContext ctx);
-
 	/**
 	 * Exit a parse tree produced by the {@code FormalParamRecv}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParamRecv(Java8Parser.FormalParamRecvContext ctx);
-
 	/**
 	 * Enter a parse tree produced by the {@code FormalParamMulti}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void enterFormalParamMulti(Java8Parser.FormalParamMultiContext ctx);
-
 	/**
 	 * Exit a parse tree produced by the {@code FormalParamMulti}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx);
-
 	/**
 	 * Enter a parse tree produced by the {@code FormalParamOne}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void enterFormalParamOne(Java8Parser.FormalParamOneContext ctx);
-
 	/**
 	 * Exit a parse tree produced by the {@code FormalParamOne}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParamOne(Java8Parser.FormalParamOneContext ctx);
-
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#formalParameters}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void enterFormalParameters(Java8Parser.FormalParametersContext ctx);
-
 	/**
 	 * Exit a parse tree produced by {@link Java8Parser#formalParameters}.
-	 *
 	 * @param ctx the parse tree
 	 */
 	void exitFormalParameters(Java8Parser.FormalParametersContext ctx);
@@ -1476,15 +1458,29 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#assertStatement}.
+	 * Enter a parse tree produced by the {@code AssertOneStatement}
+	 * labeled alternative in {@link Java8Parser#assertStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssertStatement(Java8Parser.AssertStatementContext ctx);
+	void enterAssertOneStatement(Java8Parser.AssertOneStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#assertStatement}.
+	 * Exit a parse tree produced by the {@code AssertOneStatement}
+	 * labeled alternative in {@link Java8Parser#assertStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssertStatement(Java8Parser.AssertStatementContext ctx);
+	void exitAssertOneStatement(Java8Parser.AssertOneStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssertTwoStatement}
+	 * labeled alternative in {@link Java8Parser#assertStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssertTwoStatement(Java8Parser.AssertTwoStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssertTwoStatement}
+	 * labeled alternative in {@link Java8Parser#assertStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssertTwoStatement(Java8Parser.AssertTwoStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#switchStatement}.
 	 * @param ctx the parse tree
@@ -1886,15 +1882,149 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitPrimaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary(Java8Parser.PrimaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primaryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryLit}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrimaryNoNewArray_lfno_primary(Java8Parser.PrimaryNoNewArray_lfno_primaryContext ctx);
+	void enterPrimaryNoNewArray_lfno_primaryLit(Java8Parser.PrimaryNoNewArray_lfno_primaryLitContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryLit}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrimaryNoNewArray_lfno_primary(Java8Parser.PrimaryNoNewArray_lfno_primaryContext ctx);
+	void exitPrimaryNoNewArray_lfno_primaryLit(Java8Parser.PrimaryNoNewArray_lfno_primaryLitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryReflContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryReflContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryArrayRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryArrayRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryArrayReflContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryArrayRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryArrayRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryArrayReflContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryVRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryVRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryVReflContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryVRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryVRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryVReflContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primarySelf}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primarySelf(Java8Parser.PrimaryNoNewArray_lfno_primarySelfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primarySelf}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primarySelf(Java8Parser.PrimaryNoNewArray_lfno_primarySelfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryClassSelf}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryClassSelf(Java8Parser.PrimaryNoNewArray_lfno_primaryClassSelfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryClassSelf}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryClassSelf(Java8Parser.PrimaryNoNewArray_lfno_primaryClassSelfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryParen}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryParen(Java8Parser.PrimaryNoNewArray_lfno_primaryParenContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryParen}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryParen(Java8Parser.PrimaryNoNewArray_lfno_primaryParenContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryClass}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryClass(Java8Parser.PrimaryNoNewArray_lfno_primaryClassContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryClass}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryClass(Java8Parser.PrimaryNoNewArray_lfno_primaryClassContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryField}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryField(Java8Parser.PrimaryNoNewArray_lfno_primaryFieldContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryField}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryField(Java8Parser.PrimaryNoNewArray_lfno_primaryFieldContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryArray}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryArray(Java8Parser.PrimaryNoNewArray_lfno_primaryArrayContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryArray}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryArray(Java8Parser.PrimaryNoNewArray_lfno_primaryArrayContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryMethCall}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryMethCall(Java8Parser.PrimaryNoNewArray_lfno_primaryMethCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryMethCall}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryMethCall(Java8Parser.PrimaryNoNewArray_lfno_primaryMethCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code primaryNoNewArray_lfno_primaryMethRef}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrimaryNoNewArray_lfno_primaryMethRef(Java8Parser.PrimaryNoNewArray_lfno_primaryMethRefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryMethRef}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrimaryNoNewArray_lfno_primaryMethRef(Java8Parser.PrimaryNoNewArray_lfno_primaryMethRefContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary}.
 	 * @param ctx the parse tree
@@ -1956,15 +2086,41 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitTypeArgumentsOrDiamond(Java8Parser.TypeArgumentsOrDiamondContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#fieldAccess}.
+	 * Enter a parse tree produced by the {@code PrimFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
 	 * @param ctx the parse tree
 	 */
-	void enterFieldAccess(Java8Parser.FieldAccessContext ctx);
+	void enterPrimFieldAccess(Java8Parser.PrimFieldAccessContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#fieldAccess}.
+	 * Exit a parse tree produced by the {@code PrimFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
 	 * @param ctx the parse tree
 	 */
-	void exitFieldAccess(Java8Parser.FieldAccessContext ctx);
+	void exitPrimFieldAccess(Java8Parser.PrimFieldAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SuperFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuperFieldAccess(Java8Parser.SuperFieldAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SuperFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuperFieldAccess(Java8Parser.SuperFieldAccessContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TypeSuperFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeSuperFieldAccess(Java8Parser.TypeSuperFieldAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TypeSuperFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeSuperFieldAccess(Java8Parser.TypeSuperFieldAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#fieldAccess_lf_primary}.
 	 * @param ctx the parse tree
@@ -2016,15 +2172,77 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitArrayAccess_lfno_primary(Java8Parser.ArrayAccess_lfno_primaryContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#methodInvocation}.
+	 * Enter a parse tree produced by the {@code ImplicitMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
 	 * @param ctx the parse tree
 	 */
-	void enterMethodInvocation(Java8Parser.MethodInvocationContext ctx);
+	void enterImplicitMethodInvoc(Java8Parser.ImplicitMethodInvocContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#methodInvocation}.
+	 * Exit a parse tree produced by the {@code ImplicitMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
 	 * @param ctx the parse tree
 	 */
-	void exitMethodInvocation(Java8Parser.MethodInvocationContext ctx);
+	void exitImplicitMethodInvoc(Java8Parser.ImplicitMethodInvocContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StaticMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterStaticMethodInvoc(Java8Parser.StaticMethodInvocContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StaticMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitStaticMethodInvoc(Java8Parser.StaticMethodInvocContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExprMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMethodInvoc(Java8Parser.ExprMethodInvocContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMethodInvoc(Java8Parser.ExprMethodInvocContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MemberMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberMethodInvoc(Java8Parser.MemberMethodInvocContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MemberMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberMethodInvoc(Java8Parser.MemberMethodInvocContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SuperMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuperMethodInvoc(Java8Parser.SuperMethodInvocContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SuperMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuperMethodInvoc(Java8Parser.SuperMethodInvocContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TypeSuperMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeSuperMethodInvoc(Java8Parser.TypeSuperMethodInvocContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TypeSuperMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeSuperMethodInvoc(Java8Parser.TypeSuperMethodInvocContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#methodInvocation_lf_primary}.
 	 * @param ctx the parse tree
@@ -2216,15 +2434,29 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitAssignmentOperator(Java8Parser.AssignmentOperatorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#conditionalExpression}.
+	 * Enter a parse tree produced by the {@code CondOrExpr}
+	 * labeled alternative in {@link Java8Parser#conditionalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterConditionalExpression(Java8Parser.ConditionalExpressionContext ctx);
+	void enterCondOrExpr(Java8Parser.CondOrExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#conditionalExpression}.
+	 * Exit a parse tree produced by the {@code CondOrExpr}
+	 * labeled alternative in {@link Java8Parser#conditionalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitConditionalExpression(Java8Parser.ConditionalExpressionContext ctx);
+	void exitCondOrExpr(Java8Parser.CondOrExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CondOrExprHummOp}
+	 * labeled alternative in {@link Java8Parser#conditionalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondOrExprHummOp(Java8Parser.CondOrExprHummOpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CondOrExprHummOp}
+	 * labeled alternative in {@link Java8Parser#conditionalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondOrExprHummOp(Java8Parser.CondOrExprHummOpContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#conditionalOrExpression}.
 	 * @param ctx the parse tree
@@ -2276,65 +2508,305 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitAndExpression(Java8Parser.AndExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#equalityExpression}.
+	 * Enter a parse tree produced by the {@code EqRelExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterEqualityExpression(Java8Parser.EqualityExpressionContext ctx);
+	void enterEqRelExpr(Java8Parser.EqRelExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#equalityExpression}.
+	 * Exit a parse tree produced by the {@code EqRelExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitEqualityExpression(Java8Parser.EqualityExpressionContext ctx);
+	void exitEqRelExpr(Java8Parser.EqRelExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#relationalExpression}.
+	 * Enter a parse tree produced by the {@code EqEqExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelationalExpression(Java8Parser.RelationalExpressionContext ctx);
+	void enterEqEqExpr(Java8Parser.EqEqExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#relationalExpression}.
+	 * Exit a parse tree produced by the {@code EqEqExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelationalExpression(Java8Parser.RelationalExpressionContext ctx);
+	void exitEqEqExpr(Java8Parser.EqEqExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#shiftExpression}.
+	 * Enter a parse tree produced by the {@code EqNotEqExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterShiftExpression(Java8Parser.ShiftExpressionContext ctx);
+	void enterEqNotEqExpr(Java8Parser.EqNotEqExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#shiftExpression}.
+	 * Exit a parse tree produced by the {@code EqNotEqExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitShiftExpression(Java8Parser.ShiftExpressionContext ctx);
+	void exitEqNotEqExpr(Java8Parser.EqNotEqExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#additiveExpression}.
+	 * Enter a parse tree produced by the {@code RelLtExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterAdditiveExpression(Java8Parser.AdditiveExpressionContext ctx);
+	void enterRelLtExpr(Java8Parser.RelLtExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#additiveExpression}.
+	 * Exit a parse tree produced by the {@code RelLtExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitAdditiveExpression(Java8Parser.AdditiveExpressionContext ctx);
+	void exitRelLtExpr(Java8Parser.RelLtExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#multiplicativeExpression}.
+	 * Enter a parse tree produced by the {@code RelLeExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiplicativeExpression(Java8Parser.MultiplicativeExpressionContext ctx);
+	void enterRelLeExpr(Java8Parser.RelLeExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#multiplicativeExpression}.
+	 * Exit a parse tree produced by the {@code RelLeExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiplicativeExpression(Java8Parser.MultiplicativeExpressionContext ctx);
+	void exitRelLeExpr(Java8Parser.RelLeExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#unaryExpression}.
+	 * Enter a parse tree produced by the {@code RelGtExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryExpression(Java8Parser.UnaryExpressionContext ctx);
+	void enterRelGtExpr(Java8Parser.RelGtExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#unaryExpression}.
+	 * Exit a parse tree produced by the {@code RelGtExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryExpression(Java8Parser.UnaryExpressionContext ctx);
+	void exitRelGtExpr(Java8Parser.RelGtExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RelGeExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelGeExpr(Java8Parser.RelGeExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RelGeExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelGeExpr(Java8Parser.RelGeExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RelShiftExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelShiftExpr(Java8Parser.RelShiftExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RelShiftExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelShiftExpr(Java8Parser.RelShiftExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RelInstExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelInstExpr(Java8Parser.RelInstExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RelInstExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelInstExpr(Java8Parser.RelInstExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ShiftRightExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterShiftRightExpr(Java8Parser.ShiftRightExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ShiftRightExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitShiftRightExpr(Java8Parser.ShiftRightExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ShiftLeftExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterShiftLeftExpr(Java8Parser.ShiftLeftExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ShiftLeftExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitShiftLeftExpr(Java8Parser.ShiftLeftExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ShiftUnsignLeftExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterShiftUnsignLeftExpr(Java8Parser.ShiftUnsignLeftExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ShiftUnsignLeftExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitShiftUnsignLeftExpr(Java8Parser.ShiftUnsignLeftExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ShiftAddExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterShiftAddExpr(Java8Parser.ShiftAddExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ShiftAddExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitShiftAddExpr(Java8Parser.ShiftAddExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddAddExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddAddExpr(Java8Parser.AddAddExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddAddExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddAddExpr(Java8Parser.AddAddExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddMultExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddMultExpr(Java8Parser.AddMultExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddMultExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddMultExpr(Java8Parser.AddMultExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddSubExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddSubExpr(Java8Parser.AddSubExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddSubExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddSubExpr(Java8Parser.AddSubExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultMultExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultMultExpr(Java8Parser.MultMultExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultMultExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultMultExpr(Java8Parser.MultMultExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultDivExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultDivExpr(Java8Parser.MultDivExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultDivExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultDivExpr(Java8Parser.MultDivExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultUnaryExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultUnaryExpr(Java8Parser.MultUnaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultUnaryExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultUnaryExpr(Java8Parser.MultUnaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultModExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultModExpr(Java8Parser.MultModExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultModExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultModExpr(Java8Parser.MultModExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryIncExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryIncExpr(Java8Parser.UnaryIncExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryIncExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryIncExpr(Java8Parser.UnaryIncExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryDecExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryDecExpr(Java8Parser.UnaryDecExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryDecExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryDecExpr(Java8Parser.UnaryDecExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryPosExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryPosExpr(Java8Parser.UnaryPosExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryPosExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryPosExpr(Java8Parser.UnaryPosExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryNegExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryNegExpr(Java8Parser.UnaryNegExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryNegExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryNegExpr(Java8Parser.UnaryNegExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryExpr(Java8Parser.UnaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryExpr(Java8Parser.UnaryExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#preIncrementExpression}.
 	 * @param ctx the parse tree
@@ -2356,15 +2828,53 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitPreDecrementExpression(Java8Parser.PreDecrementExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * Enter a parse tree produced by the {@code UnaryPostExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnaryExpressionNotPlusMinus(Java8Parser.UnaryExpressionNotPlusMinusContext ctx);
+	void enterUnaryPostExpr(Java8Parser.UnaryPostExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * Exit a parse tree produced by the {@code UnaryPostExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnaryExpressionNotPlusMinus(Java8Parser.UnaryExpressionNotPlusMinusContext ctx);
+	void exitUnaryPostExpr(Java8Parser.UnaryPostExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryBitNotExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryBitNotExpr(Java8Parser.UnaryBitNotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryBitNotExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryBitNotExpr(Java8Parser.UnaryBitNotExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryNotExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryNotExpr(Java8Parser.UnaryNotExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryNotExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryNotExpr(Java8Parser.UnaryNotExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code UnaryCastExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryCastExpr(Java8Parser.UnaryCastExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryCastExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryCastExpr(Java8Parser.UnaryCastExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Java8Parser#postfixExpression}.
 	 * @param ctx the parse tree
@@ -2416,13 +2926,39 @@ public interface Java8ParserListener extends ParseTreeListener {
 	 */
 	void exitPostDecrementExpression_lf_postfixExpression(Java8Parser.PostDecrementExpression_lf_postfixExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Java8Parser#castExpression}.
+	 * Enter a parse tree produced by the {@code CastPrimExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterCastExpression(Java8Parser.CastExpressionContext ctx);
+	void enterCastPrimExpr(Java8Parser.CastPrimExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Java8Parser#castExpression}.
+	 * Exit a parse tree produced by the {@code CastPrimExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitCastExpression(Java8Parser.CastExpressionContext ctx);
+	void exitCastPrimExpr(Java8Parser.CastPrimExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CastTypeExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCastTypeExpr(Java8Parser.CastTypeExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CastTypeExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCastTypeExpr(Java8Parser.CastTypeExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CastTypeLambdaExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterCastTypeLambdaExpr(Java8Parser.CastTypeLambdaExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CastTypeLambdaExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitCastTypeLambdaExpr(Java8Parser.CastTypeLambdaExprContext ctx);
 }

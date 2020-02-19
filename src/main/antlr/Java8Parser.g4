@@ -804,8 +804,8 @@ ifThenElseStatementNoShortIf
 	;
 
 assertStatement
-	:	'assert' expression ';'
-	|	'assert' expression ':' expression ';'
+	:	'assert' expression ';'                             # AssertOneStatement
+	|	'assert' expression ':' expression ';'              # AssertTwoStatement
 	;
 
 switchStatement
@@ -1010,18 +1010,18 @@ primaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary
 	;
 
 primaryNoNewArray_lfno_primary
-	:	literal
-	|	typeName ('[' ']')* '.' 'class'
-	|	unannPrimitiveType ('[' ']')* '.' 'class'
-	|	'void' '.' 'class'
-	|	'this'
-	|	typeName '.' 'this'
-	|	'(' expression ')'
-	|	classInstanceCreationExpression_lfno_primary
-	|	fieldAccess_lfno_primary
-	|	arrayAccess_lfno_primary
-	|	methodInvocation_lfno_primary
-	|	methodReference_lfno_primary
+	:	literal                                         # primaryNoNewArray_lfno_primaryLit
+	|	typeName ('[' ']')* '.' 'class'                 # primaryNoNewArray_lfno_primaryRefl
+	|	unannPrimitiveType ('[' ']')* '.' 'class'       # primaryNoNewArray_lfno_primaryArrayRefl
+	|	'void' '.' 'class'                              # primaryNoNewArray_lfno_primaryVRefl
+	|	'this'                                          # primaryNoNewArray_lfno_primarySelf
+	|	typeName '.' 'this'                             # primaryNoNewArray_lfno_primaryClassSelf
+	|	'(' expression ')'                              # primaryNoNewArray_lfno_primaryParen
+	|	classInstanceCreationExpression_lfno_primary    # primaryNoNewArray_lfno_primaryClass
+	|	fieldAccess_lfno_primary                        # primaryNoNewArray_lfno_primaryField
+	|	arrayAccess_lfno_primary                        # primaryNoNewArray_lfno_primaryArray
+	|	methodInvocation_lfno_primary                   # primaryNoNewArray_lfno_primaryMethCall
+	|	methodReference_lfno_primary                    # primaryNoNewArray_lfno_primaryMethRef
 	;
 
 primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary
@@ -1063,9 +1063,9 @@ typeArgumentsOrDiamond
 	;
 
 fieldAccess
-	:	primary '.' Identifier
-	|	'super' '.' Identifier
-	|	typeName '.' 'super' '.' Identifier
+	:	primary '.' Identifier                      # PrimFieldAccess
+	|	'super' '.' Identifier                      # SuperFieldAccess
+	|	typeName '.' 'super' '.' Identifier         # TypeSuperFieldAccess
 	;
 
 fieldAccess_lf_primary
@@ -1101,12 +1101,12 @@ arrayAccess_lfno_primary
 	;
 
 methodInvocation
-	:	methodName '(' argumentList? ')'
-	|	typeName '.' typeArguments? Identifier '(' argumentList? ')'
-	|	expressionName '.' typeArguments? Identifier '(' argumentList? ')'
-	|	primary '.' typeArguments? Identifier '(' argumentList? ')'
-	|	'super' '.' typeArguments? Identifier '(' argumentList? ')'
-	|	typeName '.' 'super' '.' typeArguments? Identifier '(' argumentList? ')'
+	:	methodName '(' argumentList? ')'                                                # ImplicitMethodInvoc
+	|	typeName '.' typeArguments? Identifier '(' argumentList? ')'                    # StaticMethodInvoc
+	|	expressionName '.' typeArguments? Identifier '(' argumentList? ')'              # ExprMethodInvoc
+	|	primary '.' typeArguments? Identifier '(' argumentList? ')'                     # MemberMethodInvoc
+	|	'super' '.' typeArguments? Identifier '(' argumentList? ')'                     # SuperMethodInvoc
+	|	typeName '.' 'super' '.' typeArguments? Identifier '(' argumentList? ')'        # TypeSuperMethodInvoc
 	;
 
 methodInvocation_lf_primary
@@ -1222,8 +1222,8 @@ assignmentOperator
 	;
 
 conditionalExpression
-	:	conditionalOrExpression
-	|	conditionalOrExpression '?' expression ':' conditionalExpression
+	:	conditionalOrExpression                                             # CondOrExpr
+	|	conditionalOrExpression '?' expression ':' conditionalExpression    # CondOrExprHummOp
 	;
 
 conditionalOrExpression
@@ -1252,46 +1252,46 @@ andExpression
 	;
 
 equalityExpression
-	:	relationalExpression
-	|	equalityExpression '==' relationalExpression
-	|	equalityExpression '!=' relationalExpression
+	:	relationalExpression                            # EqRelExpr
+	|	equalityExpression '==' relationalExpression    # EqEqExpr
+	|	equalityExpression '!=' relationalExpression    # EqNotEqExpr
 	;
 
 relationalExpression
-	:	shiftExpression
-	|	relationalExpression '<' shiftExpression
-	|	relationalExpression '>' shiftExpression
-	|	relationalExpression '<=' shiftExpression
-	|	relationalExpression '>=' shiftExpression
-	|	relationalExpression 'instanceof' referenceType
+	:	shiftExpression                                     # RelShiftExpr
+	|	relationalExpression '<' shiftExpression            # RelLtExpr
+	|	relationalExpression '>' shiftExpression            # RelGtExpr
+	|	relationalExpression '<=' shiftExpression           # RelLeExpr
+	|	relationalExpression '>=' shiftExpression           # RelGeExpr
+	|	relationalExpression 'instanceof' referenceType     # RelInstExpr
 	;
 
 shiftExpression
-	:	additiveExpression
-	|	shiftExpression '<' '<' additiveExpression
-	|	shiftExpression '>' '>' additiveExpression
-	|	shiftExpression '>' '>' '>' additiveExpression
+	:	additiveExpression                                  # ShiftAddExpr
+	|	shiftExpression '<' '<' additiveExpression          # ShiftLeftExpr
+	|	shiftExpression '>' '>' additiveExpression          # ShiftRightExpr
+	|	shiftExpression '>' '>' '>' additiveExpression      # ShiftUnsignLeftExpr
 	;
 
 additiveExpression
-	:	multiplicativeExpression
-	|	additiveExpression '+' multiplicativeExpression
-	|	additiveExpression '-' multiplicativeExpression
+	:	multiplicativeExpression                            # AddMultExpr
+	|	additiveExpression '+' multiplicativeExpression     # AddAddExpr
+	|	additiveExpression '-' multiplicativeExpression     # AddSubExpr
 	;
 
 multiplicativeExpression
-	:	unaryExpression
-	|	multiplicativeExpression '*' unaryExpression
-	|	multiplicativeExpression '/' unaryExpression
-	|	multiplicativeExpression '%' unaryExpression
+	:	unaryExpression                                     # MultUnaryExpr
+	|	multiplicativeExpression '*' unaryExpression        # MultMultExpr
+	|	multiplicativeExpression '/' unaryExpression        # MultDivExpr
+	|	multiplicativeExpression '%' unaryExpression        # MultModExpr
 	;
 
 unaryExpression
-	:	preIncrementExpression
-	|	preDecrementExpression
-	|	'+' unaryExpression
-	|	'-' unaryExpression
-	|	unaryExpressionNotPlusMinus
+	:	preIncrementExpression                              # UnaryIncExpr
+	|	preDecrementExpression                              # UnaryDecExpr
+	|	'+' unaryExpression                                 # UnaryPosExpr
+	|	'-' unaryExpression                                 # UnaryNegExpr
+	|	unaryExpressionNotPlusMinus                         # UnaryExpr
 	;
 
 preIncrementExpression
@@ -1303,10 +1303,10 @@ preDecrementExpression
 	;
 
 unaryExpressionNotPlusMinus
-	:	postfixExpression
-	|	'~' unaryExpression
-	|	'!' unaryExpression
-	|	castExpression
+	:	postfixExpression                                   # UnaryPostExpr
+	|	'~' unaryExpression                                 # UnaryBitNotExpr
+	|	'!' unaryExpression                                 # UnaryNotExpr
+	|	castExpression                                      # UnaryCastExpr
 	;
 
 postfixExpression
@@ -1335,7 +1335,7 @@ postDecrementExpression_lf_postfixExpression
 	;
 
 castExpression
-	:	'(' primitiveType ')' unaryExpression
-	|	'(' referenceType additionalBound* ')' unaryExpressionNotPlusMinus
-	|	'(' referenceType additionalBound* ')' lambdaExpression
+	:	'(' primitiveType ')' unaryExpression                                   # CastPrimExpr
+	|	'(' referenceType additionalBound* ')' unaryExpressionNotPlusMinus      # CastTypeExpr
+	|	'(' referenceType additionalBound* ')' lambdaExpression                 # CastTypeLambdaExpr
 	;

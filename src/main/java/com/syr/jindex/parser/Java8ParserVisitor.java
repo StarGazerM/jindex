@@ -456,45 +456,35 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitResult(Java8Parser.ResultContext ctx);
-
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#methodDeclarator}.
-	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMethodDeclarator(Java8Parser.MethodDeclaratorContext ctx);
-
 	/**
 	 * Visit a parse tree produced by the {@code FormalParamRecv}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFormalParamRecv(Java8Parser.FormalParamRecvContext ctx);
-
 	/**
 	 * Visit a parse tree produced by the {@code FormalParamMulti}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx);
-
 	/**
 	 * Visit a parse tree produced by the {@code FormalParamOne}
 	 * labeled alternative in {@link Java8Parser#formalParameterList}.
-	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFormalParamOne(Java8Parser.FormalParamOneContext ctx);
-
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#formalParameters}.
-	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -890,11 +880,19 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfThenElseStatementNoShortIf(Java8Parser.IfThenElseStatementNoShortIfContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#assertStatement}.
+	 * Visit a parse tree produced by the {@code AssertOneStatement}
+	 * labeled alternative in {@link Java8Parser#assertStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssertStatement(Java8Parser.AssertStatementContext ctx);
+	T visitAssertOneStatement(Java8Parser.AssertOneStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AssertTwoStatement}
+	 * labeled alternative in {@link Java8Parser#assertStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssertTwoStatement(Java8Parser.AssertTwoStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#switchStatement}.
 	 * @param ctx the parse tree
@@ -1136,11 +1134,89 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primary(Java8Parser.PrimaryNoNewArray_lf_primary_lfno_arrayAccess_lf_primaryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryLit}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrimaryNoNewArray_lfno_primary(Java8Parser.PrimaryNoNewArray_lfno_primaryContext ctx);
+	T visitPrimaryNoNewArray_lfno_primaryLit(Java8Parser.PrimaryNoNewArray_lfno_primaryLitContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryReflContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryArrayRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryArrayRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryArrayReflContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryVRefl}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryVRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryVReflContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primarySelf}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primarySelf(Java8Parser.PrimaryNoNewArray_lfno_primarySelfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryClassSelf}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryClassSelf(Java8Parser.PrimaryNoNewArray_lfno_primaryClassSelfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryParen}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryParen(Java8Parser.PrimaryNoNewArray_lfno_primaryParenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryClass}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryClass(Java8Parser.PrimaryNoNewArray_lfno_primaryClassContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryField}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryField(Java8Parser.PrimaryNoNewArray_lfno_primaryFieldContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryArray}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryArray(Java8Parser.PrimaryNoNewArray_lfno_primaryArrayContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryMethCall}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryMethCall(Java8Parser.PrimaryNoNewArray_lfno_primaryMethCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code primaryNoNewArray_lfno_primaryMethRef}
+	 * labeled alternative in {@link Java8Parser#primaryNoNewArray_lfno_primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimaryNoNewArray_lfno_primaryMethRef(Java8Parser.PrimaryNoNewArray_lfno_primaryMethRefContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#primaryNoNewArray_lfno_primary_lf_arrayAccess_lfno_primary}.
 	 * @param ctx the parse tree
@@ -1178,11 +1254,26 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTypeArgumentsOrDiamond(Java8Parser.TypeArgumentsOrDiamondContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#fieldAccess}.
+	 * Visit a parse tree produced by the {@code PrimFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFieldAccess(Java8Parser.FieldAccessContext ctx);
+	T visitPrimFieldAccess(Java8Parser.PrimFieldAccessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SuperFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuperFieldAccess(Java8Parser.SuperFieldAccessContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TypeSuperFieldAccess}
+	 * labeled alternative in {@link Java8Parser#fieldAccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeSuperFieldAccess(Java8Parser.TypeSuperFieldAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#fieldAccess_lf_primary}.
 	 * @param ctx the parse tree
@@ -1214,11 +1305,47 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayAccess_lfno_primary(Java8Parser.ArrayAccess_lfno_primaryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#methodInvocation}.
+	 * Visit a parse tree produced by the {@code ImplicitMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMethodInvocation(Java8Parser.MethodInvocationContext ctx);
+	T visitImplicitMethodInvoc(Java8Parser.ImplicitMethodInvocContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StaticMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStaticMethodInvoc(Java8Parser.StaticMethodInvocContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMethodInvoc(Java8Parser.ExprMethodInvocContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MemberMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMemberMethodInvoc(Java8Parser.MemberMethodInvocContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SuperMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuperMethodInvoc(Java8Parser.SuperMethodInvocContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TypeSuperMethodInvoc}
+	 * labeled alternative in {@link Java8Parser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeSuperMethodInvoc(Java8Parser.TypeSuperMethodInvocContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#methodInvocation_lf_primary}.
 	 * @param ctx the parse tree
@@ -1334,11 +1461,19 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignmentOperator(Java8Parser.AssignmentOperatorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#conditionalExpression}.
+	 * Visit a parse tree produced by the {@code CondOrExpr}
+	 * labeled alternative in {@link Java8Parser#conditionalExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConditionalExpression(Java8Parser.ConditionalExpressionContext ctx);
+	T visitCondOrExpr(Java8Parser.CondOrExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CondOrExprHummOp}
+	 * labeled alternative in {@link Java8Parser#conditionalExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCondOrExprHummOp(Java8Parser.CondOrExprHummOpContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#conditionalOrExpression}.
 	 * @param ctx the parse tree
@@ -1370,41 +1505,180 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAndExpression(Java8Parser.AndExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#equalityExpression}.
+	 * Visit a parse tree produced by the {@code EqRelExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEqualityExpression(Java8Parser.EqualityExpressionContext ctx);
+	T visitEqRelExpr(Java8Parser.EqRelExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#relationalExpression}.
+	 * Visit a parse tree produced by the {@code EqEqExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRelationalExpression(Java8Parser.RelationalExpressionContext ctx);
+	T visitEqEqExpr(Java8Parser.EqEqExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#shiftExpression}.
+	 * Visit a parse tree produced by the {@code EqNotEqExpr}
+	 * labeled alternative in {@link Java8Parser#equalityExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitShiftExpression(Java8Parser.ShiftExpressionContext ctx);
+	T visitEqNotEqExpr(Java8Parser.EqNotEqExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#additiveExpression}.
+	 * Visit a parse tree produced by the {@code RelLtExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAdditiveExpression(Java8Parser.AdditiveExpressionContext ctx);
+	T visitRelLtExpr(Java8Parser.RelLtExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#multiplicativeExpression}.
+	 * Visit a parse tree produced by the {@code RelLeExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultiplicativeExpression(Java8Parser.MultiplicativeExpressionContext ctx);
+	T visitRelLeExpr(Java8Parser.RelLeExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#unaryExpression}.
+	 * Visit a parse tree produced by the {@code RelGtExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnaryExpression(Java8Parser.UnaryExpressionContext ctx);
+	T visitRelGtExpr(Java8Parser.RelGtExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RelGeExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelGeExpr(Java8Parser.RelGeExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RelShiftExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelShiftExpr(Java8Parser.RelShiftExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RelInstExpr}
+	 * labeled alternative in {@link Java8Parser#relationalExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelInstExpr(Java8Parser.RelInstExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ShiftRightExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShiftRightExpr(Java8Parser.ShiftRightExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ShiftLeftExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShiftLeftExpr(Java8Parser.ShiftLeftExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ShiftUnsignLeftExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShiftUnsignLeftExpr(Java8Parser.ShiftUnsignLeftExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ShiftAddExpr}
+	 * labeled alternative in {@link Java8Parser#shiftExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitShiftAddExpr(Java8Parser.ShiftAddExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddAddExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddAddExpr(Java8Parser.AddAddExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddMultExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddMultExpr(Java8Parser.AddMultExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AddSubExpr}
+	 * labeled alternative in {@link Java8Parser#additiveExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddSubExpr(Java8Parser.AddSubExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultMultExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultMultExpr(Java8Parser.MultMultExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultDivExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultDivExpr(Java8Parser.MultDivExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultUnaryExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultUnaryExpr(Java8Parser.MultUnaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultModExpr}
+	 * labeled alternative in {@link Java8Parser#multiplicativeExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultModExpr(Java8Parser.MultModExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryIncExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryIncExpr(Java8Parser.UnaryIncExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryDecExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryDecExpr(Java8Parser.UnaryDecExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryPosExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryPosExpr(Java8Parser.UnaryPosExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryNegExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryNegExpr(Java8Parser.UnaryNegExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryExpr(Java8Parser.UnaryExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#preIncrementExpression}.
 	 * @param ctx the parse tree
@@ -1418,11 +1692,33 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPreDecrementExpression(Java8Parser.PreDecrementExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * Visit a parse tree produced by the {@code UnaryPostExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUnaryExpressionNotPlusMinus(Java8Parser.UnaryExpressionNotPlusMinusContext ctx);
+	T visitUnaryPostExpr(Java8Parser.UnaryPostExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryBitNotExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryBitNotExpr(Java8Parser.UnaryBitNotExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryNotExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryNotExpr(Java8Parser.UnaryNotExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code UnaryCastExpr}
+	 * labeled alternative in {@link Java8Parser#unaryExpressionNotPlusMinus}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryCastExpr(Java8Parser.UnaryCastExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Java8Parser#postfixExpression}.
 	 * @param ctx the parse tree
@@ -1454,9 +1750,24 @@ public interface Java8ParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPostDecrementExpression_lf_postfixExpression(Java8Parser.PostDecrementExpression_lf_postfixExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Java8Parser#castExpression}.
+	 * Visit a parse tree produced by the {@code CastPrimExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCastExpression(Java8Parser.CastExpressionContext ctx);
+	T visitCastPrimExpr(Java8Parser.CastPrimExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CastTypeExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCastTypeExpr(Java8Parser.CastTypeExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CastTypeLambdaExpr}
+	 * labeled alternative in {@link Java8Parser#castExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCastTypeLambdaExpr(Java8Parser.CastTypeLambdaExprContext ctx);
 }
