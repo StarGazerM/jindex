@@ -1,5 +1,7 @@
 /***
  * a visitor generate s-expr from JAVA AST
+ * every instruction will have a potential call site(line number here)
+ *
  * (1) for simple, won't collect  Java annotation info, cause it is has no semantic operation during runtime
  * some precision will loose in Type, since it will not effect the soundness of alias/value flow analysis
  * and inner class new outside is not allow which means we don't support "Foo.new ..."
@@ -28,6 +30,10 @@
  * (12) do not support try with resource
  *
  * (13) do not support enhanced for loop
+ *
+ * (14) do not support Annotation Interface
+ *
+ * (15) has very limited support for reflection
  *
  * Yihao Sun <email>ysun67@syr.edu</email>
  * Syracuse 2020
@@ -81,7 +87,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             importSB.append(' ');
         }
         importSB.append(')');
-        return String.format("(non-static %s)", importSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Import %s)", ln, coln, importSB.toString());
     }
 
     @Override
@@ -92,7 +100,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             importSB.append(' ');
         }
         importSB.append("*)");
-        return String.format("(non-static %s)", importSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Import %s)", ln, coln, importSB.toString());
     }
 
     @Override
@@ -104,7 +114,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         }
         importSB.append(ctx.Identifier().getText());
         importSB.append(')');
-        return String.format("(static %s)", importSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Import %s)", ln, coln, importSB.toString());
     }
 
     @Override
@@ -115,7 +127,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             importSB.append(' ');
         }
         importSB.append("*)");
-        return String.format("(static %s)", importSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Import %s)", ln, coln, importSB.toString());
     }
 
     /***
@@ -126,7 +140,10 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
      */
     @Override
     public String visitPackageDeclaration(Java8Parser.PackageDeclarationContext ctx) {
-        return ctx.packageName().getText();
+        String text = ctx.packageName().getText();
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Package %s)", ln, coln, text);
     }
 
     // decl? (or/c interface? class?)
@@ -152,7 +169,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String superClassS = (ctx.superclass() != null) ? visit(ctx.superclass()) : "()";
         String superInterfaceS = (ctx.superinterfaces() != null) ? visit(ctx.superinterfaces()) : "()";
         String classBodyS = visit(ctx.classBody());
-        return String.format("(Class %s\n %s\n %s\n %s\n %s\n %s)", name, classModifierSB.toString(),
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Class %s\n %s\n %s\n %s\n %s\n %s)", ln, coln, name, classModifierSB.toString(),
                 typeParamsS, superClassS, superInterfaceS, classBodyS);
     }
 
@@ -275,7 +294,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         fmodSB.append(')');
         String unannTypeS = visit(ctx.unannType());
         String varDeclListS = visit(ctx.variableDeclaratorList());
-        return String.format("(Field %s %s %s)", fmodSB.toString(), unannTypeS, varDeclListS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Field %s %s %s)", ln, coln, fmodSB.toString(), unannTypeS, varDeclListS);
     }
 
     @Override
@@ -309,7 +330,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitVariableDeclarator(Java8Parser.VariableDeclaratorContext ctx) {
         String varDefIdS = visit(ctx.variableDeclaratorId());
         String valInitS = (ctx.variableInitializer() != null) ? visit(ctx.variableInitializer()) : "()";
-        return String.format("(= %s %s)", varDefIdS, valInitS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) = %s %s)", ln, coln, varDefIdS, valInitS);
     }
 
     /**
@@ -327,7 +350,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         if (dimsCtx != null) {
             dimsN = dimsCtx.getText().chars().filter(c -> c == '[').count();
         }
-        return String.format("(%s %d)", nameS, dimsN);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Var %s %d)", ln, coln, nameS, dimsN);
     }
 
     /**
@@ -348,7 +373,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String constructDeclS = visit(ctx.constructorDeclarator());
         String throwS = (ctx.throws_() != null) ? visit(ctx.throws_()) : "()";
         String bodyS = visit(ctx.constructorBody());
-        return String.format("(Constructor %s %s %s %s)", modSB.toString(), constructDeclS, throwS, bodyS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Constructor %s %s %s %s)", ln, coln, modSB.toString(), constructDeclS, throwS, bodyS);
     }
 
     /***
@@ -361,7 +388,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeParamS = (ctx.typeParameters() != null) ? visit(ctx.typeParameters()) : "()";
         String simpleTypeName = visit(ctx.simpleTypeName());
         String formalParamLS = (ctx.formalParameterList() != null) ? visit(ctx.formalParameterList()) : "()";
-        return String.format("(%s %s (%s))", typeParamS, simpleTypeName, formalParamLS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Constructor %s %s (%s))", ln, coln, typeParamS, simpleTypeName, formalParamLS);
     }
 
     @Override
@@ -391,7 +420,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         modSB.append(')');
         String type = visit(ctx.unannType());
         String name = visit(ctx.variableDeclaratorId());
-        return String.format("(Arg %s %s %s)", modSB.toString(), type, name);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Arg %s %s %s)", ln, coln, modSB.toString(), type, name);
     }
 
     /**
@@ -414,7 +445,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitFormalParamMulti(Java8Parser.FormalParamMultiContext ctx) {
         String head = visit(ctx.formalParameters());
         String last = visit(ctx.lastFormalParameter());
-        return String.format("(%s %s)", head, last);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Parm %s %s)", ln, coln, head, last);
     }
 
     /**
@@ -426,7 +459,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     @Override
     public String visitThrows_(Java8Parser.Throws_Context ctx) {
         String throwsS = visit(ctx.exceptionTypeList());
-        return String.format("(Throw %s)", throwsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Throw %s)", ln, coln, throwsS);
     }
 
     @Override
@@ -444,13 +479,17 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String consInvocS =
                 (ctx.explicitConstructorInvocation() != null) ? visit(ctx.explicitConstructorInvocation()) : "()";
         String body = (ctx.blockStatements() != null) ? visit(ctx.blockStatements()) : "()";
-        return String.format("(ConsBody %s %s)", consInvocS, body);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) ConsBody %s %s)", ln, coln, consInvocS, body);
     }
 
     @Override
     public String visitBlock(Java8Parser.BlockContext ctx) {
         String body = (ctx.blockStatements() != null) ? visit(ctx.blockStatements()) : "()";
-        return String.format("(Block %s)", body);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Block %s)", ln, coln, body);
     }
 
     @Override
@@ -479,7 +518,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         modSB.append(')');
         String type = visit(ctx.unannType());
         String varList = visit(ctx.variableDeclaratorList());
-        return String.format("(LocalVar %s %s %s)", modSB.toString(), type, varList);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) LocalVar %s %s %s)", ln, coln, modSB.toString(), type, varList);
     }
 
     // statement? := for-sm? / if-sm? / labeled-sm? / normal-sm? / empty?
@@ -507,7 +548,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String opS = ctx.assignmentOperator().getText();
         String LHS = visit(ctx.leftHandSide());
         String RHS = visit(ctx.expression());
-        return String.format("(Assign %s %s %s)", opS, LHS, RHS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Assign %s %s %s)", ln, coln, opS, LHS, RHS);
     }
 
     // loose some name precision here
@@ -534,9 +577,11 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         if (ctx.conditionalOrExpression() != null) {
             String orS = visit(ctx.conditionalOrExpression());
             String andS = visit(ctx.conditionalAndExpression());
-            return String.format("(Or %s %s)", orS, andS);
+            int ln = ctx.getStart().getLine();
+            int coln = ctx.getStart().getCharPositionInLine();
+            return String.format("((%d %d) Or %s %s)", ln, coln, orS, andS);
         } else {
-            return visit(ctx.conditionalOrExpression());
+            return visit(ctx.conditionalAndExpression());
         }
     }
 
@@ -545,7 +590,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         if (ctx.conditionalAndExpression() != null) {
             String andS = visit(ctx.conditionalAndExpression());
             String orInS = visit(ctx.inclusiveOrExpression());
-            return String.format("(And %s %s)", andS, orInS);
+            int ln = ctx.getStart().getLine();
+            int coln = ctx.getStart().getCharPositionInLine();
+            return String.format("((%d %d) And %s %s)", ln, coln, andS, orInS);
         } else {
             return visit(ctx.inclusiveOrExpression());
         }
@@ -567,7 +614,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         if (ctx.exclusiveOrExpression() != null) {
             String exclusiveOrS = visit(ctx.exclusiveOrExpression());
             String andS = visit(ctx.andExpression());
-            return String.format("(ExOr %s %s)", exclusiveOrS, andS);
+            int ln = ctx.getStart().getLine();
+            int coln = ctx.getStart().getCharPositionInLine();
+            return String.format("((%d %d) ExOr %s %s)", ln, coln, exclusiveOrS, andS);
         } else {
             return visit(ctx.andExpression());
         }
@@ -578,9 +627,11 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         if (ctx.andExpression() != null) {
             String andS = visit(ctx.andExpression());
             String equalS = visit(ctx.equalityExpression());
-            return String.format("(And %s %s)", andS, equalS);
+            int ln = ctx.getStart().getLine();
+            int coln = ctx.getStart().getCharPositionInLine();
+            return String.format("((%d %d) And %s %s)", ln, coln, andS, equalS);
         } else {
-            return visit(ctx.andExpression());
+            return visit(ctx.equalityExpression());
         }
     }
 
@@ -588,117 +639,151 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitEqEqExpr(Java8Parser.EqEqExprContext ctx) {
         String eqS = visit(ctx.equalityExpression());
         String relS = visit(ctx.relationalExpression());
-        return String.format("(Eq %s %s)", eqS, relS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Eq %s %s)", ln, coln, eqS, relS);
     }
 
     @Override
     public String visitEqNotEqExpr(Java8Parser.EqNotEqExprContext ctx) {
         String eqS = visit(ctx.equalityExpression());
         String relS = visit(ctx.relationalExpression());
-        return String.format("(NotEq %s %s)", eqS, relS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) NotEq %s %s)", ln, coln, eqS, relS);
     }
 
     @Override
     public String visitRelLtExpr(Java8Parser.RelLtExprContext ctx) {
         String relS = visit(ctx.relationalExpression());
         String shiftS = visit(ctx.shiftExpression());
-        return String.format("(< %s %s)", relS, shiftS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) < %s %s)", ln, coln, relS, shiftS);
     }
 
     @Override
     public String visitRelGtExpr(Java8Parser.RelGtExprContext ctx) {
         String relS = visit(ctx.relationalExpression());
         String shiftS = visit(ctx.shiftExpression());
-        return String.format("(> %s %s)", relS, shiftS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) > %s %s)", ln, coln, relS, shiftS);
     }
 
     @Override
     public String visitRelLeExpr(Java8Parser.RelLeExprContext ctx) {
         String relS = visit(ctx.relationalExpression());
         String shiftS = visit(ctx.shiftExpression());
-        return String.format("(<= %s %s)", relS, shiftS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) <= %s %s)", ln, coln, relS, shiftS);
     }
 
     @Override
     public String visitRelGeExpr(Java8Parser.RelGeExprContext ctx) {
         String relS = visit(ctx.relationalExpression());
         String shiftS = visit(ctx.shiftExpression());
-        return String.format("(>= %s %s)", relS, shiftS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) >= %s %s)", ln, coln, relS, shiftS);
     }
 
     @Override
     public String visitRelInstExpr(Java8Parser.RelInstExprContext ctx) {
         String relS = visit(ctx.relationalExpression());
         String refS = visit(ctx.referenceType());
-        return String.format("(instanceof %s %s)", relS, refS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) instanceof %s %s)", ln, coln, relS, refS);
     }
 
     @Override
     public String visitShiftLeftExpr(Java8Parser.ShiftLeftExprContext ctx) {
         String shiftS = visit(ctx.shiftExpression());
         String addS = visit(ctx.additiveExpression());
-        return String.format("(<< %s %s)", shiftS, addS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) << %s %s)", ln, coln, shiftS, addS);
     }
 
     @Override
     public String visitShiftRightExpr(Java8Parser.ShiftRightExprContext ctx) {
         String shiftS = visit(ctx.shiftExpression());
         String addS = visit(ctx.additiveExpression());
-        return String.format("(>> %s %s)", shiftS, addS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) >> %s %s)", ln, coln, shiftS, addS);
     }
 
     @Override
     public String visitShiftUnsignLeftExpr(Java8Parser.ShiftUnsignLeftExprContext ctx) {
         String shiftS = visit(ctx.shiftExpression());
         String addS = visit(ctx.additiveExpression());
-        return String.format("(>>> %s %s)", shiftS, addS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) >>> %s %s)", ln, coln, shiftS, addS);
     }
 
     @Override
     public String visitAddAddExpr(Java8Parser.AddAddExprContext ctx) {
         String addS = visit(ctx.additiveExpression());
         String multS = visit(ctx.multiplicativeExpression());
-        return String.format("(+ %s %s)", addS, multS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) + %s %s)", ln, coln, addS, multS);
     }
 
     @Override
     public String visitAddSubExpr(Java8Parser.AddSubExprContext ctx) {
         String addS = visit(ctx.additiveExpression());
         String multS = visit(ctx.multiplicativeExpression());
-        return String.format("(- %s %s)", addS, multS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) - %s %s)", ln, coln, addS, multS);
     }
 
     @Override
     public String visitMultMultExpr(Java8Parser.MultMultExprContext ctx) {
         String multS = visit(ctx.multiplicativeExpression());
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(* %s %s)", multS, unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) * %s %s)", ln, coln, multS, unaryS);
     }
 
     @Override
     public String visitMultDivExpr(Java8Parser.MultDivExprContext ctx) {
         String multS = visit(ctx.multiplicativeExpression());
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(/ %s %s)", multS, unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) / %s %s)", ln, coln, multS, unaryS);
     }
 
     @Override
     public String visitMultModExpr(Java8Parser.MultModExprContext ctx) {
         String multS = visit(ctx.multiplicativeExpression());
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(Mod %s %s)", multS, unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Mod %s %s)", ln, coln, multS, unaryS);
     }
 
     @Override
     public String visitPreIncrementExpression(Java8Parser.PreIncrementExpressionContext ctx) {
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(Add1 %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Add1 %s)", ln, coln, unaryS);
     }
 
     @Override
     public String visitPreDecrementExpression(Java8Parser.PreDecrementExpressionContext ctx) {
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(Sub1 %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Sub1 %s)", ln, coln, unaryS);
     }
 
     @Override
@@ -709,31 +794,41 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     @Override
     public String visitUnaryNegExpr(Java8Parser.UnaryNegExprContext ctx) {
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(- %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) - %s)", ln, coln, unaryS);
     }
 
     @Override
     public String visitUnaryBitNotExpr(Java8Parser.UnaryBitNotExprContext ctx) {
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(BitNot %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) BitNot %s)", ln, coln, unaryS);
     }
 
     @Override
     public String visitUnaryNotExpr(Java8Parser.UnaryNotExprContext ctx) {
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(Not %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Not %s)", ln, coln, unaryS);
     }
 
     @Override
     public String visitPostDecrementExpression(Java8Parser.PostDecrementExpressionContext ctx) {
         String unaryS = visit(ctx.postfixExpression());
-        return String.format("(PSub1 %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) PSub1 %s)", ln, coln, unaryS);
     }
 
     @Override
     public String visitPostIncrementExpression(Java8Parser.PostIncrementExpressionContext ctx) {
         String unaryS = visit(ctx.postfixExpression());
-        return String.format("(PAdd1 %s)", unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d)PAdd1 %s)", ln, coln, unaryS);
     }
 
     @Override
@@ -747,7 +842,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         } else {
             return eS;
         }
-        return String.format("(+ %d %s)", count, eS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) + %d %s)", ln, coln, count, eS);
     }
 
     // actually in my analysis type won't help ..... and won't use lambda
@@ -755,7 +852,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitCastPrimExpr(Java8Parser.CastPrimExprContext ctx) {
         String primS = visit(ctx.primitiveType());
         String unaryS = visit(ctx.unaryExpression());
-        return String.format("(Cast %s %s)", primS, unaryS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Cast %s %s)", ln, coln, primS, unaryS);
     }
 
     /**
@@ -769,7 +868,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitCastTypeExpr(Java8Parser.CastTypeExprContext ctx) {
         String refS = visit(ctx.referenceType());
         String expS = visit(ctx.unaryExpressionNotPlusMinus());
-        return String.format("(Cast %s %s)", refS, expS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Cast %s %s)", ln, coln, refS, expS);
     }
 
     @Override
@@ -801,33 +902,43 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     @Override
     public String visitPrimaryNoNewArray_lfno_primaryRefl(Java8Parser.PrimaryNoNewArray_lfno_primaryReflContext ctx) {
         String typeS = visit(ctx.typeName());
-        return String.format("(Refl [] %s)", typeS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Refl [] %s)", ln, coln, typeS);
     }
 
     @Override
     public String visitPrimaryNoNewArray_lfno_primaryArrayRefl(
             Java8Parser.PrimaryNoNewArray_lfno_primaryArrayReflContext ctx) {
         String typeS = visit(ctx.unannPrimitiveType());
-        return String.format("(Refl [] %s)", typeS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Refl [] %s)", ln, coln, typeS);
     }
 
     @Override
     public String visitPrimaryNoNewArray_lfno_primaryVRefl(
             Java8Parser.PrimaryNoNewArray_lfno_primaryVReflContext ctx) {
-        return "(Refl [] void)";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Refl [] void)", ln, coln);
     }
 
     @Override
     public String visitPrimaryNoNewArray_lfno_primarySelf(
             Java8Parser.PrimaryNoNewArray_lfno_primarySelfContext ctx) {
-        return "(THIS)";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) THIS)", ln, coln);
     }
 
     @Override
     public String visitPrimaryNoNewArray_lfno_primaryClassSelf(
             Java8Parser.PrimaryNoNewArray_lfno_primaryClassSelfContext ctx) {
         String typeS = visit(ctx.typeName());
-        return String.format("(THIS %s)", typeS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) THIS %s)", ln, coln, typeS);
     }
 
     @Override
@@ -850,7 +961,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeArgS = (ctx.typeArgumentsOrDiamond() != null) ? visit(ctx.typeArgumentsOrDiamond()) : "()";
         String argS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
         String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
-        return String.format("(New %s %s %s %s)", nameS, typeArgS, argS, classBody);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) New %s %s %s %s)", ln, coln, nameS, typeArgS, argS, classBody);
     }
 
     @Override
@@ -859,7 +972,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeArgS = (ctx.typeArgumentsOrDiamond() != null) ? visit(ctx.typeArgumentsOrDiamond()) : "()";
         String argS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
         String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
-        return String.format("(New %s %s %s %s)", nameS, typeArgS, argS, classBody);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) New %s %s %s %s)", ln, coln, nameS, typeArgS, argS, classBody);
     }
 
     // TODO: too casual here cause inconsistence of generic.....
@@ -882,12 +997,16 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             argsSB.append(' ');
         }
         argsSB.append(')');
-        return String.format("(Args %s)", argsSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Args %s)", ln, coln, argsSB.toString());
     }
 
     @Override
     public String visitFieldAccess_lfno_primary(Java8Parser.FieldAccess_lfno_primaryContext ctx) {
-        return String.format("(Super %s)", ctx.Identifier().getText());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Super %s)", ln, coln, ctx.Identifier().getText());
     }
 
     /**
@@ -906,7 +1025,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             exprSB.append(' ');
         }
         exprSB.append(')');
-        return String.format("(ArrayAccess %s %s)", exprNameS, exprSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) ArrayAccess %s %s)", ln, coln, exprNameS, exprSB.toString());
     }
 
     @Override
@@ -918,7 +1039,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             exprSB.append(' ');
         }
         exprSB.append(')');
-        return String.format("(ArrayAccess %s %s)", exprNameS, exprSB.toString());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) ArrayAccess %s %s)", ln, coln, exprNameS, exprSB.toString());
     }
 
     // vague for type here
@@ -940,21 +1063,27 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
             typeListS.append(' ');
         }
         typeListS.append(')');
-        return String.format("(Types %s)", typeListS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Types %s)", ln, coln, typeListS);
     }
 
     @Override
     public String visitClassType_lfno_classOrInterfaceType(Java8Parser.ClassType_lfno_classOrInterfaceTypeContext ctx) {
         String typeNames = ctx.Identifier().getText();
         String typeArgs = (ctx.typeArguments() != null) ? visit(ctx.typeArguments()) : "()";
-        return String.format("(%s %s)", typeNames, typeArgs);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Class %s %s)", ln, coln, typeNames, typeArgs);
     }
 
     @Override
     public String visitImplicitMethodInvoc(Java8Parser.ImplicitMethodInvocContext ctx) {
         String nameS = visit(ctx.methodName());
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s)", nameS, argsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodInvoc %s %s)", ln, coln, nameS, argsS);
     }
 
     @Override
@@ -967,7 +1096,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.typeName());
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s %s)", typeS, nameS, argsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodInvoc %s %s %s)", ln, coln, typeS, nameS, argsS);
     }
 
     @Override
@@ -975,7 +1106,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.expressionName());
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s %s)", typeS, nameS, argsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodInvoc %s %s %s)", ln, coln, typeS, nameS, argsS);
     }
 
     @Override
@@ -983,27 +1116,35 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.primary());
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc %s %s %s)", typeS, nameS, argsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodInvoc %s %s %s)", ln, coln, typeS, nameS, argsS);
     }
 
     @Override
     public String visitSuperMethodInvoc(Java8Parser.SuperMethodInvocContext ctx) {
         String nameS = ctx.Identifier().getText();
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
-        return String.format("(MethodInvoc Super %s %s)", nameS, argsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodInvoc Super %s %s)", ln, coln, nameS, argsS);
     }
 
     @Override
     public String visitAssertOneStatement(Java8Parser.AssertOneStatementContext ctx) {
         String exprS = visit(ctx.expression());
-        return String.format("(Assert %s)", exprS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Assert %s)", ln, coln, exprS);
     }
 
     @Override
     public String visitAssertTwoStatement(Java8Parser.AssertTwoStatementContext ctx) {
         String exprS1 = visit(ctx.expression(0));
         String exprS2 = visit(ctx.expression(1));
-        return String.format("(Assert %s %s)", exprS1, exprS2);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Assert %s %s)", ln, coln, exprS1, exprS2);
     }
 
     /**
@@ -1016,7 +1157,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitSwitchStatement(Java8Parser.SwitchStatementContext ctx) {
         String guardS = visit(ctx.expression());
         String blockS = visit(ctx.switchBlock());
-        return String.format("(Switch %s %s)", guardS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Switch %s %s)", ln, coln, guardS, blockS);
     }
 
     // only take care of useful label
@@ -1051,17 +1194,23 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     @Override
     public String visitSwitchLabelConst(Java8Parser.SwitchLabelConstContext ctx) {
-        return String.format("(Case %s)", visit(ctx.constantExpression()));
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Case %s)", ln, coln, visit(ctx.constantExpression()));
     }
 
     @Override
     public String visitSwitchLabelDefault(Java8Parser.SwitchLabelDefaultContext ctx) {
-        return "(Default)";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Default)", ln, coln);
     }
 
     @Override
     public String visitSwitchLabelEnum(Java8Parser.SwitchLabelEnumContext ctx) {
-        return String.format("(Case %s)", visit(ctx.enumConstantName()));
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Case %s)", ln, coln, visit(ctx.enumConstantName()));
     }
 
     @Override
@@ -1079,36 +1228,48 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitDoStatement(Java8Parser.DoStatementContext ctx) {
         String guardS = visit(ctx.expression());
         String blockS = visit(ctx.statement());
-        return String.format("(Do %s %s)", guardS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Do %s %s)", ln, coln, guardS, blockS);
     }
 
     @Override
     public String visitBreakStatement(Java8Parser.BreakStatementContext ctx) {
-        return "Break";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Break)", ln, coln);
     }
 
     @Override
     public String visitContinueStatement(Java8Parser.ContinueStatementContext ctx) {
-        return "Continue";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return "((%d %d) Continue)";
     }
 
     @Override
     public String visitReturnStatement(Java8Parser.ReturnStatementContext ctx) {
-        return String.format("(Return %s)", visit(ctx.expression()));
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Return %s)", ln, coln, visit(ctx.expression()));
     }
 
     // TODO: synchronizedStatement
 
     @Override
     public String visitThrowStatement(Java8Parser.ThrowStatementContext ctx) {
-        return String.format("(Throw %s)", visit(ctx.expression()));
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Throw %s)", ln, coln, visit(ctx.expression()));
     }
 
     @Override
     public String visitTryCatchStatement(Java8Parser.TryCatchStatementContext ctx) {
         String blockS = visit(ctx.block());
         String catchS = visit(ctx.catches());
-        return String.format("(Try %s %s)", blockS, catchS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Try %s %s)", ln, coln, blockS, catchS);
     }
 
     @Override
@@ -1116,7 +1277,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String blockS = visit(ctx.block());
         String catchS = visit(ctx.catches());
         String finalS = visit(ctx.finally_());
-        return String.format("(Try %s %s %s)", blockS, catchS, finalS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Try %s %s %s)", ln, coln, blockS, catchS, finalS);
     }
 
     @Override
@@ -1134,7 +1297,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitCatchClause(Java8Parser.CatchClauseContext ctx) {
         String argS = visit(ctx.catchFormalParameter());
         String blockS = visit(ctx.block());
-        return String.format("(Catch %s %s)", argS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Catch %s %s)", ln, coln, argS, blockS);
     }
 
     @Override
@@ -1147,19 +1312,25 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         modSB.append(')');
         String typeS = visit(ctx.catchType());
         String name = visit(ctx.variableDeclaratorId());
-        return String.format("(Arg %s %s %s)", modSB.toString(), typeS, name);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Arg %s %s %s)", ln, coln, modSB.toString(), typeS, name);
     }
 
     @Override
     public String visitFinally_(Java8Parser.Finally_Context ctx) {
-        return String.format("(Finally %s)", ctx.block());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Finally %s)", ln, coln, ctx.block());
     }
 
     @Override
     public String visitLabeledStatement(Java8Parser.LabeledStatementContext ctx) {
         String labelS = ctx.Identifier().getText();
         String stS = visit(ctx.statement());
-        return String.format("(Labeled %s %s)", labelS, stS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Labeled %s %s)", ln, coln, labelS, stS);
     }
 
     /**
@@ -1172,7 +1343,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitIfThenStatement(Java8Parser.IfThenStatementContext ctx) {
         String guardS = visit(ctx.expression());
         String blockS = visit(ctx.statement());
-        return String.format("(IfThen %s %s)", guardS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) IfThen %s %s)", ln, coln, guardS, blockS);
     }
 
     @Override
@@ -1180,14 +1353,18 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String guardS = visit(ctx.expression());
         String ifS = visit(ctx.statementNoShortIf());
         String elseS = visit(ctx.statement());
-        return String.format("(IfElse %s %s %s)", guardS, ifS, elseS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) IfElse %s %s %s)", ln, coln, guardS, ifS, elseS);
     }
 
     @Override
     public String visitWhileStatement(Java8Parser.WhileStatementContext ctx) {
         String guardS = visit(ctx.expression());
         String blockS = visit(ctx.statement());
-        return String.format("(While %s %s)", guardS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) While %s %s)", ln, coln, guardS, blockS);
     }
 //
 //    @Override
@@ -1207,7 +1384,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String guardS = visit(ctx.expression());
         String updateS = visit(ctx.forUpdate());
         String blockS = visit(ctx.expression());
-        return String.format("(For %s %s %s %s)", initS, guardS, updateS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) For %s %s %s %s)", ln, coln, initS, guardS, updateS, blockS);
     }
 
     @Override
@@ -1228,7 +1407,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitLabeledStatementNoShortIf(Java8Parser.LabeledStatementNoShortIfContext ctx) {
         String labelS = ctx.Identifier().getText();
         String stS = visit(ctx.statementNoShortIf());
-        return String.format("(Labeled %s %s)", labelS, stS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Labeled %s %s)", ln, coln, labelS, stS);
     }
 
     @Override
@@ -1236,18 +1417,23 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String guardS = visit(ctx.expression());
         String ifS = visit(ctx.statementNoShortIf(0));
         String elseS = visit(ctx.statementNoShortIf(1));
-        return String.format("(IfElse %s %s %s)", guardS, ifS, elseS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) IfElse %s %s %s)", ln, coln, guardS, ifS, elseS);
     }
 
     @Override
     public String visitWhileStatementNoShortIf(Java8Parser.WhileStatementNoShortIfContext ctx) {
         String guardS = visit(ctx.expression());
         String blockS = visit(ctx.statementNoShortIf());
-        return String.format("(While %s %s)", guardS, blockS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) While %s %s)", ln, coln, guardS, blockS);
     }
 
     /**
      * method? := (Method (list mod?) header? body?)
+     *
      * @param ctx
      * @return
      */
@@ -1261,7 +1447,14 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         modSB.append(')');
         String headerS = visit(ctx.methodHeader());
         String bodyS = visit(ctx.methodBody());
-        return String.format("(Method %s %s %s)", modSB.toString(), headerS, bodyS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Method %s %s %s)", ln, coln, modSB.toString(), headerS, bodyS);
+    }
+
+    @Override
+    public String visitMethodModifier(Java8Parser.MethodModifierContext ctx) {
+        return ctx.getText();
     }
 
     @Override
@@ -1269,7 +1462,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String retTS = visit(ctx.result());
         String declS = visit(ctx.methodDeclarator());
         String throwS = (ctx.throws_() != null) ? visit(ctx.throws_()) : "()";
-        return String.format("(%s %s %s)",  retTS, declS, throwS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodHeader %s %s %s)", ln, coln, retTS, declS, throwS);
     }
 
     @Override
@@ -1278,7 +1473,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String retTS = visit(ctx.result());
         String declS = visit(ctx.methodDeclarator());
         String throwS = (ctx.throws_() != null) ? visit(ctx.throws_()) : "()";
-        return String.format("(%s %s %s %s)", genericS, retTS, declS, throwS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethodHeader %s %s %s %s)", ln, coln, genericS, retTS, declS, throwS);
     }
 
     @Override
@@ -1288,6 +1485,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     /**
      * method-decl? := (MethodDecl name args)
+     *
      * @param ctx
      * @return
      */
@@ -1297,12 +1495,140 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String argsS = visit(ctx.formalParameterList());
         // what is dim here?
         // String dimS = visit(ctx.dims());
-        return String.format("(MethDecl %s %s)", nameS, argsS);
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) MethDecl %s %s)", ln, coln, nameS, argsS);
     }
 
     @Override
     public String visitMethodBody(Java8Parser.MethodBodyContext ctx) {
         return visit(ctx.block());
+    }
+
+    // enum
+
+    @Override
+    public String visitEnumDeclaration(Java8Parser.EnumDeclarationContext ctx) {
+        String nameS = ctx.Identifier().toString();
+        StringBuilder modSB = new StringBuilder("(");
+        for (var modCtx : ctx.classModifier()) {
+            modSB.append(visit(modCtx));
+            modSB.append(' ');
+        }
+        modSB.append(")");
+        String superS = (ctx.superinterfaces() != null) ? visit(ctx.superinterfaces()) : "()";
+        String bodyS = visit(ctx.enumBody());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Enum %s %s %s %s)", ln, coln, nameS, modSB.toString(), superS, bodyS);
+    }
+
+    @Override
+    public String visitEnumBody(Java8Parser.EnumBodyContext ctx) {
+        String constS = visit(ctx.enumConstantList());
+        String bodyDeclS = (ctx.enumBodyDeclarations() != null) ? visit(ctx.enumConstantList()) : "()";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) EnumBodyDecl %s %s)", ln, coln, constS, bodyDeclS);
+    }
+
+    @Override
+    public String visitEnumConstantList(Java8Parser.EnumConstantListContext ctx) {
+        StringBuilder constSB = new StringBuilder("(");
+        for (var cCtx : ctx.enumConstant()) {
+            constSB.append(visit(cCtx));
+            constSB.append(' ');
+        }
+        constSB.append(")");
+        return constSB.toString();
+    }
+
+    @Override
+    public String visitEnumConstant(Java8Parser.EnumConstantContext ctx) {
+        String nameS = ctx.Identifier().getText();
+        String argListS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
+        String bodyS = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) EnumConst %s %s %s)", ln, coln, nameS, argListS, bodyS);
+    }
+
+    @Override
+    public String visitEnumBodyDeclarations(Java8Parser.EnumBodyDeclarationsContext ctx) {
+        StringBuilder bodySB = new StringBuilder("(");
+        for (var bCtx : ctx.classBodyDeclaration()) {
+            bodySB.append(visit(bCtx));
+            bodySB.append(" ");
+        }
+        bodySB.append(")");
+        return bodySB.toString();
+    }
+
+    // interface
+
+
+    @Override
+    public String visitNormalInterfaceDeclaration(Java8Parser.NormalInterfaceDeclarationContext ctx) {
+        String nameS = ctx.Identifier().getText();
+        StringBuilder modSB = new StringBuilder("(");
+        for (var mCtx : ctx.interfaceModifier()) {
+            modSB.append(visit(mCtx));
+            modSB.append(' ');
+        }
+        modSB.append(')');
+        String typeS = (ctx.typeParameters() != null) ? visit(ctx.typeParameters()) : "()";
+        String parentS = (ctx.extendsInterfaces() != null) ? visit(ctx.extendsInterfaces()) : "()";
+        String bodyS = visit(ctx.interfaceBody());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) Interface %s %s %s %s %s \n%s)", ln, coln, nameS,
+                modSB.toString(), typeS, parentS, bodyS);
+    }
+
+    @Override
+    public String visitInterfaceModifier(Java8Parser.InterfaceModifierContext ctx) {
+        return ctx.getText();
+    }
+
+    @Override
+    public String visitExtendsInterfaces(Java8Parser.ExtendsInterfacesContext ctx) {
+        return visit(ctx.interfaceTypeList());
+    }
+
+    @Override
+    public String visitConstantDeclaration(Java8Parser.ConstantDeclarationContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (var mCtx : ctx.constantModifier()) {
+            modSB.append(mCtx);
+            modSB.append(" ");
+        }
+        modSB.append(")");
+        String typeS = visit(ctx.unannType());
+        String varLS = visit(ctx.variableDeclaratorList());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) InterfaceConst %s %s %s)", ln, coln,
+                modSB.toString(), typeS, varLS);
+    }
+
+    @Override
+    public String visitInterfaceMethodDeclaration(Java8Parser.InterfaceMethodDeclarationContext ctx) {
+        StringBuilder modSB = new StringBuilder("(");
+        for (var mCtx : ctx.interfaceMethodModifier()) {
+            modSB.append(visit(mCtx));
+            modSB.append(" ");
+        }
+        modSB.append(")");
+        String headerS = visit(ctx.methodHeader());
+        String bodyS = visit(ctx.methodBody());
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) InterfaceMethod %s %s %s)", ln, coln, modSB.toString(), headerS, bodyS);
+    }
+
+    @Override
+    public String visitInterfaceMethodModifier(Java8Parser.InterfaceMethodModifierContext ctx) {
+        return ctx.getText();
     }
 }
 

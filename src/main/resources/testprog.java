@@ -13,8 +13,8 @@ class Foo {
         System.out.println("this is foo!");
         this.bar(1);
     }
-//
-//    public void bar(int a) {
-//        this.data = a;
-//    }
+
+    public void bar(int a) {
+        this.data = a;
+    }
 }
