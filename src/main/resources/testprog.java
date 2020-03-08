@@ -15,6 +15,8 @@ class Foo {
     }
 
     public void bar(int a) {
+        int c;
+        int b = 0;
         this.data = a;
     }
 }

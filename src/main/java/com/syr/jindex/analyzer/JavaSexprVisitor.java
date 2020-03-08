@@ -75,7 +75,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         for (Java8Parser.TypeDeclarationContext typeCtx : ctx.typeDeclaration()) {
             typeDeclSB.append(visit(typeCtx));
         }
-        return String.format("(%s\n %s\n %s)", pkgDeclS, importsSB.toString(), typeDeclSB.toString());
+        return String.format("(CompUnit %s\n %s\n %s)", pkgDeclS, importsSB.toString(), typeDeclSB.toString());
     }
 
     // import? := ((? or 'static' 'non-static') (? list/c symbol? name))
@@ -336,6 +336,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     }
 
     /**
+     * Loose precision of dim info
      * var-def-id? := (,name ,(? number? dims))
      * mind array index access semantic, so dims is the dim number of a def
      *
@@ -344,15 +345,16 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
      */
     @Override
     public String visitVariableDeclaratorId(Java8Parser.VariableDeclaratorIdContext ctx) {
-        String nameS = ctx.Identifier().toString();
-        long dimsN = 0;
-        Java8Parser.DimsContext dimsCtx = ctx.dims();
-        if (dimsCtx != null) {
-            dimsN = dimsCtx.getText().chars().filter(c -> c == '[').count();
-        }
-        int ln = ctx.getStart().getLine();
-        int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Var %s %d)", ln, coln, nameS, dimsN);
+//        String nameS = ctx.Identifier().toString();
+//        long dimsN = 0;
+//        Java8Parser.DimsContext dimsCtx = ctx.dims();
+//        if (dimsCtx != null) {
+//            dimsN = dimsCtx.getText().chars().filter(c -> c == '[').count();
+//        }
+//        int ln = ctx.getStart().getLine();
+//        int coln = ctx.getStart().getCharPositionInLine();
+//        return String.format("((%d %d) Var %s %d)", ln, coln, nameS, dimsN);
+        return ctx.Identifier().toString();
     }
 
     /**
@@ -539,7 +541,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     /**
      * assign? := (Assign (? assign-op?) LHS RHS)
-     *
+     * TODO: do code transform on different *= += =
      * @param ctx
      * @return
      */
@@ -796,7 +798,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String unaryS = visit(ctx.unaryExpression());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) - %s)", ln, coln, unaryS);
+        return String.format("((%d %d) Neg %s)", ln, coln, unaryS);
     }
 
     @Override
@@ -828,7 +830,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String unaryS = visit(ctx.postfixExpression());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d)PAdd1 %s)", ln, coln, unaryS);
+        return String.format("((%d %d) PAdd1 %s)", ln, coln, unaryS);
     }
 
     @Override
@@ -844,6 +846,9 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         }
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
+        if (count == 0) {
+            return String.format("((%d %d) %s)", ln, coln, eS);
+        }
         return String.format("((%d %d) + %d %s)", ln, coln, count, eS);
     }
 
@@ -875,7 +880,19 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     @Override
     public String visitPrimFieldAccess(Java8Parser.PrimFieldAccessContext ctx) {
-        return super.visitPrimFieldAccess(ctx);
+        String prim = visit(ctx.primary());
+        String name = ctx.Identifier().getText();
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) FieldAccess %s %s)", ln, coln, prim, name);
+    }
+
+    @Override
+    public String visitSuperFieldAccess(Java8Parser.SuperFieldAccessContext ctx) {
+        String name = ctx.Identifier().getText();
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) FieldAccess SUPER %s)", ln, coln, name);
     }
 
     @Override
@@ -999,7 +1016,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         argsSB.append(')');
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Args %s)", ln, coln, argsSB.toString());
+        return argsSB.toString();
     }
 
     @Override
@@ -1083,7 +1100,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) MethodInvoc %s %s)", ln, coln, nameS, argsS);
+        return String.format("((%d %d) MethodInvoc THIS %s %s)", ln, coln, nameS, argsS);
     }
 
     @Override
@@ -1244,7 +1261,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitContinueStatement(Java8Parser.ContinueStatementContext ctx) {
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return "((%d %d) Continue)";
+        return String.format("((%d %d) Continue)", ln, coln);
     }
 
     @Override
@@ -1497,7 +1514,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         // String dimS = visit(ctx.dims());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) MethDecl %s %s)", ln, coln, nameS, argsS);
+        return String.format("%s %s ", nameS, argsS);
     }
 
     @Override
