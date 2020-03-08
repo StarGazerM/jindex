@@ -21,48 +21,5 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
 @SpringBootApplication
 public class Main {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    @Bean
-    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-                                            MessageListenerAdapter listenerAdapter) {
-
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
-
-        return container;
-    }
-
-    @Bean
-    MessageListenerAdapter listenerAdapter(MessageReceiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
-    }
-
-    @Bean
-    MessageReceiver receiver() {
-        return new MessageReceiver();
-    }
-
-    @Bean
-    StringRedisTemplate template(RedisConnectionFactory connectionFactory) {
-        return new StringRedisTemplate(connectionFactory);
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-
-        ApplicationContext ctx = SpringApplication.run(Main.class, args);
-
-        StringRedisTemplate template = ctx.getBean(StringRedisTemplate.class);
-        MessageReceiver receiver = ctx.getBean(MessageReceiver.class);
-
-        while (true) {
-
-            LOGGER.info("Sending message...");
-            template.convertAndSend("chat", "Hello from Redis!");
-            Thread.sleep(500L);
-        }
-
-        // System.exit(0);
-    }
 }
