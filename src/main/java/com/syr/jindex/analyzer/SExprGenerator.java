@@ -14,8 +14,4 @@ public class SExprGenerator implements IRGenerator {
 
     }
 
-    @Override
-    public void run() {
-
-    }
 }

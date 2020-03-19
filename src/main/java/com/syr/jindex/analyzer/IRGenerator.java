@@ -9,7 +9,7 @@
  * */
 package com.syr.jindex.analyzer;
 
-public interface IRGenerator extends Runnable {
+public interface IRGenerator {
 
     /***
      *  flush generated resource to somewhere...

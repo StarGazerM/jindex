@@ -1,3 +1,7 @@
+/***
+ *  Message receiver
+ *  if an analyze message received, create a worker thread to handle request
+ */
 package com.syr.jindex.analyzer;
 
 import org.slf4j.Logger;

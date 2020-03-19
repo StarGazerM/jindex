@@ -6,6 +6,8 @@
  * some precision will loose in Type, since it will not effect the soundness of alias/value flow analysis
  * and inner class new outside is not allow which means we don't support "Foo.new ..."
  *
+ * no we do need some....
+ *
  * (2) cause Java is using type wiping for generic, so the generic part will be unsound here, as AI no checking
  * too
  *
@@ -43,6 +45,9 @@ package com.syr.jindex.analyzer;
 
 import com.syr.jindex.parser.Java8Parser;
 import com.syr.jindex.parser.Java8ParserBaseVisitor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
@@ -169,6 +174,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String superClassS = (ctx.superclass() != null) ? visit(ctx.superclass()) : "()";
         String superInterfaceS = (ctx.superinterfaces() != null) ? visit(ctx.superinterfaces()) : "()";
         String classBodyS = visit(ctx.classBody());
+        Map<Integer, Integer> m = new HashMap<>(){};
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
         return String.format("((%d %d) Class %s\n %s\n %s\n %s\n %s\n %s)", ln, coln, name, classModifierSB.toString(),
@@ -392,7 +398,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String formalParamLS = (ctx.formalParameterList() != null) ? visit(ctx.formalParameterList()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Constructor %s %s (%s))", ln, coln, typeParamS, simpleTypeName, formalParamLS);
+        return String.format("%s (%s)", simpleTypeName, formalParamLS);
     }
 
     @Override
@@ -552,7 +558,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String RHS = visit(ctx.expression());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Assign %s %s %s)", ln, coln, opS, LHS, RHS);
+        return String.format("((%d %d) %s %s %s)", ln, coln, opS, LHS, RHS);
     }
 
     // loose some name precision here
@@ -921,7 +927,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String typeS = visit(ctx.typeName());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Refl [] %s)", ln, coln, typeS);
+        return String.format("((%d %d) Refl %s)", ln, coln, typeS);
     }
 
     @Override
