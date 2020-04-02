@@ -276,7 +276,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
      */
     @Override
     public String visitClassBody(Java8Parser.ClassBodyContext ctx) {
-        StringBuilder cbSB = new StringBuilder("#(");
+        StringBuilder cbSB = new StringBuilder("(");
         for (Java8Parser.ClassBodyDeclarationContext cbdCtx : ctx.classBodyDeclaration()) {
             cbSB.append(visit(cbdCtx));
             cbSB.append('\n');
@@ -502,12 +502,11 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     @Override
     public String visitBlockStatements(Java8Parser.BlockStatementsContext ctx) {
-        StringBuilder bSB = new StringBuilder("(");
+        StringBuilder bSB = new StringBuilder();
         for (var bCtx : ctx.blockStatement()) {
             bSB.append(visit(bCtx));
             bSB.append(" ");
         }
-        bSB.append(")");
         return bSB.toString();
     }
 
@@ -1274,7 +1273,8 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitReturnStatement(Java8Parser.ReturnStatementContext ctx) {
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Return %s)", ln, coln, visit(ctx.expression()));
+        String exprS = (ctx.expression() != null) ? (visit(ctx.expression())) : "()";
+        return String.format("((%d %d) Return %s)", ln, coln, exprS);
     }
 
     // TODO: synchronizedStatement

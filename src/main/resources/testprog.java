@@ -12,11 +12,13 @@ class Foo {
         this.data = 0;
         System.out.println("this is foo!");
         this.bar(1);
+        return;
     }
 
     public void bar(int a) {
         int c;
         int b = 0;
         this.data = a;
+        return;
     }
 }

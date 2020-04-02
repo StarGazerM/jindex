@@ -1,5 +1,8 @@
 ;; Predicate for s-expr like Java IR
 ;;
+;; need some passes before
+;; 1. to ANF
+;; 2. add return for void's implicit return
 
 ;; Yihao Sun <ysun67@syr.edu>
 
@@ -7,10 +10,14 @@
 
 (provide (all-defined-out))
 
+(define (position? p)
+  (match p
+    [`(,row ,clo) #t]
+    [else #f]))
 
 (define (compile-unit? cu)
   (match cu
-    [`(CompUnit ,pkg ,(? list? imports) ,(? class-def?)) #t]
+    [`(CompUnit ,pkg ,(? list? imports) ,(? class-def?) ...) #t]
     [else #f]))
 
 (define (import? i)
@@ -39,6 +46,7 @@
                        [else #f]))
              inits)]))
 
+;; 
 (define (method? m)
   (match m
     [`(,pos Method ,(? list? mods) ,head ,(? list? body)) (andmap block? body)]
@@ -57,9 +65,9 @@
 
 (define (block? b)
   (match b
-    [`(,pos Block ,(? list? insns))
+    [`(,pos Block ,insns ...)
      (andmap (or/c local-var-decl?
-                statement?)
+                   statement?)
              insns)]
     [else #f]))
 
@@ -121,9 +129,34 @@
     [(? field-access?) #t]
     [(? method-invoc?) #t]))
 
+(define (arith-symbol? s)
+  )
+
+;; atomic express
+(define (aexpr? a)
+  (match a
+    [(? number?) #t]
+    [(? symbol?) #t]
+    [else #f]))
+
+;; some syntax piece can be direct solved by racket builtin function
+(define (prim?)
+  (member '(Or And InOr ExOr Eq NotEq Not BitNot < > <= >=  << >> +
+               - * / Mod Add1 Sub1 PSub1 PAdd1 Neg)))
+
+(define (eval-prim p)
+  (hash-ref
+   (hash 'Or or 'And and 'Eq equal? 'NotEq (λ (a b) (not (equal? a b)))
+         'Not not 'BitNot bitwise-not '< < '> > '>= >= '<= <=
+         'Add1 add1 'Sub1 sub1 'PAdd1 add1 'PSub1 sub1 Neg -
+         '+ + '- - '* * '/ /
+         )))
+
 ;; no type/syntax check here
+;; though put expr inside of expr, but actually in ANF it can only be aexpr
 (define (expr? e)
   (match e
+    [(? aexpr?) #t]
     ;; logic
     [`(,pos Or ,(? expr? e₀) (? expr? e₁)) #t]
     [`(,pos And ,(? expr? e₀) (? expr? e₁)) #t]
@@ -137,7 +170,6 @@
     [`(,pos > ,(? expr? e₀) (? expr? e₁)) #t]
     [`(,pos <= ,(? expr? e₀) (? expr? e₁)) #t]
     [`(,pos >= ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos isinstanceof ,(? expr? e₀) (? expr? e₁)) #t]
     ;; bitwise
     [`(,pos << ,(? expr? e₀) (? expr? e₁)) #t]
     [`(,pos >> ,(? expr? e₀) (? expr? e₁)) #t]
@@ -154,6 +186,8 @@
     [`(,pos PSub1 ,(? expr? e₀) (? expr? e₁)) #t]
     [`(,pos Neg ,(? expr? e₀) (? expr? e₁)) #t]
     [`(,pos Or ,(? expr? e₀) (? expr? e₁)) #t]
+    ;; object type check!
+    [`(,pos isinstanceof ,(? expr? e₀) (? expr? e₁)) #t]
     ;; method invoke
     [(? method-invoc?) #t]
     ;; class creation
@@ -180,15 +214,48 @@
 
 (define (constructor? c)
   (match c
-    [`(,pos Constructor ,mods ,type ,(? list? args) ,throws ,body)
+    [`(,pos Constructor ,mods ,name ,(? list? args) ,throws ,body)
      (andmap formal-param? args)]
     [else #f]))
 
 (define (cons-body? cb)
   (match cb
-    [`(,pos Consbody ,cons-invocs ,stmts)
+    [`(,pos Consbody ,cons-invocs ,stmts ...)
      (andmap statement? stmts)]
     [else #f]))
+
+
+;; util function
+
+;; everything here start with a syntax
+(define (find-syntax-by-pos code pos)
+  (define atomic? (or/c symbol? number? string? boolean?))
+  (let/ec return
+    (define (helper c p)
+      (match c
+        ['() #f]
+        [(? atomic?) #f]
+        [(? list?)
+         (if (member p c)
+             (return c)
+             (map (λ (x) (helper x p)) c))]))
+    (helper code pos)))
+
+;; find the block contain that statment
+(define (find-out-syntax-by-pos code pos)
+  (define atomic? (or/c symbol? number? string? boolean?))
+  (let/ec return
+    (define (helper c p)
+      (match c
+        ['() #f]
+        [(? atomic?) #f]
+        [(? list?)
+         (if (ormap
+              (λ (x)
+                (if (list? x) (member p x) #f)) c)
+             (return c)
+             (map (λ (x) (helper x p)) c))]))
+    (helper code pos)))
 
 (define test
   '(CompUnit
@@ -199,17 +266,17 @@
            ()
            ()
            ()
-           #(((9 4) Field () int (((9 8) = data ()) ))
-             ((11 4) Constructor (public ) Foo (()) ()
-                     ((11 16) ConsBody ()
-                              (((12 8) = ((12 8) FieldAccess ((12 8) THIS) data) ((12 20) 0))
-                               ((13 8) MethodInvoc System.out println (((13 27) "this is foo!") ))
-                               ((14 8) MethodInvoc ((14 8) THIS) bar (((14 17) 1) )) )))
-             ((17 4) Method (public ) ((17 11) MethodHeader (void) bar ((17 20) Arg () int a)  ())
-                     ((17 27) Block
-                              (((18 8) LocalVar () int (((18 12) = c ()) ))
-                               ((19 8) LocalVar () int (((19 12) = b ((19 16) 0)) ))
-                               ((20 8) = ((20 8) FieldAccess ((20 8) THIS) data) ((20 20) a)) )))
-             )))
-
-  )
+           (((9 4) Field () int (((9 8) = data ()) ))
+            ((11 4) Constructor (public ) Foo (()) ()
+                    ((11 16) ConsBody ()
+                             ((12 8) = ((12 8) FieldAccess ((12 8) THIS) data) ((12 20) 0))
+                             ((13 8) MethodInvoc System.out println (((13 27) "this is foo!") ))
+                             ((14 8) MethodInvoc ((14 8) THIS) bar (((14 17) 1) ))
+                             ((15 8) Return ()) ))
+            ((18 4) Method (public ) ((18 11) MethodHeader (void) bar ((18 20) Arg () int a)  ())
+                    ((18 27) Block
+                     ((19 8) LocalVar () int (((19 12) = c ()) ))
+                     ((20 8) LocalVar () int (((20 12) = b ((20 16) 0)) ))
+                     ((21 8) = ((21 8) FieldAccess ((21 8) THIS) data) ((21 20) a))
+                     ((22 8) Return ()) ))
+            ))))
