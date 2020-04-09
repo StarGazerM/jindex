@@ -37,6 +37,9 @@
  *
  * (15) has very limited support for reflection
  *
+ * (16) using an uninit var will flow to top
+ *
+ *
  * Yihao Sun <email>ysun67@syr.edu</email>
  * Syracuse 2020
  */
@@ -560,10 +563,11 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         return String.format("((%d %d) %s %s %s)", ln, coln, opS, LHS, RHS);
     }
 
-    // loose some name precision here
     @Override
     public String visitExpressionName(Java8Parser.ExpressionNameContext ctx) {
-        return ctx.getText();
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        return String.format("((%d %d) %s)", ln, coln, ctx.getText());
     }
 
     // Expression for now do not support lambda !

@@ -129,9 +129,6 @@
     [(? field-access?) #t]
     [(? method-invoc?) #t]))
 
-(define (arith-symbol? s)
-  )
-
 ;; atomic express
 (define (aexpr? a)
   (match a
@@ -146,11 +143,42 @@
 
 (define (eval-prim p)
   (hash-ref
-   (hash 'Or or 'And and 'Eq equal? 'NotEq (λ (a b) (not (equal? a b)))
+   (hash 'Eq equal? 'NotEq (λ (a b) (not (equal? a b)))
          'Not not 'BitNot bitwise-not '< < '> > '>= >= '<= <=
-         'Add1 add1 'Sub1 sub1 'PAdd1 add1 'PSub1 sub1 Neg -
+         'Add1 add1 'Sub1 sub1 'PAdd1 add1 'PSub1 sub1 'Neg -
          '+ + '- - '* * '/ /
          )))
+
+(define (arith-expr? e)
+  (match e
+    [`(,pos Or ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos And ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos InOr ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos ExOr ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Eq ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos NotEq ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Not ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos BitNot ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos < ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos > ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos <= ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos >= ,(? expr? e₀) ,(? expr? e₁)) #t]
+    ;; bitwise
+    [`(,pos << ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos >> ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos >>> ,(? expr? e₀) ,(? expr? e₁)) #t]
+    ;; arith
+    [`(,pos + ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos - ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos * ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos / ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Mod ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Add1 ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Sub1 ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos PAdd1 ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos PSub1 ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Neg ,(? expr? e₀) ,(? expr? e₁)) #t]
+    [`(,pos Or ,(? expr? e₀) ,(? expr? e₁)) #t]))
 
 ;; no type/syntax check here
 ;; though put expr inside of expr, but actually in ANF it can only be aexpr
@@ -158,36 +186,9 @@
   (match e
     [(? aexpr?) #t]
     ;; logic
-    [`(,pos Or ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos And ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos InOr ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos ExOr ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Eq ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos NotEq ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Not ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos BitNot ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos < ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos > ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos <= ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos >= ,(? expr? e₀) (? expr? e₁)) #t]
-    ;; bitwise
-    [`(,pos << ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos >> ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos >>> ,(? expr? e₀) (? expr? e₁)) #t]
-    ;; arith
-    [`(,pos + ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos - ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos * ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos / ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Mod ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Add1 ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Sub1 ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos PAdd1 ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos PSub1 ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Neg ,(? expr? e₀) (? expr? e₁)) #t]
-    [`(,pos Or ,(? expr? e₀) (? expr? e₁)) #t]
+    [(? arith-expr?) #t]
     ;; object type check!
-    [`(,pos isinstanceof ,(? expr? e₀) (? expr? e₁)) #t]
+    [`(,pos isinstanceof ,(? expr? e₀) ,(? expr? e₁)) #t]
     ;; method invoke
     [(? method-invoc?) #t]
     ;; class creation
@@ -208,7 +209,7 @@
     [`(,pos MethodInvoc THIS ,name ,(? list? args))
      (andmap expr? args)]
     [`(,pos MethodInvoc SUPER ,name ,(? list? args)) #t]
-    [`(,pos MethodInvoc (? primary? e) ,name ,(? list? args)) #t]
+    [`(,pos MethodInvoc ,(? primary? e) ,name ,(? list? args)) #t]
     [`(,pos MethodInvoc ,type ,name ,(? list? args)) #t]
     [else #f]))
 
@@ -280,3 +281,41 @@
                      ((21 8) = ((21 8) FieldAccess ((21 8) THIS) data) ((21 20) a))
                      ((22 8) Return ()) ))
             ))))
+
+(define test2
+  '(CompUnit
+    ((4 0) Package com.foo.bar)
+    ()
+    ((6 0)
+     Class Bar
+     (public )
+     ()
+     ()
+     ()
+     (((7 4) Field () int (((7 8) = www ()) ))
+      ((8 4) Constructor (public ) Bar (()) ()
+             ((8 17) ConsBody () ((9 8) = ((9 8) FieldAccess ((9 8) THIS) www) ((9 19) 1)) ))))
+    ((13 0) Class Foo
+            ()
+            ()
+            ()
+            ()
+            (((14 4) Field () int (((14 8) = data ()) ))
+             ((15 4) Field () StringBuilder (((15 18) = sb ()) ))
+             ((17 4) Constructor (public ) Foo (()) ()
+                     ((17 16) ConsBody ()
+                              ((18 8) = ((18 8) FieldAccess ((18 8) THIS) data) ((18 20) 0))
+                              ((19 8) = ((19 8) FieldAccess ((19 8) THIS) sb)
+                                      ((19 18) ((19 18) New StringBuilder () () ())))
+                              ((20 8) MethodInvoc System.out println (((20 27) "this is foo!") ))
+                              ((21 8) MethodInvoc ((21 8) THIS) bar (((21 17) 1) )) ((22 8) Return ()) ))
+             ((25 4) Method (public ) ((25 11) MethodHeader (void) bar ((25 20) Arg () int a)  ())
+                     ((25 27) Block
+                              ((26 8) LocalVar () int (((26 12) = c ()) ))
+                              ((27 8) LocalVar () int (((27 12) = b ((27 16) 0)) ))
+                              ((28 8) LocalVar () Bar (((28 12) = barclass
+                                                                ((28 23) ((28 23) New Bar () () ())))))
+                              ((29 8) = ((29 8) barclass.www) ((29 23) ((29 23) b)))
+                              ((30 8) = ((30 8) FieldAccess ((30 8) THIS) data) ((30 20) ((30 20) a)))
+                              ((31 8) Return ()) ))
+             ))))

@@ -3,13 +3,20 @@
  * */
 package com.foo.bar;
 
-import java.util.List;
+public class Bar {
+    int www;
+    public Bar() {
+        this.www = 1;
+    }
+}
 
 class Foo {
     int data;
+    StringBuilder sb;
 
     public Foo(){
         this.data = 0;
+        this.sb = new StringBuilder();
         System.out.println("this is foo!");
         this.bar(1);
         return;
@@ -18,6 +25,8 @@ class Foo {
     public void bar(int a) {
         int c;
         int b = 0;
+        Bar barclass = new Bar();
+        barclass.www = b;
         this.data = a;
         return;
     }
