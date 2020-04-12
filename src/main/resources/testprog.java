@@ -16,7 +16,7 @@ class Foo {
 
     public Foo(){
         this.data = 0;
-        this.sb = new StringBuilder();
+        this.sb = new StringBuilder("");
         System.out.println("this is foo!");
         this.bar(1);
         return;

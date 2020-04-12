@@ -177,7 +177,8 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String superClassS = (ctx.superclass() != null) ? visit(ctx.superclass()) : "()";
         String superInterfaceS = (ctx.superinterfaces() != null) ? visit(ctx.superinterfaces()) : "()";
         String classBodyS = visit(ctx.classBody());
-        Map<Integer, Integer> m = new HashMap<>(){};
+        Map<Integer, Integer> m = new HashMap<>() {
+        };
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
         return String.format("((%d %d) Class %s\n %s\n %s\n %s\n %s\n %s)", ln, coln, name, classModifierSB.toString(),
@@ -550,6 +551,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     /**
      * assign? := (Assign (? assign-op?) LHS RHS)
      * TODO: do code transform on different *= += =
+     *
      * @param ctx
      * @return
      */
@@ -567,7 +569,25 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitExpressionName(Java8Parser.ExpressionNameContext ctx) {
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) %s)", ln, coln, ctx.getText());
+        String idS = ctx.Identifier().getText();
+        if (ctx.ambiguousName() == null) {
+            return String.format("((%d %d) %s)", ln, coln, idS);
+        } else {
+            return String.format("((%d %d) (ChainName %s %s))", ln, coln, visit(ctx.ambiguousName()), idS);
+        }
+    }
+
+    @Override
+    public String visitAmbiguousName(Java8Parser.AmbiguousNameContext ctx) {
+        int ln = ctx.getStart().getLine();
+        int coln = ctx.getStart().getCharPositionInLine();
+        StringBuilder asb = new StringBuilder("");
+        asb.append(ctx.Identifier().getText());
+        asb.append(" ");
+        if (ctx.ambiguousName() != null) {
+            asb.append(visit(ctx.ambiguousName()));
+        }
+        return asb.toString();
     }
 
     // Expression for now do not support lambda !
