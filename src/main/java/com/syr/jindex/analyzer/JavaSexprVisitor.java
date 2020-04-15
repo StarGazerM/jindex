@@ -39,6 +39,9 @@
  *
  * (16) using an uninit var will flow to top
  *
+ * (17) do not support direct constructor invocation inside a function body, this can be done in later phase
+ *
+ * (18) every member function call inside itself will be added a "this"
  *
  * Yihao Sun <email>ysun67@syr.edu</email>
  * Syracuse 2020
@@ -402,7 +405,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String formalParamLS = (ctx.formalParameterList() != null) ? visit(ctx.formalParameterList()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("%s (%s)", simpleTypeName, formalParamLS);
+        return String.format("%s %s", simpleTypeName, formalParamLS);
     }
 
     @Override
@@ -1144,7 +1147,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String argsS = (ctx.argumentList() != null) ? visit(ctx.argumentList()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) MethodInvoc %s %s %s)", ln, coln, typeS, nameS, argsS);
+        return String.format("((%d %d) MethodInvoc (Static %s) %s %s)", ln, coln, typeS, nameS, argsS);
     }
 
     @Override
