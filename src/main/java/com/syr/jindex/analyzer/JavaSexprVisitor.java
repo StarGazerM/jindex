@@ -402,10 +402,10 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitConstructorDeclarator(Java8Parser.ConstructorDeclaratorContext ctx) {
         String typeParamS = (ctx.typeParameters() != null) ? visit(ctx.typeParameters()) : "()";
         String simpleTypeName = visit(ctx.simpleTypeName());
-        String formalParamLS = (ctx.formalParameterList() != null) ? visit(ctx.formalParameterList()) : "()";
+        String formalParamLS = (ctx.formalParameterList() != null) ? visit(ctx.formalParameterList()) : " ";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("%s %s", simpleTypeName, formalParamLS);
+        return String.format("%s (%s)", simpleTypeName, formalParamLS);
     }
 
     @Override
@@ -462,7 +462,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String last = visit(ctx.lastFormalParameter());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) Parm %s %s)", ln, coln, head, last);
+        return String.format("%s %s", head, last);
     }
 
     /**
@@ -574,7 +574,8 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         int coln = ctx.getStart().getCharPositionInLine();
         String idS = ctx.Identifier().getText();
         if (ctx.ambiguousName() == null) {
-            return String.format("((%d %d) %s)", ln, coln, idS);
+            // return String.format("((%d %d) %s)", ln, coln, idS);
+            return idS;
         } else {
             return String.format("((%d %d) (ChainName %s %s))", ln, coln, visit(ctx.ambiguousName()), idS);
         }
@@ -1012,7 +1013,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) New %s %s %s %s)", ln, coln, nameS, typeArgS, argS, classBody);
+        return String.format("New %s %s %s %s", ln, coln, nameS, typeArgS, argS, classBody);
     }
 
     @Override
@@ -1023,7 +1024,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("((%d %d) New %s %s %s %s)", ln, coln, nameS, typeArgS, argS, classBody);
+        return String.format("New %s %s %s %s", ln, coln, nameS, typeArgS, argS, classBody);
     }
 
     // TODO: too casual here cause inconsistence of generic.....
@@ -1530,7 +1531,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
 
     @Override
     public String visitResult(Java8Parser.ResultContext ctx) {
-        return (ctx.unannType() != null) ? visit(ctx.unannType()) : "(void)";
+        return (ctx.unannType() != null) ? visit(ctx.unannType()) : "VOID";
     }
 
     /**
@@ -1547,7 +1548,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         // String dimS = visit(ctx.dims());
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("%s %s ", nameS, argsS);
+        return String.format("%s (%s) ", nameS, argsS);
     }
 
     @Override

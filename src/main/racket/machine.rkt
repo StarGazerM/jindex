@@ -22,6 +22,7 @@
 ;; eliminate empty block
 ;; remove redundent position in sexpr IR (like in New)
 ;; implement static Class and static invocation
+;; change run function into real small-step style
 
 ;; Yihao Sun <ysun67@syr.edu>
 #lang racket
@@ -31,7 +32,10 @@
          "len.rkt"
          "test.rkt")
 
-(provide run)
+(provide run
+         MVALUE)
+
+(define MVALUE (make-parameter 0))
 
 ;; Addr
 (define (vaddr? va)
@@ -140,7 +144,24 @@
                      (if (equal? name class-name)
                          (return c)
                          res)]))
-                #f cs))]))
+                #f
+                cs))]))
+
+
+;; find a pos is in which class
+(define (find-class-name/pos cu pos)
+  (match cu
+    [`(CompUnit ,pkg ,(? list? imports) ,(? class-def? cs) ...)
+     ;; no duplicate name
+     (let/ec return
+       (foldl (λ (c res)
+                (if (pos-in? c pos)
+                    (match c
+                      [`(,pos Class ,name ,mods ,type-params ,super-class ,superInterFace ,body)
+                       (return name)])
+                    res))
+              #f
+              cs))]))
 
 (define (find-filed/class c)
   (match c
@@ -153,19 +174,18 @@
      (let/cc return
        (foldl (λ (b res)
                 (match b
-                  [(? field?) res]
                   ;; TODO: check arg type here
                   [(? method?)
-                   #:when (mname (find-name/method b))
+                   #:when (equal? mname (find-name/method b))
                    (return b)]
                   [else res]))
-              '(Val ⊤ ,pos) body-list))]))
+              `(Val ⊤ ,pos) body-list))]))
 
 (define (find-name/method m)
   (match m
     [`(,pos Method ,(? list? mods) ,head ,(? list? body))
      (match head
-       [`(,pos MethodHeader ,retT ,_ ,name ,(? list? args) ,_)
+       [`(,pos MethodHeader ,retT ,name ,(? list? args) ,_)
         name])]))
 
 ;; find the type with a var name
@@ -176,12 +196,13 @@
 ;; find chained closure
 (define (find-clo/chain c β σ)
   (match c
-    [`(,pos ChainedName ,cnames ...)
+    [`(,pos (ChainName ,cnames ...))
      (define (helper names env)
        (match names
          ;; ccan't happen
-         ['() (error "a chained name has no var name")]
-         [`(,name) (hash-ref σ (hash-ref env name))]
+         ['() (error "a chained name has more than one var name")]
+         [`(,name) (error "a chained name has more than one var name")]
+         [`(,name ,_) (hash-ref σ (hash-ref env name))]
          [`(,hd . ,rst)
           (define next-clos (hash-ref σ (hash-ref env hd)))
           (append-map (λ (nc)
@@ -191,6 +212,17 @@
                            (helper rst e)]))
                       next-clos)]))
      (helper cnames β)]))
+
+(define (pos-in? s p)
+  (let/ec return
+    (define (helper ss)
+      (ormap (λ (x)
+               (cond
+                 [(equal? x p) (return #t)]
+                 [(not (list? x)) #f]
+                 [else (helper x)]))
+             ss))
+    (helper s)))
 
 ;; find next line statement to run
 ;; we only need to worry about block level thing's here
@@ -207,7 +239,7 @@
              ;; impossible
              #f)]
         [`(,h ,next . ,tail)
-         (if (member current-pos h)
+         (if (pos-in? h current-pos)
              (return next)
              (helper (cons next tail)))]))
     (match outer
@@ -255,12 +287,14 @@
 
 
 ;; eval atomic expr
-;; AExp -> BEnv -> Sto -> (listof value)
-(define (aeval a β σ k)
+;; since we are arctually fix data/control flow analysis so some point to relation should
+;; also be returned here
+;; AExp -> BEnv -> Sto -> -> PointToRelation -> (listof value) + PointToRelation
+(define (aeval a β σ k ψ)
   (match a
     ;; if a is already a value, this can happen, because I do allow some intermidiate step
     ;; to make assign code shorter
-    [(? value?) a]
+    [(? value?) (values a ψ)]
     [(? (listof value?)) a]
     ;; empty usually means something is uninit
     ['() '()]
@@ -269,12 +303,13 @@
     [`(,pos ,(? number? d)) (list `(Val ,pos ,d))]
     ;; var ref
     [(? symbol?) (hash-ref σ (hash-ref β a) '⊤)]
-    [`(,pos (? symbol?)) (hash-ref σ (hash-ref β a) '⊤)]
+    [`(,pos ,(? symbol? v))
+     (hash-ref σ (hash-ref β v) '⊤)]
     ;; chained member access
-    [`(,pos ChainedName ,cnames ...)
+    [`(,pos (ChainedName ,cnames ...))
      (define (helper names env)
        (match names
-         ;; ccan't happen
+         ;; can't happen
          ['() (error "a chained name has no var name")]
          [`(,name) (hash-ref σ (hash-ref env name))]
          [`(,hd . ,rst)
@@ -294,13 +329,9 @@
                [β-primes
                 (map (λ (pclo) (match pclo [`(VObject ,pos ,name ,type ,(? benv? e)) e])) pclos)])
           (map (λ (β-prime) (hash-ref σ (hash-ref β-prime f))) β-primes))]
-       ;; THIS can be solved by continuation
+       ;; THIS 
        [`(,pos THIS)
-        (let* ([v (match k [`(Kont ,var ,stmt ,(? benv?) ,(? vaddr?)) var])]
-               [pclos (hash-ref σ (hash-ref β v))]
-               [β-primes
-                (map (λ (pclo) (match pclo [`(VObject ,pos ,name ,type ,(? benv? e)) e])) pclos)])
-          (map (λ (β-prime) (hash-ref σ (hash-ref β-prime f))) β-primes))])]
+        (list (hash-ref σ (hash-ref β f)))])]
     ;; of course we need to support super here
     #;[`(,pos FieldAccess SUPER ,(? symbol? name)) #t]
     ;; arith is not atomic but can also be evaled in one step
@@ -309,6 +340,30 @@
      (match ae
        [`(,pos ,op ,nums ...)
         (list `(Val ,pos (Arith ,(foldl (λ (x) (aeval x β σ k)) '() nums))))])]))
+
+;; this will collect data flow information inside each state
+;; collect-dataflow :: IR → State → PointToRelation → PointToRelation
+(define (collect-dataflow ir ς ψ)
+  (match ς
+    [`(,c ,β ,σ ,kₐ ,ls)
+     (match c
+       [`(,pos LocalVar ,mod ,type ((,pos-= = ,lhs ,rhs)))
+        (hash-set ψ (first rhs) pos-=)]
+       [`(,pos = ,lhs (,pos-rhs New ,cname ,_ ,args ,_))
+        (let* ([konstructor (first (find-constructor-in-class ir cname args))]
+               [cargs (match konstructor
+                        [`(,pos Constructor ,mods ,cname ,(? list? cs) ,throws ,body)
+                         cs])])
+          (for/fold ([res ψ])
+                    ([arg args]
+                     [carg (in-list cargs)])
+            (hash-set res (first arg) (first carg))))]
+       ;; this is a good case to show control flow and dataflow is nested with each other
+       ;; for now all logic is in control flow case
+       [`(,pos = ,lhs (,pos-rhs MethodInvoc ,p ,mname ,(? list? args)))
+        ψ]
+       ;; some case will not contribute to dataflow
+       [else ψ])]))
 
 ;; step function, in order to make read program easy, I also put a program arg here
 ;; since we finally want is some point-to relation, so each step will make some change.
@@ -328,6 +383,14 @@
         (define tick-prime (tick₀ ς))
         `(((,(first insns) ,β ,σ ,kₐ ,tick-prime) ,ψ))]
        ;; local var definition
+       ;; just declare
+       [`(,pos LocalVar ,mod ,type ((,pos-assign = ,lhs ())))
+        ;; handle primitive type here, maybe no need to consider?
+        (define new-addr (alloc₀ ς  pos-assign))
+        (define null-obj `(VObject ,pos ,lhs ,type ,(hash)))
+        (define next-line (succ ir pos))
+        `(((,next-line ,(hash-set β lhs new-addr) ,(sto-∪ σ new-addr (list null-obj)) ,kₐ ls)
+           ,ψ))]
        ;; assume only single init here
        ;; here we can just init with a empty Object/value, and step into assigment state
        ;; this is not always true about Java compiler may have problem here
@@ -336,7 +399,7 @@
         (define new-addr (alloc₀ ς  pos-assign))
         (define null-obj `(VObject ,pos ,lhs ,type ,(hash)))
         `((((,pos-assign = ,lhs ,rhs) ,(hash-set β lhs new-addr) ,(sto-∪ σ new-addr (list null-obj)) ,kₐ ls)
-          ,ψ))]
+          ,(hash-set ψ (first rhs) pos-assign)))]
        ;; assignment
        ;; since we are in ANF, this should be ONLY place we will return to!
        ;; but we also need some trival assign like a = 1
@@ -346,13 +409,13 @@
        ;; should handle SUPER here
        ;; rhs is object creation
        ;; this case is for import and primitive Java class
-       [`(,pos = ,lhs (,pos-rhs (,pos-new New ,cname ,_ ,args ,_)))
+       [`(,pos = ,lhs (,pos-rhs New ,cname ,_ ,args ,_))
         #:when (not (find-class/name ir cname))
         (define next-line (succ ir pos))
         (define fake-closure `(VObject ,pos-rhs ,lhs ,cname ,(hash)))
         `(((,next-line ,β ,σ ,kₐ ,ls)
           ,ψ))]
-       [`(,pos = ,lhs (,pos-rhs (,pos-new New ,cname ,_ ,args ,_)))
+       [`(,pos = ,lhs (,pos-rhs New ,cname ,_ ,args ,_))
         (define tick-prime (tick₀ ς))
         (let* ([args-vs (map (λ (arg) (aeval arg β σ current-kont)) args)]
                ;; TODO: calculate type of eachs argument
@@ -406,28 +469,42 @@
         (define tick-prime (tick₀ ς))
         (define pclos
           (match p
-            [`(,pos 'THIS) (match current-kont [`(Kont ,var ,stmt ,b ,va) (hash-ref σ (hash-ref b var))])]
+            [`(,pos 'THIS)
+             (list `(VObject ,pos fake ,(find-class-name/pos ir pos) ,β))]
             ;; also need super case and Static case
             [else (hash-ref σ (hash-ref β (second p)))]))
-        (define pclo-type (match (first pclos) [`(VObject ,name ,type ,(? benv?)) type]))
+        (define pclo-type (match (first pclos) [`(VObject ,pos ,name ,type ,pe) type]))
+        (define pclo-βs (map (λ (pclo) (match pclo [`(VObject ,pos ,name ,type ,pe) pe])) pclos))
         (define args-vs (map (λ (arg) (aeval arg β σ current-kont)) args))
         (define meth (find-method/class (find-class/name ir pclo-type) mname args-vs))
+        (define formal-params
+          (match meth
+            [`(,pos Method ,(? list? mods) ,head (,pos-block Block ,stmts ...))
+             (match head
+               [`(,pos MethodHeader ,retT ,name ,(? list? fargs) ,_)
+                fargs])]))
         ;; step into method body
-        (define next-line (match meth [`(,pos Method ,(? list? mods) ,head ,(? list? body)) (first body)]))
-        (define-values (β-prime σ-prime ψ-prime)
-          (for/fold ([nb β]
-                     [ns σ]
-                     [np ψ])
-                    ([arg (in-list args)]
-                     [avs (in-list args-vs)])
-            (let ([a-addr (alloc₀ ς (first arg))])
-              (values (hash-set nb (last arg) a-addr)
-                      (sto-∪ ns a-addr avs)
-                      (foldl (λ (av pres) (hash-set pres (second av) (first arg))) np avs)))))
-        (let* ([new-kont `(Kont ,lhs ,pos ,β-prime ,kₐ)]
-               [new-kont-addr (alloc₀ new-kont pos-rhs)])
-          `(((,next-line ,β ,(hash-set new-kont-addr σ-prime) ,new-kont-addr ,tick-prime)
-             ,ψ-prime)))]
+        (define next-line (match meth
+                            [`(,pos Method ,(? list? mods) ,head (,pos Block ,stmts ...))
+                             (first stmts)]))
+        (for/fold ([res '()])
+                  ([pclo-β (in-list pclo-βs)])
+          (define-values (β-prime σ-prime ψ-prime)
+            (for/fold ([nb pclo-β]
+                       [ns σ]
+                       [np ψ])
+                      ([arg (in-list formal-params)]
+                       [avs (in-list args-vs)])
+              (let ([a-addr (alloc₀ ς (first arg))])
+                (values (hash-set nb (last arg) a-addr)
+                        (sto-∪ ns a-addr avs)
+                        (foldl (λ (av pres) (hash-set pres (second av) (first arg))) np avs)))))
+          (let* ([new-kont `(Kont ,lhs ,pos ,β-prime ,kₐ)]
+                 [new-kont-addr (alloc₀ new-kont pos-rhs)])
+            `(cons
+              ((,next-line ,β-prime ,(hash-set new-kont-addr σ-prime) ,new-kont-addr ,tick-prime)
+               ,ψ-prime)
+              res)))]
        ;; static Method Invoke, for here we will skip staic thing
        [`(,pos MethodInvoc (Static ,p) ,mname ,args)
         (define next-line (succ ir pos))
@@ -437,30 +514,41 @@
         (define tick-prime (tick₀ ς))
         (define pclos
           (match p
-            [`(,pos THIS)
-             (match current-kont
-               [`(Kont ,var ,stmt ,b ,va)
-                (hash-ref σ (hash-ref b var))])]
+            [`(,pos-t THIS)
+             (list `(VObject ,pos fake ,(find-class-name/pos ir pos) ,β))]
             ;; also need super case and Static case
             [else (hash-ref σ (hash-ref β (second p)))]))
-        (define pclo-type (match (first pclos) [`(VObject ,name ,type ,(? benv?)) type]))
+        (define pclo-type (match (first pclos) [`(VObject ,pos ,name ,type ,(? benv?)) type]))
+        (define pclo-β (match (first pclos) [`(VObject ,pos ,name ,type ,pe) pe]))
         (define args-vs (map (λ (arg) (aeval arg β σ current-kont)) args))
         (define meth (find-method/class (find-class/name ir pclo-type) mname args-vs))
         ;; step into method body
-        (define next-line (match meth [`(,pos Method ,(? list? mods) ,head ,(? list? body)) (first body)]))
+        (define next-line (match meth
+                            [`(,pos Method ,(? list? mods) ,head (,pos-block Block ,stmts ...))
+                             (first stmts)]))
+        (define formal-params
+          (match meth
+            [`(,pos Method ,(? list? mods) ,head (,pos-block Block ,stmts ...))
+             (match head
+               [`(,pos MethodHeader ,retT ,name ,(? list? fargs) ,_)
+                fargs])]))
         (define-values (β-prime σ-prime ψ-prime)
-          (for/fold ([nb β]
+          (for/fold ([nb pclo-β]
                      [ns σ]
                      [np ψ])
-                    ([arg (in-list args)]
+                    ([arg (in-list formal-params)]
                      [avs (in-list args-vs)])
             (let ([a-addr (alloc₀ ς (first arg))])
               (values (hash-set nb (last arg) a-addr)
                       (sto-∪ ns a-addr avs)
                       (foldl (λ (av pres) (hash-set pres (second av) (first arg))) np avs)))))
-        (let* ([new-kont `(Kont () ,pos ,β-prime ,kₐ)]
+        (let* ([out-obj-name
+                (match current-kont
+                  [`(Kont ,var ,pos ,b ,va)
+                   var])]
+               [new-kont `(Kont ,out-obj-name ,pos ,β-prime ,kₐ)]
                [new-kont-addr (alloc₀ new-kont pos)])
-          `(((,next-line ,β ,(hash-set new-kont-addr σ-prime) ,new-kont-addr ,tick-prime)
+          `(((,next-line ,β-prime ,(hash-set σ-prime new-kont-addr new-kont) ,new-kont-addr ,tick-prime)
              ,ψ-prime)))]
        ;; in order to simplify this, I play some trick here, in return case, I will create a temporary
        ;; state in this (similar to Fn Ar continuation idea but from my point of view not) rhs can be
@@ -473,23 +561,29 @@
             (aeval rhs β σ (hash-ref σ kₐ)))
           (match lhs
             ;; local varible
-            [`(,pos-v ,(? symbol? vname))
+            [(? symbol? vname)
              (define addr-lhs (hash-ref β vname))
-             `(((,(succ pos) ,(hash-set β lhs addr-lhs) ,(sto-∪ σ addr-lhs rhs-vs) ,kₐ ,tick-prime)
+             `(((,(succ ir pos) ,(hash-set β lhs addr-lhs) ,(sto-∪ σ addr-lhs rhs-vs) ,kₐ ,tick-prime)
                 ,(foldl (λ (p res)
                           (let ([pos-rhs (second p)])
-                            (hash-set res pos-rhs pos-v)))
+                            (hash-set res pos-rhs pos)))
                         ψ rhs-vs)))]
             [`(,pos-f FieldAccess ,p ,name)
              (define pclos
                (match p
                  [`(,p-t THIS)
-                  (match current-kont
-                    [`(Kont ,var ,stmt ,b ,va) (hash-ref σ (hash-ref b var))])]
+                  (list `(VObject ,pos fake ,(find-class-name/pos ir pos) ,β))]
                  [else (hash-ref σ (hash-ref β p))]))
              ;; the closure of this var name is actually in upper level(in continuaion)
              (define β-primes
                (map (λ (pclo) (match pclo [`(VObject ,pos-vo ,oname ,type ,e) e])) pclos))
+             (define ψ-prime
+               ;; if lhs is this field, we should also let lhs point to  that field position
+               (match p
+                 [`(,pos-t THIS)
+                  ;; TODO: black magic here, should be changed future
+                  (hash-set ψ pos-f (hash-ref β name))]
+                 [else ψ-prime]))
              (for/fold
                  ([res '()])
                  ([β-prime (in-list β-primes)])
@@ -498,10 +592,10 @@
                   ,(foldl (λ (p res)
                             (let ([pos-rhs (second p)])
                               (hash-set res pos-rhs pos-f)))
-                          ψ rhs-vs))
+                          ψ-prime rhs-vs))
                 res))]
-            [`(,pos-c ChainName ,names ...)
-             (let* ([pclos (find-clo/chain c β σ)]
+            [`(,pos-c (ChainName ,names ...))
+             (let* ([pclos (find-clo/chain lhs β σ)]
                     [name (last names)]
                     [β-primes
                      (map (λ (pclo) (match pclo [`(VObject ,pos-vo ,oname ,type ,e) e])) pclos)])
@@ -509,7 +603,7 @@
                    ([res '()])
                    ([β-prime (in-list β-primes)])
                  (cons
-                  `((,(succ pos) ,β ,(sto-∪ σ (hash-ref β-prime name) rhs-vs) ,kₐ ,tick-prime)
+                  `((,(succ ir pos) ,β ,(sto-∪ σ (hash-ref β-prime name) rhs-vs) ,kₐ ,tick-prime)
                     ,(foldl (λ (p res)
                               (let ([pos-rhs (second p)])
                                 (hash-set res pos-rhs pos-c)))
@@ -518,67 +612,77 @@
             ))]
        ;; return case
        ;; empty return point, just got next line of
-       [`(,pos Return ())
+       [`(,pos-ret Return ())
         (define tick-prime (tick₀ ς))
-        (define next
-          (match current-kont
-            [`(Kont ,var ,pos ,(? benv?) ,(? vaddr?))
-             (succ pos)]
-            ;; in mt continuation return means program finish
-            ['mt '☠ ]))
-        `(((,next ,β ,σ ,(last current-kont) ,tick-prime)
-           ,ψ))]
+        (let/ec return
+          (define next
+            (match current-kont
+              [`(Kont ,var ,pos ,_ ,_)
+               (succ ir pos)]
+              ;; in mt continuation return means program finish
+              ['mt (return `((☠ ,ψ)))]))
+          `(((,next ,β ,σ ,(last current-kont) ,tick-prime)
+             ,ψ)))]
        ;; Java only allow single return value
-       [`(, Retrun ,ret)
+       [`(,pos-ret Retrun ,ret)
         (match current-kont
           ;; some return but return value is abandoned
-          [`(Kont () ,pos-p ,(? benv? β-k) ,(? vaddr? kₚ))
+          [`(Kont () ,pos-p  ,β-k ,(? vaddr? kₚ))
            (define tick-prime (tick₀ ς))
-           (define next
-             (match current-kont
-               [`(Kont ,var ,pos ,(? benv?) ,(? vaddr?))
-                (succ pos)]
-               ;; in mt continuation return means program finish
-               ['mt '☠ ]))
-           `(((,next ,β ,σ ,(last current-kont) ,tick-prime)
-              ,ψ))]
-          [`(Kont ,var ,pos-p ,(? benv? β-k) ,(? vaddr? kₚ))
+           (let/ec return
+             (define next
+               (match current-kont
+                 [`(Kont ,var ,pos ,_ ,_)
+                  (succ pos)]
+                 ;; in mt continuation return means program finish
+                 ['mt (return `((☠ ,ψ))) ]))
+             `(((,next ,β ,σ ,(last current-kont) ,tick-prime)
+                ,ψ)))]
+          [`(Kont ,var ,pos-p ,β-k ,(? vaddr? kₚ))
            (define return-point (find-syntax-by-pos ir pos-p))
            ;; since we are in ANF, return point can only be assigment!
            (match return-point
              ;; return from a constructor the return value is a colsure
              ;; should move this case into empty return condition......
-             [`(,pos = (,lhs (,pos-rhs (,pos-new New ,cname ,_ ,args ,_))))
-              `(((,pos = (,lhs ((VObject ,pos-rhs ,lhs ,cname ,β)))) ,β-k ,σ ,kₚ ,ls)
-                ,(hash-set ψ (first lhs) pos-rhs))]
-             [`(,pos = ,lhs (,pos-rhs MethodInvoc ,p ,mname ,(? list? args)))
+             [`(,pos-= = ,lhs (,pos-rhs New ,cname ,_ ,args ,_))
+              `((((,pos-= = ,lhs ((VObject ,pos-rhs ,lhs ,cname ,β))) ,β-k ,σ ,kₚ ,ls)
+                ,ψ))]
+             [`(,pos-= = ,lhs (,pos-rhs MethodInvoc ,p ,mname ,(? list? args)))
               (define ret-vals (aeval ret β σ current-kont))
-              `((((,pos = ,lhs ,ret-vals) ,β-k ,σ ,kₚ ,ls)
-                ,(hash-set ψ (first lhs) pos-rhs)))])])])]
+              `((((,pos-= = ,lhs ,ret-vals) ,β-k ,σ ,kₚ ,ls)
+                 ,(hash-set ψ pos-ret pos-=)))])])])]
 
-    ['☠ (error "machine should have stopped!!!!")]))
+    ['☠ '☠]))
 
 
 ;; run the program, util meet ☠ or reach fixpoint
+;; TODO: undeterministic step should be change to small step
 (define (run code start-pos)
   (define (mult-⇝ ir ς ψ states)
-    ;; remove repeat state
-    (define next-res (⇝ ir ς ψ))
-    (define next-states (foldl (λ (x res) (if (member x states) res (cons x res))) '() (map first next-res)))
-    (define next-ψs (map second next-res))
     (define (merge-ψ p1 p2)
       (hash-union p1 p2
                   #:combine/key (λ (k v1 v2) (remove-duplicates (append v1 v2)))))
-    (displayln "step to ⇝ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    (pretty-display next-states)
     (cond
-      [(equal? '☠ next-states) (foldl merge-ψ next-ψs)]
-      ;; state repeat, meet a fixpoint
-      [(empty?  next-states) (foldl merge-ψ next-ψs)]
-      ;; diverge and merge different control flow
+      [(equal? '☠ ς)  ψ]
       [else
-       (foldl
-        merge-ψ
-        (hash)
-        (map (λ (st) (mult-⇝ ir (first st) (second st) (set-union next-states states))) next-res))]))
+       ;; remove repeat state
+       (define next-res (⇝ ir ς ψ))
+       (define next-states
+         (foldl (λ (x res) (if (member x states) res (cons x res)))
+                '()
+                (map first next-res)))
+       (define next-ψs (map second next-res))
+       (displayln "step to ⇝ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+       (pretty-display next-states)
+       (cond
+         ;; state repeat, meet a fixpoint
+         [(empty?  next-states) (foldl merge-ψ (hash) next-ψs)]
+         ;; diverge and merge different control flow
+         [else
+          (foldl
+           merge-ψ
+           (hash)
+           (map (λ (st)
+                  (mult-⇝ ir (first st) (second st) (set-union next-states states)))
+                next-res))])]))
   (mult-⇝ code (inject/start code start-pos) (hash) '()))

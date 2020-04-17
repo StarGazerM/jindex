@@ -48,13 +48,13 @@
 ;; 
 (define (method? m)
   (match m
-    [`(,pos Method ,(? list? mods) ,head ,(? list? body)) (andmap block? body)]
+    [`(,pos Method ,(? list? mods) ,head ,(? block? body)) #t]
     [else #f]))
 
 (define (method-header? mh)
   (match mh
     ;; some throw and generic precision is miss here
-    [`(,pos MethodHeader ,retT ,_ ,name ,(? list? args) ,_) #t]
+    [`(,pos MethodHeader ,retT ,name ,(? list? args) ,_) #t]
     [else #f]))
 
 (define (formal-param? fp)
@@ -64,10 +64,7 @@
 
 (define (block? b)
   (match b
-    [`(,pos Block ,insns ...)
-     (andmap (or/c local-var-decl?
-                   statement?)
-             insns)]
+    [`(,pos Block ,insns ...) #t]
     [else #f]))
 
 ;; loose precision in final
@@ -109,7 +106,7 @@
     ;; TODO: handle array here
     [(? field-access?) #t]
     ;; chainded name
-    [`(,(? position?) `(ChainName ,(? symbol?) ...)) #t]
+    [`(,(? position?) `(ChainName (,(? symbol?) ...))) #t]
     [else #f]))
 
 (define (field-access? fa)
@@ -223,8 +220,7 @@
 
 (define (cons-body? cb)
   (match cb
-    [`(,pos ConsBody ,cons-invocs ,stmts ...)
-     (andmap statement? stmts)]
+    [`(,pos ConsBody ,cons-invocs ,stmts ...) #t]
     [else #f]))
 
 
@@ -244,19 +240,49 @@
              (map (λ (x) (helper x p)) c))]))
     (helper code pos)))
 
+
+
 ;; find the block contain that statment
+
+;; (define (find-out-syntax-by-pos code pos)
+;;   (define atomic? (or/c symbol? number? string? boolean?))
+;;   (let/ec return
+;;     (define (helper c p)
+;;       (match c
+;;         ['() #f]
+;;         [(? atomic?) #f]
+;;         [(? statement)
+;;          (cond
+;;            [(search-stmt c p) ])]
+;;         [(? list?)
+;;          (if (ormap
+;;               (λ (x)
+;;                 (if (list? x) (member p x) #f)) c)
+;;              (return c)
+;;              (map (λ (x) (helper x p)) c))]))
+;;     (helper code pos)))
+
 (define (find-out-syntax-by-pos code pos)
   (define atomic? (or/c symbol? number? string? boolean?))
   (let/ec return
-    (define (helper c p)
+    (define (helper c p res)
       (match c
         ['() #f]
         [(? atomic?) #f]
         [(? list?)
-         (if (ormap
-              (λ (x)
-                (if (list? x) (member p x) #f)) c)
-             (return c)
-             (map (λ (x) (helper x p)) c))]))
-    (helper code pos)))
+         (cond
+           [(cons-body? c)
+            (match c
+              [`(,pos ConsBody ,cons-invocs ,stmts ...)
+               (map (λ (x) (helper x p c)) c)])]
+           [(block? c)
+            (match c
+              [`(,pos Block ,stmts ...)
+               (map (λ (x) (helper x p c)) c)])]
+           [(member p c)
+            ;;(displayln res)
+            (return res)]
+           [else
+            (map (λ (x) (helper x p res)) c)])]))
+      (helper code pos #f)))
 
