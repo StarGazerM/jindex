@@ -23,6 +23,7 @@
 ;; remove redundent position in sexpr IR (like in New)
 ;; implement static Class and static invocation
 ;; change run function into real small-step style
+;; change point to relation into list of pair
 
 ;; Yihao Sun <ysun67@syr.edu>
 #lang racket
@@ -235,7 +236,7 @@
         ;; implicit return
         [`(,ret)
          (if (member current-pos  ret)
-             `(,(first ret) Return)
+             `(,(first ret) Return ())
              ;; impossible
              #f)]
         [`(,h ,next . ,tail)
@@ -295,23 +296,25 @@
     ;; if a is already a value, this can happen, because I do allow some intermidiate step
     ;; to make assign code shorter
     [(? value?) (values a ψ)]
-    [(? (listof value?)) a]
+    [(? (listof value?)) (values a ψ)]
     ;; empty usually means something is uninit
-    ['() '()]
-    [`(,pos ,(? string? d)) (list `(Val ,pos ,d))]
-    [`(,pos ,(? boolean? d)) (list `(Val ,pos ,d))]
-    [`(,pos ,(? number? d)) (list `(Val ,pos ,d))]
+    ['() (values '() ψ)]
+    [`(,pos ,(? string? d)) (values (list `(Val ,pos ,d)) ψ)]
+    [`(,pos ,(? boolean? d)) (values (list `(Val ,pos ,d)) ψ)]
+    [`(,pos ,(? number? d)) (values (list `(Val ,pos ,d)) ψ)]
     ;; var ref
-    [(? symbol?) (hash-ref σ (hash-ref β a) '⊤)]
+    [(? symbol?) (values (hash-ref σ (hash-ref β a) '⊤) ψ)]
     [`(,pos ,(? symbol? v))
-     (hash-ref σ (hash-ref β v) '⊤)]
+     (values (hash-ref σ (hash-ref β v) '⊤)
+             (hash-set ψ pos (hash-ref β v)))]
     ;; chained member access
     [`(,pos (ChainedName ,cnames ...))
      (define (helper names env)
        (match names
          ;; can't happen
          ['() (error "a chained name has no var name")]
-         [`(,name) (hash-ref σ (hash-ref env name))]
+         [`(,name) (values (hash-ref σ (hash-ref env name))
+                           (hash-set ψ pos (hash-ref env name)))]
          [`(,hd . ,rst)
           (define next-clos (hash-ref σ (hash-ref env hd)))
           (append-map (λ (nc)
@@ -328,10 +331,12 @@
         (let* ([pclos (hash-ref σ (hash-ref β v))]
                [β-primes
                 (map (λ (pclo) (match pclo [`(VObject ,pos ,name ,type ,(? benv? e)) e])) pclos)])
-          (map (λ (β-prime) (hash-ref σ (hash-ref β-prime f))) β-primes))]
+          (values (map (λ (β-prime) (hash-ref σ (hash-ref β-prime f))) β-primes)
+                  (foldl (λ (β-prime res) (hash-set res pos (hash-ref β-prime f))))))]
        ;; THIS 
        [`(,pos THIS)
-        (list (hash-ref σ (hash-ref β f)))])]
+        (values (list (hash-ref σ (hash-ref β f)))
+                (hash-set ψ pos (hash-ref β f)))])]
     ;; of course we need to support super here
     #;[`(,pos FieldAccess SUPER ,(? symbol? name)) #t]
     ;; arith is not atomic but can also be evaled in one step
@@ -339,7 +344,15 @@
     [(? arith-expr? ae)
      (match ae
        [`(,pos ,op ,nums ...)
-        (list `(Val ,pos (Arith ,(foldl (λ (x) (aeval x β σ k)) '() nums))))])]))
+        (values
+         (list `(Val ,pos (Arith ,(foldl (λ (x res)
+                                           (let-values ([(nv _) (aeval x β σ k)])
+                                             (cons nv res)))
+                                         '() nums))))
+         (foldl (λ (x res)
+                  (let-values ([(_ pp) (aeval x β σ k)])
+                    (merge-ψ ψ res)))
+                ψ nums))])]))
 
 ;; this will collect data flow information inside each state
 ;; collect-dataflow :: IR → State → PointToRelation → PointToRelation
@@ -417,53 +430,59 @@
           ,ψ))]
        [`(,pos = ,lhs (,pos-rhs New ,cname ,_ ,args ,_))
         (define tick-prime (tick₀ ς))
-        (let* ([args-vs (map (λ (arg) (aeval arg β σ current-kont)) args)]
-               ;; TODO: calculate type of eachs argument
-               [konstructor (first (find-constructor-in-class ir cname args))]
-               [cargs (match konstructor
-                        [`(,pos Constructor ,mods ,cname ,(? list? cs) ,throws ,body)
-                        cs])]
-               [next-line
-                (match konstructor
-                  [`(,pos Constructor ,mods ,cname ,(? list? cargs) ,throws ,body)
-                   ;; assume no empty body, even void has been inserted empty return instruction
-                   ;; body is a ds
-                   (match body
-                     [`(,pos ConsBody ,cons-invocs ,stmts ...) (first stmts)])])]
-               ;; init fields
-               [cfields (find-filed/class (find-class/name ir cname))])
-          ;; all fields to top, all arg to it's val
-          (let*-values ([(new-β σ-prime)
-                         (for/fold ([nb (hash)]
-                                    [ns σ])
-                                   ([f (in-list cfields)])
-                           (let ([f-addr (alloc₀ ς (first f))])
-                             ;; assume only one assignment at one time
-                             (match f
-                               [`(,fpos Field ,mod ,type ((,fepos = ,fname ,_)))
-                                (values (hash-set nb fname f-addr)
-                                        (sto-∪ ns f-addr '(⊤)))])))]
-                        ;; point value position to constructor arg position
-                        [(new-β-p σ-pp ψ-prime)
-                         (for/fold ([nb new-β]
-                                    [ns σ-prime]
-                                    [ps ψ])
-                                   ([arg (in-list cargs)]
-                                    [avs (in-list args-vs)])
-                           (let ([a-addr (alloc₀ ς (first arg))])
-                             (values (hash-set nb (last arg) a-addr)
-                                     (sto-∪ ns a-addr avs)
-                                     (foldl (λ (av pres) (hash-set pres (second av) (first arg))) ps avs))))])
-            ;; set new continuation
-            (let* ([new-obj `((VObject ,pos ,lhs ,cname ,new-β))]
-                   [new-obj-addr (alloc₀ ς pos)]
-                   [new-kont `(Kont ,lhs ,pos ,(hash-set β lhs new-obj-addr) ,kₐ)]
-                   [new-kont-addr (alloc₀ new-kont pos-rhs)]
-                   )
-              `(((,next-line ,new-β-p
-                             ,(hash-set (hash-set σ-pp new-obj-addr new-obj) new-kont-addr new-kont)
-                             ,new-kont-addr ,tick-prime)
-                 ,ψ-prime)))))]
+        ;; all fields to top, all arg to it's val
+        (let*-values ([(args-vs ψ-arg)
+                       (for/fold ([res-vs '()]
+                                  [res-ψ ψ])
+                                 ([arg (in-list args)])
+                         (let-values ([(vs np) (aeval arg β σ current-kont res-ψ)])
+                           (values (cons vs res-vs)
+                                   np)))]
+                      ;; TODO: calculate type of eachs argument
+                      [(konstructor) (first (find-constructor-in-class ir cname args))]
+                      [(cargs) (match konstructor
+                               [`(,pos Constructor ,mods ,cname ,(? list? cs) ,throws ,body)
+                                cs])]
+                      [(next-line)
+                       (match konstructor
+                         [`(,pos Constructor ,mods ,cname ,(? list? cargs) ,throws ,body)
+                          ;; assume no empty body, even void has been inserted empty return instruction
+                          ;; body is a ds
+                          (match body
+                            [`(,pos ConsBody ,cons-invocs ,stmts ...) (first stmts)])])]
+                      ;; init fields
+                      [(cfields) (find-filed/class (find-class/name ir cname))]
+                      [(new-β σ-prime)
+                       (for/fold ([nb (hash)]
+                                  [ns σ])
+                                 ([f (in-list cfields)])
+                         (let ([f-addr (alloc₀ ς (first f))])
+                           ;; assume only one assignment at one time
+                           (match f
+                             [`(,fpos Field ,mod ,type ((,fepos = ,fname ,_)))
+                              (values (hash-set nb fname f-addr)
+                                      (sto-∪ ns f-addr '(⊤)))])))]
+                      ;; point value position to constructor arg position
+                      [(new-β-p σ-pp ψ-prime)
+                       (for/fold ([nb new-β]
+                                  [ns σ-prime]
+                                  [ps ψ-arg])
+                                 ([arg (in-list cargs)]
+                                  [avs (in-list args-vs)])
+                         (let ([a-addr (alloc₀ ς (first arg))])
+                           (values (hash-set nb (last arg) a-addr)
+                                   (sto-∪ ns a-addr avs)
+                                   (foldl (λ (av pres) (hash-set pres (second av) (first arg))) ps avs))))])
+          ;; set new continuation
+          (let* ([new-obj `((VObject ,pos ,lhs ,cname ,new-β))]
+                 [new-obj-addr (alloc₀ ς pos)]
+                 [new-kont `(Kont ,lhs ,pos ,(hash-set β lhs new-obj-addr) ,kₐ)]
+                 [new-kont-addr (alloc₀ new-kont pos-rhs)]
+                 )
+            `(((,next-line ,new-β-p
+                           ,(hash-set (hash-set σ-pp new-obj-addr new-obj) new-kont-addr new-kont)
+                           ,new-kont-addr ,tick-prime)
+               ,ψ-prime))))]
        ;; method invokation
        [`(,pos = ,lhs (,pos-rhs MethodInvoc ,p ,mname ,(? list? args)))
         (define tick-prime (tick₀ ς))
@@ -475,7 +494,13 @@
             [else (hash-ref σ (hash-ref β (second p)))]))
         (define pclo-type (match (first pclos) [`(VObject ,pos ,name ,type ,pe) type]))
         (define pclo-βs (map (λ (pclo) (match pclo [`(VObject ,pos ,name ,type ,pe) pe])) pclos))
-        (define args-vs (map (λ (arg) (aeval arg β σ current-kont)) args))
+        (define-values (args-vs ψ-arg)
+          (for/fold ([res-vs '()]
+                     [res-ψ ψ])
+                    ([arg (in-list args)])
+            (let-values ([(vs np) (aeval arg β σ current-kont res-ψ)])
+              (values (cons vs res-vs)
+                      np))))
         (define meth (find-method/class (find-class/name ir pclo-type) mname args-vs))
         (define formal-params
           (match meth
@@ -492,7 +517,7 @@
           (define-values (β-prime σ-prime ψ-prime)
             (for/fold ([nb pclo-β]
                        [ns σ]
-                       [np ψ])
+                       [np ψ-arg])
                       ([arg (in-list formal-params)]
                        [avs (in-list args-vs)])
               (let ([a-addr (alloc₀ ς (first arg))])
@@ -520,7 +545,14 @@
             [else (hash-ref σ (hash-ref β (second p)))]))
         (define pclo-type (match (first pclos) [`(VObject ,pos ,name ,type ,(? benv?)) type]))
         (define pclo-β (match (first pclos) [`(VObject ,pos ,name ,type ,pe) pe]))
-        (define args-vs (map (λ (arg) (aeval arg β σ current-kont)) args))
+        ;;(define args-vs (map (λ (arg) (aeval arg β σ current-kont)) args))
+        (define-values (args-vs ψ-arg)
+          (for/fold ([res-vs '()]
+                     [res-ψ ψ])
+                    ([arg (in-list args)])
+            (let-values ([(vs np) (aeval arg β σ current-kont res-ψ)])
+              (values (cons vs res-vs)
+                      np))))
         (define meth (find-method/class (find-class/name ir pclo-type) mname args-vs))
         ;; step into method body
         (define next-line (match meth
@@ -535,7 +567,7 @@
         (define-values (β-prime σ-prime ψ-prime)
           (for/fold ([nb pclo-β]
                      [ns σ]
-                     [np ψ])
+                     [np ψ-arg])
                     ([arg (in-list formal-params)]
                      [avs (in-list args-vs)])
             (let ([a-addr (alloc₀ ς (first arg))])
@@ -557,8 +589,10 @@
        [`(,pos = ,lhs ,rhs)
         (let/ec return
           (define tick-prime (tick₀ ς))
-          (define rhs-vs
-            (aeval rhs β σ (hash-ref σ kₐ)))
+          #;(define rhs-vs
+              (aeval rhs β σ (hash-ref σ kₐ)))
+          (define-values (rhs-vs ψ-rhs)
+            (aeval rhs β σ (hash-ref σ kₐ) ψ))
           (match lhs
             ;; local varible
             [(? symbol? vname)
@@ -567,7 +601,8 @@
                 ,(foldl (λ (p res)
                           (let ([pos-rhs (second p)])
                             (hash-set res pos-rhs pos)))
-                        ψ rhs-vs)))]
+                        (hash-set ψ pos (hash-ref β vname))
+                        rhs-vs)))]
             [`(,pos-f FieldAccess ,p ,name)
              (define pclos
                (match p
@@ -607,22 +642,20 @@
                     ,(foldl (λ (p res)
                               (let ([pos-rhs (second p)])
                                 (hash-set res pos-rhs pos-c)))
-                            ψ rhs-vs))
+                            ψ
+                            rhs-vs))
                   res)))]
             ))]
        ;; return case
        ;; empty return point, just got next line of
        [`(,pos-ret Return ())
         (define tick-prime (tick₀ ς))
-        (let/ec return
-          (define next
-            (match current-kont
-              [`(Kont ,var ,pos ,_ ,_)
-               (succ ir pos)]
-              ;; in mt continuation return means program finish
-              ['mt (return `((☠ ,ψ)))]))
-          `(((,next ,β ,σ ,(last current-kont) ,tick-prime)
-             ,ψ)))]
+        (match current-kont
+          [`(Kont ,var ,pos ,e ,kn)
+           `(((,(succ ir pos) ,e ,σ ,kn ,tick-prime)
+              ,ψ))]
+          ;; in mt continuation return means program finish
+          ['mt `((☠ ,ψ))])]
        ;; Java only allow single return value
        [`(,pos-ret Retrun ,ret)
         (match current-kont
@@ -648,22 +681,22 @@
               `((((,pos-= = ,lhs ((VObject ,pos-rhs ,lhs ,cname ,β))) ,β-k ,σ ,kₚ ,ls)
                 ,ψ))]
              [`(,pos-= = ,lhs (,pos-rhs MethodInvoc ,p ,mname ,(? list? args)))
-              (define ret-vals (aeval ret β σ current-kont))
+              (define-values (ret-vals ψ-ret) (aeval ret β σ current-kont ψ))
               `((((,pos-= = ,lhs ,ret-vals) ,β-k ,σ ,kₚ ,ls)
-                 ,(hash-set ψ pos-ret pos-=)))])])])]
+                 ,(hash-set ψ-ret pos-ret pos-=)))])])])]
 
     ['☠ '☠]))
 
+(define (merge-ψ p1 p2)
+  (hash-union p1 p2
+              #:combine/key (λ (k v1 v2) (remove-duplicates (append v1 v2)))))
 
 ;; run the program, util meet ☠ or reach fixpoint
 ;; TODO: undeterministic step should be change to small step
 (define (run code start-pos)
-  (define (mult-⇝ ir ς ψ states)
-    (define (merge-ψ p1 p2)
-      (hash-union p1 p2
-                  #:combine/key (λ (k v1 v2) (remove-duplicates (append v1 v2)))))
+  (define (mult-⇝ ir ς ψ st-map states)
     (cond
-      [(equal? '☠ ς)  ψ]
+      [(equal? '☠ ς)  (values ψ st-map)]
       [else
        ;; remove repeat state
        (define next-res (⇝ ir ς ψ))
@@ -671,18 +704,40 @@
          (foldl (λ (x res) (if (member x states) res (cons x res)))
                 '()
                 (map first next-res)))
+       (define st-prime
+         (foldl (λ (st res)
+                  (cond
+                    [(or (equal? ς '☠) (equal? st '☠))
+                     res]
+                    [else (cons `(,(first (first ς)) ,(first (first st))) res)]))
+                st-map
+                next-states))
        (define next-ψs (map second next-res))
        (displayln "step to ⇝ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
        (pretty-display next-states)
        (cond
          ;; state repeat, meet a fixpoint
-         [(empty?  next-states) (foldl merge-ψ (hash) next-ψs)]
+         [(empty?  next-states)
+          (values (foldl merge-ψ (hash) next-ψs)
+                  st-prime)]
          ;; diverge and merge different control flow
          [else
-          (foldl
-           merge-ψ
-           (hash)
-           (map (λ (st)
-                  (mult-⇝ ir (first st) (second st) (set-union next-states states)))
-                next-res))])]))
-  (mult-⇝ code (inject/start code start-pos) (hash) '()))
+          (for/fold ([ψ-res (hash)]
+                     [st-res st-prime])
+                    ([nr (map (λ (st)
+                                (let-values
+                                    ([(nps nss)
+                                      (mult-⇝ ir (first st) (second st)
+                                              st-prime (set-union next-states states))])
+                                  `(,nps ,nss)))
+                              next-res)])
+            (values
+             (append (merge-ψ (first nr) ψ-res))
+             (set-union st-res (second nr)))
+            #;(foldl
+               merge-ψ
+               (hash)
+               (map (λ (st)
+                      (mult-⇝ ir (first st) (second st) st-prime (set-union next-states states)))
+                    next-res)))])]))
+  (mult-⇝ code (inject/start code start-pos) (hash) '() '()))
