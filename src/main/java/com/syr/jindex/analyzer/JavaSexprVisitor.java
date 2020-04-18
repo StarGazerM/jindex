@@ -1013,7 +1013,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("New %s %s %s %s", ln, coln, nameS, typeArgS, argS, classBody);
+        return String.format("New %s %s %s %s", nameS, typeArgS, argS, classBody);
     }
 
     @Override
@@ -1024,7 +1024,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
         String classBody = (ctx.classBody() != null) ? visit(ctx.classBody()) : "()";
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
-        return String.format("New %s %s %s %s", ln, coln, nameS, typeArgS, argS, classBody);
+        return String.format("New %s %s %s %s", nameS, typeArgS, argS, classBody);
     }
 
     // TODO: too casual here cause inconsistence of generic.....

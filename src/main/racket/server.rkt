@@ -19,18 +19,16 @@
 
 (define (analyze req)
   (let*-values
-      ([(ir)
-        (match (bindings-assq #"ir" (request-bindings/raw req))
-          [(? binding:form? b)
-           (bytes->string/utf-8 (binding:form-value b))])]
-       [(start)
-        (match (bindings-assq #"start" (request-bindings/raw req))
-          [(? binding:form? b)
-           (bytes->string/utf-8 (binding:form-value b))])]
+      ([(jdata) (string->jsexpr
+                 (bytes->string/utf-8
+                  (request-post-data/raw req)))]
        [(k-value) 0]
-       [(pt-map cfg) (run ir start)]
-       [(res) (hash 'point-to-map pt-map
-                    'CFG cfg)])
+       [(pt-map cfg)
+        (run (read (open-input-string (hash-ref jdata 'ir)))
+             `(,(string->number (hash-ref jdata 'startx))
+               ,(string->number (hash-ref jdata 'starty))))]
+       [(res) (hash 'point-to-map (format-point2rel pt-map)
+                    'CFG (format-stream cfg))])
     (response/jsexpr res)))
 
 (define (not-found req)
@@ -40,7 +38,7 @@
 (define-values (routes _)
   (dispatch-rules
    [("") default]
-   [("start") #:method "post" analyze]
+   [("analyze") #:method "post" analyze]
    [else not-found]))
 
 (serve/servlet routes
