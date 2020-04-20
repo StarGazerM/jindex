@@ -915,6 +915,7 @@ public class JavaSexprVisitor extends Java8ParserBaseVisitor<String> {
     public String visitPrimFieldAccess(Java8Parser.PrimFieldAccessContext ctx) {
         String prim = visit(ctx.primary());
         String name = ctx.Identifier().getText();
+        
         int ln = ctx.getStart().getLine();
         int coln = ctx.getStart().getCharPositionInLine();
         return String.format("((%d %d) FieldAccess %s %s)", ln, coln, prim, name);

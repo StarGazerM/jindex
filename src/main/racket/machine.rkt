@@ -305,8 +305,9 @@
     ;; var ref
     [(? symbol?) (values (hash-ref σ (hash-ref β a) '⊤) ψ)]
     [`(,pos ,(? symbol? v))
+     ;;(displayln (format "~a is at ~a, point to ~a" v pos (hash-ref β v)))
      (values (hash-ref σ (hash-ref β v) '⊤)
-             (hash-set ψ pos (hash-ref β v)))]
+             (hash-set ψ (hash-ref β v) pos))]
     ;; chained member access
     [`(,pos (ChainedName ,cnames ...))
      (define (helper names env)
@@ -456,7 +457,11 @@
                        (for/fold ([nb (hash)]
                                   [ns σ])
                                  ([f (in-list cfields)])
-                         (let ([f-addr (alloc₀ ς (first f))])
+                         (let* ([fpos-=
+                                 (match f
+                                   [`(,fpos Field ,mod ,type ((,fepos = ,fname ,_)))
+                                    fepos])]
+                                [f-addr (alloc₀ ς fpos-=)])
                            ;; assume only one assignment at one time
                            (match f
                              [`(,fpos Field ,mod ,type ((,fepos = ,fname ,_)))
@@ -593,6 +598,7 @@
               (aeval rhs β σ (hash-ref σ kₐ)))
           (define-values (rhs-vs ψ-rhs)
             (aeval rhs β σ (hash-ref σ kₐ) ψ))
+          (define ψ-e (hash-set ψ-rhs (first rhs) pos))
           (match lhs
             ;; local varible
             [(? symbol? vname)
@@ -601,7 +607,7 @@
                 ,(foldl (λ (p res)
                           (let ([pos-rhs (second p)])
                             (hash-set res pos-rhs pos)))
-                        (hash-set ψ pos (hash-ref β vname))
+                        (hash-set ψ-e pos (hash-ref β vname))
                         rhs-vs)))]
             [`(,pos-f FieldAccess ,p ,name)
              (define pclos
@@ -617,8 +623,9 @@
                (match p
                  [`(,pos-t THIS)
                   ;; TODO: black magic here, should be changed future
-                  (hash-set ψ pos-f (hash-ref β name))]
-                 [else ψ-prime]))
+                  (hash-set* ψ-e
+                             pos-f (hash-ref β name))]
+                 [else ψ-e]))
              (for/fold
                  ([res '()])
                  ([β-prime (in-list β-primes)])
@@ -626,7 +633,7 @@
                 `((,(succ ir pos) ,β ,(sto-∪ σ (hash-ref β-prime name) rhs-vs) ,kₐ ,tick-prime)
                   ,(foldl (λ (p res)
                             (let ([pos-rhs (second p)])
-                              (hash-set res pos-rhs pos-f)))
+                              (hash-set res pos-rhs pos)))
                           ψ-prime rhs-vs))
                 res))]
             [`(,pos-c (ChainName ,names ...))
@@ -642,7 +649,7 @@
                     ,(foldl (λ (p res)
                               (let ([pos-rhs (second p)])
                                 (hash-set res pos-rhs pos-c)))
-                            ψ
+                            ψ-e
                             rhs-vs))
                   res)))]
             ))]
@@ -713,8 +720,8 @@
                 st-map
                 next-states))
        (define next-ψs (map second next-res))
-       (displayln "step to ⇝ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-       (pretty-display next-states)
+       ;; (displayln "step to ⇝ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+       ;; (pretty-display next-states)
        (cond
          ;; state repeat, meet a fixpoint
          [(empty?  next-states)
